@@ -23,7 +23,7 @@ struct MenuView: View {
                 }
                 .tag(1)
             
-            Text("Third View")
+            TodoPage1()
                 .tabItem {
                     Image("image_tab_bar_icon")
                 }

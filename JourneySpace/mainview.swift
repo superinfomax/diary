@@ -28,7 +28,7 @@ struct LoginView: View {
             Button(action: {
                 showMenuView = true
             }) {
-                Text("Deport")
+                Text("Depart")
                     .font(.custom("KOHO", size: 42))
                     .fontWeight(.semibold)
                     .foregroundColor(.black)
@@ -38,6 +38,7 @@ struct LoginView: View {
                     .cornerRadius(10)
                     .padding(.horizontal, 40)
             }
+            
             .fullScreenCover(isPresented: $showMenuView) {
                 MenuView()
             }
