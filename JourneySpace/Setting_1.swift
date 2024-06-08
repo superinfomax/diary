@@ -9,15 +9,23 @@ import SwiftUI
 struct SettingPage1: View {
     var body: some View {
         VStack {
+            HStack {
+                Spacer()
+                Image(systemName: "gearshape")
+                    .font(.system(size: 24))
+                    .padding()
+            }
             VStack(alignment: .center, spacing: 16) {
                 Image("SumoneBasic")
                     .resizable()
                     .frame(width: 100, height: 100)
-                Text("相愛的 第 71 天")
+                Text("開發的 第 1 天")
                     .font(.system(size: 18))
                 Text("大統領 ❤️ 小統領")
                     .font(.system(size: 18))
-                Text("我們的小寶夢\n小寶夢")
+                Text("石雅箬 ❤️ 社恐煎餅")
+                    .font(.system(size: 18))
+                Text("我們的Diary")
                     .font(.system(size: 14))
                     .multilineTextAlignment(.center)
             }
@@ -40,8 +48,8 @@ struct SettingPage1: View {
                 NavigationLink(destination: Text("我的想問資訊")) {
                     SettingRow(title: "我的想問資訊")
                 }
-                NavigationLink(destination: Text("拜訪小寶夢IG")) {
-                    SettingRow(title: "拜訪小寶夢IG")
+                NavigationLink(destination: Text("拜訪煎餅的IG")) {
+                    SettingRow(title: "拜訪煎餅的IG")
                 }
                 NavigationLink(destination: Text("想問的問題郵箱")) {
                     SettingRow(title: "想問的問題郵箱")
@@ -83,5 +91,11 @@ struct SettingRow: View {
         .padding()
         .background(Color.white)
         .cornerRadius(8)
+    }
+}
+
+struct SettingPage1_Previews: PreviewProvider {
+    static var previews: some View {
+        SettingPage1()
     }
 }
