@@ -13,31 +13,28 @@ struct MenuView: View {
         TabView(selection: $selectedTab) {
             Text("first View")
                 .tabItem {
-                    Image("image1_tab_bar_icon1")
+                    Image("Image")
                 }
                 .tag(0)
             
             // Second View
             ContentView()
                 .tabItem {
-                    Image(systemName: "2.circle")
-                    Text("Second")
+                    Image("Image")
                 }
                 .tag(1)
             
             // Third View
             Text("Third View")
                 .tabItem {
-                    Image(systemName: "3.circle")
-                    Text("Third")
+                    Image("Image")
                 }
                 .tag(2)
             
             // Fourth View
             Text("Fourth View")
                 .tabItem {
-                    Image(systemName: "4.circle")
-                    Text("Fourth")
+                    Image("Image")
                 }
                 .tag(3)
         }
