@@ -8,17 +8,15 @@ import SwiftUI
 
 struct SettingPage1: View {
     var body: some View {
-        VStack {
-            HStack {
+        VStack{
+            HStack{
                 Spacer()
                 Image(systemName: "gearshape")
                     .font(.system(size: 24))
                     .padding()
             }
+            .frame(width: 380,height: 150)
             VStack(alignment: .center, spacing: 16) {
-                Image("SumoneBasic")
-                    .resizable()
-                    .frame(width: 100, height: 100)
                 Text("開發的 第 1 天")
                     .font(.system(size: 18))
                 Text("大統領 ❤️ 小統領")
