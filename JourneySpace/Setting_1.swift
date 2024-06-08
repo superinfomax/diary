@@ -1,19 +1,19 @@
 //
-//  ToDo_list_1.swift
+//  Setting_1.swift
 //  JourneySpace
 //
 //  Created by max on 2024/6/8.
-//  Edited by Jessie on 2024/6/8
+//
 
 import SwiftUI
 import Foundation
 
-struct TodoPage1: View {
+struct SettingPage1: View {
     var body: some View {
         ZStack {
             VStack(alignment: .leading) {
                 HStack(alignment: .top) {
-                    Text("ToDo")
+                    Text("Setting")
                         .font(.custom("KOHO", size: 96))
                         .fontWeight(.bold)
                         .foregroundColor(.white)

@@ -1,19 +1,19 @@
 //
-//  ToDo_list_1.swift
+//  First_1.swift
 //  JourneySpace
 //
 //  Created by max on 2024/6/8.
-//  Edited by Jessie on 2024/6/8
+//
 
 import SwiftUI
 import Foundation
 
-struct TodoPage1: View {
+struct FirstPage1: View {
     var body: some View {
         ZStack {
             VStack(alignment: .leading) {
                 HStack(alignment: .top) {
-                    Text("ToDo")
+                    Text("第一頁可以放凱文自由自在")
                         .font(.custom("KOHO", size: 96))
                         .fontWeight(.bold)
                         .foregroundColor(.white)

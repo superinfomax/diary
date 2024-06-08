@@ -13,6 +13,8 @@
 		500A1D062C1330DE004755EB /* mainview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500A1D052C1330DE004755EB /* mainview.swift */; };
 		500A1D082C133444004755EB /* menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500A1D072C133444004755EB /* menu.swift */; };
 		500A1D0A2C1405C2004755EB /* ToDo_list_1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500A1D092C1405C2004755EB /* ToDo_list_1.swift */; };
+		500A1D0E2C1496F7004755EB /* Setting_1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500A1D0D2C1496F7004755EB /* Setting_1.swift */; };
+		500A1D102C1497FC004755EB /* First_1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500A1D0F2C1497FC004755EB /* First_1.swift */; };
 		50F72D4F2C033A2400F5BBBA /* JourneySpaceApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F72D4E2C033A2400F5BBBA /* JourneySpaceApp.swift */; };
 		50F72D512C033A2400F5BBBA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F72D502C033A2400F5BBBA /* ContentView.swift */; };
 		50F72D532C033A2500F5BBBA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50F72D522C033A2500F5BBBA /* Assets.xcassets */; };
@@ -46,6 +48,8 @@
 		500A1D052C1330DE004755EB /* mainview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mainview.swift; sourceTree = "<group>"; };
 		500A1D072C133444004755EB /* menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = menu.swift; sourceTree = "<group>"; };
 		500A1D092C1405C2004755EB /* ToDo_list_1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDo_list_1.swift; sourceTree = "<group>"; };
+		500A1D0D2C1496F7004755EB /* Setting_1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting_1.swift; sourceTree = "<group>"; };
+		500A1D0F2C1497FC004755EB /* First_1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = First_1.swift; sourceTree = "<group>"; };
 		50F72D4B2C033A2400F5BBBA /* JourneySpace.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JourneySpace.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		50F72D4E2C033A2400F5BBBA /* JourneySpaceApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneySpaceApp.swift; sourceTree = "<group>"; };
 		50F72D502C033A2400F5BBBA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -109,8 +113,10 @@
 				50F72D4E2C033A2400F5BBBA /* JourneySpaceApp.swift */,
 				500A1D052C1330DE004755EB /* mainview.swift */,
 				500A1D072C133444004755EB /* menu.swift */,
+				500A1D0F2C1497FC004755EB /* First_1.swift */,
 				50F72D502C033A2400F5BBBA /* ContentView.swift */,
 				500A1D092C1405C2004755EB /* ToDo_list_1.swift */,
+				500A1D0D2C1496F7004755EB /* Setting_1.swift */,
 				500A1CFF2C133023004755EB /* DiaryViewModel.swift */,
 				500A1D012C133060004755EB /* DiaryEntry.swift */,
 				500A1D032C13307C004755EB /* AddEntryView.swift */,
@@ -276,12 +282,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				500A1D002C133023004755EB /* DiaryViewModel.swift in Sources */,
+				500A1D0E2C1496F7004755EB /* Setting_1.swift in Sources */,
 				500A1D042C13307C004755EB /* AddEntryView.swift in Sources */,
 				50F72D512C033A2400F5BBBA /* ContentView.swift in Sources */,
 				500A1D022C133060004755EB /* DiaryEntry.swift in Sources */,
 				50F72D4F2C033A2400F5BBBA /* JourneySpaceApp.swift in Sources */,
 				500A1D0A2C1405C2004755EB /* ToDo_list_1.swift in Sources */,
 				500A1D082C133444004755EB /* menu.swift in Sources */,
+				500A1D102C1497FC004755EB /* First_1.swift in Sources */,
 				500A1D062C1330DE004755EB /* mainview.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

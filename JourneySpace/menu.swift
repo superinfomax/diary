@@ -11,7 +11,7 @@ struct MenuView: View {
     
     var body: some View {
         TabView(selection: $selectedTab) {
-            Text("first View")
+            FirstPage1()
                 .tabItem {
                     Image("image_tab_bar_icon")
                 }
@@ -29,7 +29,7 @@ struct MenuView: View {
                 }
                 .tag(2)
             
-            Text("setting View")
+            SettingPage1()
                 .tabItem {
                     Image("image1_tab_bar_icon")
                 }
