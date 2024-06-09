@@ -15,11 +15,11 @@ struct LoginView: View {
             Spacer()
             
             Text("Journal")
-                .font(.custom("KOHO", size: 85))
+                .font(.custom("AmericanTypewriter", size: 85))
                 .fontWeight(.bold)
                 .foregroundColor(.white)
             Text("Space")
-                .font(.custom("KOHO", size: 85))
+                .font(.custom("AmericanTypewriter", size: 85))
                 .fontWeight(.bold)
                 .foregroundColor(.white)
             
@@ -29,7 +29,7 @@ struct LoginView: View {
                 showMenuView = true
             }) {
                 Text("Depart")
-                    .font(.custom("KOHO", size: 42))
+                    .font(.custom("AmericanTypewriter", size: 42))
                     .fontWeight(.semibold)
                     .foregroundColor(.black)
                     .padding()
