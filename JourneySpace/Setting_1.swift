@@ -35,7 +35,7 @@ struct SettingPage1: View {
                 .padding()
                 
                 HStack(spacing: 16) {
-                    SettingButton(title: "便條紙", imageName: "folder.fill")
+                    SettingButton(title: "便條紙", imageName: "note.text")
                     SettingButton(title: "道具背包", imageName: "backpack.fill")
                     SettingButton(title: "公告", imageName: "megaphone.fill")
                 }
@@ -45,7 +45,7 @@ struct SettingPage1: View {
                     NavigationLink(destination: Text("還想問問題？？？？")) {
                         SettingRow(title: "經常問的問題")
                     }
-                    NavigationLink(destination: Text("大統領 小統領 煎餅")) {
+                    NavigationLink(destination: TeamMemberView()) {
                         SettingRow(title: "團隊成員")
                     }
                     NavigationLink(destination: Text("我愛東華")) {
