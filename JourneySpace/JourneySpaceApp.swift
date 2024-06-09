@@ -7,11 +7,12 @@
 
 import SwiftUI
 import Foundation
+import SwiftData
 @main
 struct JourneySpaceApp: App {
     var body: some Scene {
         WindowGroup {
             LoginView()
-        }
+        }.modelContainer(for: ToDoItem.self)
     }
 }

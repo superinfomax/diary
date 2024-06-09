@@ -19,6 +19,8 @@
 		500A1D162C15C899004755EB /* EntryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500A1D152C15C899004755EB /* EntryDetailView.swift */; };
 		500A1D182C15EFB2004755EB /* TeamMemberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500A1D172C15EFB2004755EB /* TeamMemberView.swift */; };
 		500A1D1A2C15F801004755EB /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500A1D192C15F801004755EB /* SearchView.swift */; };
+		500A1D1E2C160F87004755EB /* ToDoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500A1D1D2C160F87004755EB /* ToDoItem.swift */; };
+		500A1D202C1615A9004755EB /* CreateToDoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500A1D1F2C1615A9004755EB /* CreateToDoView.swift */; };
 		50F72D4F2C033A2400F5BBBA /* JourneySpaceApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F72D4E2C033A2400F5BBBA /* JourneySpaceApp.swift */; };
 		50F72D512C033A2400F5BBBA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F72D502C033A2400F5BBBA /* ContentView.swift */; };
 		50F72D532C033A2500F5BBBA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50F72D522C033A2500F5BBBA /* Assets.xcassets */; };
@@ -58,6 +60,8 @@
 		500A1D152C15C899004755EB /* EntryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryDetailView.swift; sourceTree = "<group>"; };
 		500A1D172C15EFB2004755EB /* TeamMemberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamMemberView.swift; sourceTree = "<group>"; };
 		500A1D192C15F801004755EB /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		500A1D1D2C160F87004755EB /* ToDoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoItem.swift; sourceTree = "<group>"; };
+		500A1D1F2C1615A9004755EB /* CreateToDoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateToDoView.swift; sourceTree = "<group>"; };
 		50F72D4B2C033A2400F5BBBA /* JourneySpace.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JourneySpace.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		50F72D4E2C033A2400F5BBBA /* JourneySpaceApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneySpaceApp.swift; sourceTree = "<group>"; };
 		50F72D502C033A2400F5BBBA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -119,6 +123,7 @@
 			isa = PBXGroup;
 			children = (
 				50F72D4E2C033A2400F5BBBA /* JourneySpaceApp.swift */,
+				500A1D1F2C1615A9004755EB /* CreateToDoView.swift */,
 				500A1D052C1330DE004755EB /* mainview.swift */,
 				500A1D072C133444004755EB /* menu.swift */,
 				500A1D0F2C1497FC004755EB /* First_1.swift */,
@@ -126,6 +131,7 @@
 				500A1D192C15F801004755EB /* SearchView.swift */,
 				500A1D152C15C899004755EB /* EntryDetailView.swift */,
 				500A1D092C1405C2004755EB /* ToDo_list_1.swift */,
+				500A1D1D2C160F87004755EB /* ToDoItem.swift */,
 				500A1D0D2C1496F7004755EB /* Setting_1.swift */,
 				500A1D132C15A93E004755EB /* setting_2.swift */,
 				500A1D172C15EFB2004755EB /* TeamMemberView.swift */,
@@ -295,7 +301,9 @@
 			files = (
 				500A1D162C15C899004755EB /* EntryDetailView.swift in Sources */,
 				500A1D182C15EFB2004755EB /* TeamMemberView.swift in Sources */,
+				500A1D1E2C160F87004755EB /* ToDoItem.swift in Sources */,
 				500A1D002C133023004755EB /* DiaryViewModel.swift in Sources */,
+				500A1D202C1615A9004755EB /* CreateToDoView.swift in Sources */,
 				500A1D0E2C1496F7004755EB /* Setting_1.swift in Sources */,
 				500A1D042C13307C004755EB /* AddEntryView.swift in Sources */,
 				50F72D512C033A2400F5BBBA /* ContentView.swift in Sources */,
