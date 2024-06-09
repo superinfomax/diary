@@ -18,8 +18,10 @@ struct EntryDetailView: View {
                     .resizable()
                     .frame(width: 40, height: 40)
                     .padding(.leading)
+
                 Spacer()
             }
+
             Text(entry.title)
                 .font(.title)
                 .bold()
@@ -38,13 +40,7 @@ struct EntryDetailView: View {
                 .padding(.bottom)
         }
         .background(Color(UIColor.systemGray6))
-        .navigationTitle("")
-        .toolbar {
-            ToolbarItem(placement: .principal) {
-                Text("Emotion Detail")
-                    .font(.custom("AmericanTypewriter", size: 30))
-            }
-        }
+        .navigationTitle("Emotion Detail")
     }
 }
 

@@ -16,7 +16,7 @@ struct TeamMemberView: View {
     let teamMembers: [TeamMember] = [
         TeamMember(name: "邱茂齊", role: "iOS Developer", image: "max"),
         TeamMember(name: "邱子君", role: "iOS Developer", image: "jessie"),
-        TeamMember(name: "石雅箬", role: "UI/UX Designer", image: "charlie"),
+        TeamMember(name: "石雅箬", role: "UI/UX Designer                                                            Project Manager's Owner", image: "roi"),
         TeamMember(name: "i煎餅", role: "Project Manager", image: "senbei_team")
     ]
     
