@@ -42,20 +42,20 @@ struct SettingPage1: View {
                 .padding(.horizontal)
                 
                 VStack(alignment: .leading, spacing: 8) {
-                    NavigationLink(destination: Text("常見問題的問題")) {
+                    NavigationLink(destination: Text("還想問問題？？？？")) {
                         SettingRow(title: "經常問的問題")
                     }
-                    NavigationLink(destination: Text("詢問想問團隊")) {
-                        SettingRow(title: "詢問想問團隊")
+                    NavigationLink(destination: Text("大統領 小統領 煎餅")) {
+                        SettingRow(title: "團隊成員")
                     }
-                    NavigationLink(destination: Text("我的想問資訊")) {
-                        SettingRow(title: "我的想問資訊")
+                    NavigationLink(destination: Text("我愛東華")) {
+                        SettingRow(title: "想問的資訊")
                     }
-                    NavigationLink(destination: Text("拜訪煎餅的IG")) {
+                    NavigationLink(destination: Image("senbei1").scaledToFit) {
                         SettingRow(title: "拜訪煎餅的IG")
                     }
-                    NavigationLink(destination: Text("想問的問題郵箱")) {
-                        SettingRow(title: "想問的問題郵箱")
+                    NavigationLink(destination: Text("垃圾郵箱")) {
+                        SettingRow(title: "問題郵箱")
                     }
                 }
                 Spacer()
@@ -63,16 +63,16 @@ struct SettingPage1: View {
             .background(Color(UIColor.systemGray6))
             .ignoresSafeArea()
         }
-        .navigationBarHidden(true) // Hide the navigation bar to prevent the default back button
+        .navigationBarHidden(true)
     }
     
     func daysSinceDevelop() -> Int {
         let calendar = Calendar.current
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy/MM/dd"
-        guard let june8 = dateFormatter.date(from: "2024/06/07") else { return 0 }
+        guard let may26 = dateFormatter.date(from: "2024/05/26") else { return 0 }
         let currentDate = Date()
-        let components = calendar.dateComponents([.day], from: june8, to: currentDate)
+        let components = calendar.dateComponents([.day], from: may26, to: currentDate)
         return components.day ?? 0
     }
 }

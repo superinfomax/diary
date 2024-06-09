@@ -6,9 +6,11 @@
 //
 
 import Foundation
-struct DiaryEntry: Identifiable, Codable {
+
+struct DiaryEntry: Codable, Identifiable {
     var id = UUID()
     var title: String
     var content: String
+    var emoji: String
     var date: Date
 }

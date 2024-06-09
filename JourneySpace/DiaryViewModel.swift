@@ -11,8 +11,8 @@ import Combine
 class DiaryViewModel: ObservableObject {
     @Published var entries: [DiaryEntry] = []
     
-    func addEntry(title: String, content: String) {
-        let newEntry = DiaryEntry(title: title, content: content, date: Date())
+    func addEntry(title: String, content: String, emoji: String) {
+        let newEntry = DiaryEntry(title: title, content: content, emoji: emoji, date: Date())
         entries.append(newEntry)
         saveEntries()
     }
