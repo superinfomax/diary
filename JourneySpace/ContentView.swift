@@ -33,8 +33,7 @@ struct ContentView: View {
             ZStack {
                 Color(red: 237/255, green: 156/255, blue: 149/255)
                     .edgesIgnoringSafeArea(.all)
-                
-                VStack {
+                VStack(spacing: 0) {
                     HStack {
                         VStack(alignment: .leading) {
                             Text(currentDateComponents.0)
@@ -55,15 +54,16 @@ struct ContentView: View {
                         Button(action: {
                             showingAddEntryView.toggle()
                         }) {
-                            Image(systemName: "doc.fill.badge.plus")
-                                .font(.system(size: 40))
+                            Image("Image 6")
+                                .resizable()
+                                .scaledToFit()
+                                .font(.system(size: 60))
                                 .foregroundColor(.white)
                         }
                         .alignmentGuide(.bottom) { d in d[.lastTextBaseline] }
                     }
                     .padding(.horizontal, 30)
-                    .padding(.top, 40)
-                    
+                    //.padding(.top, 40)
                     List {
                         ForEach(viewModel.entries) { entry in
                             NavigationLink(destination: EntryDetailView(entry: entry)) {
@@ -101,12 +101,12 @@ struct ContentView: View {
                                         .foregroundColor(.white)
                                 }
                     }
-                    ToolbarItem(placement: .principal) {
-                        Image("Image 6")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 100, height: 100)
-                    }
+//                    ToolbarItem(placement: .principal) {
+//                        Image("Image 6")
+//                            .resizable()
+//                            .scaledToFit()
+//                            .frame(width: 100, height: 100)
+//                    }
                 }
             }
             .sheet(isPresented: $showingAddEntryView) {
@@ -121,6 +121,13 @@ struct ContentView: View {
         }
     }
 }
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
+}
+
 
 //struct ContentView: View {
 //
