@@ -47,7 +47,7 @@ struct LoginView: View {
             }
             
             .fullScreenCover(isPresented: $showMenuView) {
-                MenuView()
+                ToolBar()
             }
             
             Spacer()

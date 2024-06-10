@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct DiaryView: View {
     
     @StateObject private var viewModel = DiaryViewModel()
     @State private var showingAddEntryView = false
@@ -124,7 +124,7 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        DiaryView()
     }
 }
 

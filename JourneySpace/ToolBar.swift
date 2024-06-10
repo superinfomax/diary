@@ -6,7 +6,7 @@
 //
 import SwiftUI
 import Foundation
-struct MenuView: View {
+struct ToolBar: View {
     @State private var selectedTab = 0
     
     var body: some View {
@@ -17,7 +17,7 @@ struct MenuView: View {
                 }
                 .tag(0)
             
-            ContentView()
+            DiaryView()
                 .tabItem {
                     Image("image1_tab_bar_icon")
                 }

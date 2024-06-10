@@ -12,7 +12,7 @@
 		500A1D022C133060004755EB /* DiaryEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500A1D012C133060004755EB /* DiaryEntry.swift */; };
 		500A1D042C13307C004755EB /* AddEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500A1D032C13307C004755EB /* AddEntryView.swift */; };
 		500A1D062C1330DE004755EB /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500A1D052C1330DE004755EB /* LoginView.swift */; };
-		500A1D082C133444004755EB /* menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500A1D072C133444004755EB /* menu.swift */; };
+		500A1D082C133444004755EB /* ToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500A1D072C133444004755EB /* ToolBar.swift */; };
 		500A1D0A2C1405C2004755EB /* ToDo_list_1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500A1D092C1405C2004755EB /* ToDo_list_1.swift */; };
 		500A1D0E2C1496F7004755EB /* Setting_1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500A1D0D2C1496F7004755EB /* Setting_1.swift */; };
 		500A1D102C1497FC004755EB /* First_1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500A1D0F2C1497FC004755EB /* First_1.swift */; };
@@ -23,7 +23,7 @@
 		500A1D1E2C160F87004755EB /* ToDoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500A1D1D2C160F87004755EB /* ToDoItem.swift */; };
 		500A1D202C1615A9004755EB /* CreateToDoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500A1D1F2C1615A9004755EB /* CreateToDoView.swift */; };
 		50F72D4F2C033A2400F5BBBA /* JourneySpaceApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F72D4E2C033A2400F5BBBA /* JourneySpaceApp.swift */; };
-		50F72D512C033A2400F5BBBA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F72D502C033A2400F5BBBA /* ContentView.swift */; };
+		50F72D512C033A2400F5BBBA /* DiaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F72D502C033A2400F5BBBA /* DiaryView.swift */; };
 		50F72D532C033A2500F5BBBA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50F72D522C033A2500F5BBBA /* Assets.xcassets */; };
 		50F72D562C033A2500F5BBBA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50F72D552C033A2500F5BBBA /* Preview Assets.xcassets */; };
 		50F72D602C033A2500F5BBBA /* JourneySpaceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F72D5F2C033A2500F5BBBA /* JourneySpaceTests.swift */; };
@@ -54,7 +54,7 @@
 		500A1D012C133060004755EB /* DiaryEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEntry.swift; sourceTree = "<group>"; };
 		500A1D032C13307C004755EB /* AddEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEntryView.swift; sourceTree = "<group>"; };
 		500A1D052C1330DE004755EB /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
-		500A1D072C133444004755EB /* menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = menu.swift; sourceTree = "<group>"; };
+		500A1D072C133444004755EB /* ToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolBar.swift; sourceTree = "<group>"; };
 		500A1D092C1405C2004755EB /* ToDo_list_1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDo_list_1.swift; sourceTree = "<group>"; };
 		500A1D0D2C1496F7004755EB /* Setting_1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting_1.swift; sourceTree = "<group>"; };
 		500A1D0F2C1497FC004755EB /* First_1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = First_1.swift; sourceTree = "<group>"; };
@@ -67,7 +67,7 @@
 		500A1D212C17071C004755EB /* JourneySpace.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JourneySpace.entitlements; sourceTree = "<group>"; };
 		50F72D4B2C033A2400F5BBBA /* JourneySpace.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JourneySpace.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		50F72D4E2C033A2400F5BBBA /* JourneySpaceApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneySpaceApp.swift; sourceTree = "<group>"; };
-		50F72D502C033A2400F5BBBA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		50F72D502C033A2400F5BBBA /* DiaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryView.swift; sourceTree = "<group>"; };
 		50F72D522C033A2500F5BBBA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		50F72D552C033A2500F5BBBA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		50F72D5B2C033A2500F5BBBA /* JourneySpaceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JourneySpaceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -113,6 +113,29 @@
 			path = ToDo;
 			sourceTree = "<group>";
 		};
+		50CEE4E82C1757070066BE72 /* Diary */ = {
+			isa = PBXGroup;
+			children = (
+				50F72D502C033A2400F5BBBA /* DiaryView.swift */,
+				500A1D192C15F801004755EB /* SearchView.swift */,
+				500A1D152C15C899004755EB /* EntryDetailView.swift */,
+				500A1CFF2C133023004755EB /* DiaryViewModel.swift */,
+				500A1D012C133060004755EB /* DiaryEntry.swift */,
+				500A1D032C13307C004755EB /* AddEntryView.swift */,
+			);
+			path = Diary;
+			sourceTree = "<group>";
+		};
+		50CEE4E92C17571C0066BE72 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				500A1D0D2C1496F7004755EB /* Setting_1.swift */,
+				500A1D132C15A93E004755EB /* Setting_2.swift */,
+				500A1D172C15EFB2004755EB /* TeamMemberView.swift */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
 		50F72D422C033A2400F5BBBA = {
 			isa = PBXGroup;
 			children = (
@@ -139,18 +162,11 @@
 				500A1D212C17071C004755EB /* JourneySpace.entitlements */,
 				50F72D4E2C033A2400F5BBBA /* JourneySpaceApp.swift */,
 				500A1D052C1330DE004755EB /* LoginView.swift */,
-				500A1D072C133444004755EB /* menu.swift */,
+				500A1D072C133444004755EB /* ToolBar.swift */,
 				500A1D0F2C1497FC004755EB /* First_1.swift */,
-				50F72D502C033A2400F5BBBA /* ContentView.swift */,
-				500A1D192C15F801004755EB /* SearchView.swift */,
-				500A1D152C15C899004755EB /* EntryDetailView.swift */,
+				50CEE4E82C1757070066BE72 /* Diary */,
 				405D510D2C17546C0078CC17 /* ToDo */,
-				500A1D0D2C1496F7004755EB /* Setting_1.swift */,
-				500A1D132C15A93E004755EB /* Setting_2.swift */,
-				500A1D172C15EFB2004755EB /* TeamMemberView.swift */,
-				500A1CFF2C133023004755EB /* DiaryViewModel.swift */,
-				500A1D012C133060004755EB /* DiaryEntry.swift */,
-				500A1D032C13307C004755EB /* AddEntryView.swift */,
+				50CEE4E92C17571C0066BE72 /* Setting */,
 				50F72D522C033A2500F5BBBA /* Assets.xcassets */,
 				50F72D542C033A2500F5BBBA /* Preview Content */,
 			);
@@ -319,11 +335,11 @@
 				500A1D202C1615A9004755EB /* CreateToDoView.swift in Sources */,
 				500A1D0E2C1496F7004755EB /* Setting_1.swift in Sources */,
 				500A1D042C13307C004755EB /* AddEntryView.swift in Sources */,
-				50F72D512C033A2400F5BBBA /* ContentView.swift in Sources */,
+				50F72D512C033A2400F5BBBA /* DiaryView.swift in Sources */,
 				500A1D022C133060004755EB /* DiaryEntry.swift in Sources */,
 				50F72D4F2C033A2400F5BBBA /* JourneySpaceApp.swift in Sources */,
 				500A1D0A2C1405C2004755EB /* ToDo_list_1.swift in Sources */,
-				500A1D082C133444004755EB /* menu.swift in Sources */,
+				500A1D082C133444004755EB /* ToolBar.swift in Sources */,
 				500A1D1A2C15F801004755EB /* SearchView.swift in Sources */,
 				500A1D102C1497FC004755EB /* First_1.swift in Sources */,
 				500A1D142C15A93E004755EB /* Setting_2.swift in Sources */,
