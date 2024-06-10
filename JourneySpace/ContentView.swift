@@ -1,3 +1,10 @@
+//
+//  SearchView.swift
+//  JourneySpace
+//
+//  Created by max on 2024/6/9.
+//
+
 import SwiftUI
 
 struct ContentView: View {
@@ -26,24 +33,35 @@ struct ContentView: View {
             ZStack {
                 Color(red: 237/255, green: 156/255, blue: 149/255)
                     .edgesIgnoringSafeArea(.all)
+                
                 VStack {
-                    VStack(alignment: .leading) {
-                        Text(currentDateComponents.0)
-                            .font(.custom("KOHO", size: 42))
-                            .foregroundColor(.white)
-                        HStack(alignment: .bottom) {
-                            Text(currentDateComponents.1)
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Text(currentDateComponents.0)
                                 .font(.custom("KOHO", size: 42))
                                 .foregroundColor(.white)
-                                .alignmentGuide(.bottom) { d in d[.lastTextBaseline] }
-                            Text(currentDateComponents.2)
-                                .font(.custom("KOHO", size: 17))
-                                .foregroundColor(.white)
-                                .alignmentGuide(.bottom) { d in d[.lastTextBaseline] }
+                            HStack(alignment: .bottom) {
+                                Text(currentDateComponents.1)
+                                    .font(.custom("KOHO", size: 42))
+                                    .foregroundColor(.white)
+                                    .alignmentGuide(.bottom) { d in d[.lastTextBaseline] }
+                                Text(currentDateComponents.2)
+                                    .font(.custom("KOHO", size: 17))
+                                    .foregroundColor(.white)
+                                    .alignmentGuide(.bottom) { d in d[.lastTextBaseline] }
+                            }
                         }
+                        Spacer()
+                        Button(action: {
+                            showingAddEntryView.toggle()
+                        }) {
+                            Image(systemName: "doc.fill.badge.plus")
+                                .font(.system(size: 40))
+                                .foregroundColor(.white)
+                        }
+                        .alignmentGuide(.bottom) { d in d[.lastTextBaseline] }
                     }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.leading, 30)
+                    .padding(.horizontal, 30)
                     .padding(.top, 40)
                     
                     List {
@@ -73,17 +91,6 @@ struct ContentView: View {
                     }
                     .padding(.bottom, 20)
                 }
-                // Button with specific position
-                GeometryReader { geometry in
-                    Button(action: {
-                        showingAddEntryView.toggle()
-                    }) {
-                        Image(systemName: "doc.fill.badge.plus")
-                            .font(.system(size: 60))
-                            .foregroundColor(.white)
-                    }
-                    .position(x: geometry.size.width - 60, y: geometry.size.height - 621) // 调整 X 和 Y 位置
-                }
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
                         Button(action: {
@@ -94,12 +101,12 @@ struct ContentView: View {
                                         .foregroundColor(.white)
                                 }
                     }
-                }
-                VStack() {
-                    Image("Image 6")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 400, height: 400)
+                    ToolbarItem(placement: .principal) {
+                        Image("Image 6")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 100, height: 100)
+                    }
                 }
             }
             .sheet(isPresented: $showingAddEntryView) {
@@ -112,12 +119,6 @@ struct ContentView: View {
                 viewModel.loadEntries()
             }
         }
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
     }
 }
 
