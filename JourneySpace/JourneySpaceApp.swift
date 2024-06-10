@@ -13,6 +13,7 @@ struct JourneySpaceApp: App {
     var body: some Scene {
         WindowGroup {
             LoginView()
-        }.modelContainer(for: ToDoItem.self)
+                .modelContainer(for: ToDoItem.self)
+        }
     }
 }

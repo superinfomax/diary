@@ -74,34 +74,80 @@
 
 
 import SwiftUI
+import SwiftData
 import Foundation
 
 struct TodoPage1: View {
     
+    @Environment(\.modelContext) var context
+    
     @State private var showCreate = false
+    @Query private var items: [ToDoItem]
     
     var body: some View {
-        ZStack {
-            Color(red: 71/255, green: 114/255, blue: 186/255)
-                .edgesIgnoringSafeArea(.all)
-            NavigationStack {
-                Text("ToDo")
-                    .toolbar {
-                        ToolbarItem {
-                            Button(action: {
-                                showCreate.toggle()
-                            }, label: {
-                                Label("Add Item", systemImage: "plus")
-                            })
+        
+        NavigationStack {
+            List {
+                ForEach(items) { item in
+                    HStack {
+                        VStack(alignment: .leading) {
+                            if item.isCritical {
+                                Image(systemName: "exclamationmark.3")
+                                    .symbolVariant(.fill)
+                                    .foregroundColor(.red)
+                                    .font(.largeTitle)
+                                    .bold()
+                                
+                            }
+                            Text(item.title)
+                                .font(.largeTitle)
+                                .bold()
+                            
+                            Text("\(item.timestamp, format: Date.FormatStyle(date: .abbreviated, time: .shortened))")
+                                .font(.callout)
+                        }
+                        
+                        Spacer()
+                        
+//                        Button {
+//                            
+//                        } Label: {
+//                            Image(systemName: "checkmark")
+//                                .symbolVariant(.circle.fill)
+//                                .foregroundStyle(item.isCompleted ? .green : .gray)
+//                                .font(.largetitle)
+//                        }
+//                        .buttonStyle(.plain)
+                        
+                    }
+                    .swipeActions {
+                        Button(role: .destructive) {
+                            withAnimation {
+                                context.delete(item)
+                            }
+                        }label: {
+                            Label("Delete", systemImage: "trash")
+                                .symbolVariant(.fill)
                         }
                     }
-                    .sheet(isPresented: $showCreate,
-                           content: {
-                        NavigationStack {
-                            CreateToDoView()
-                        }
-                    })
+                }
             }
+            .navigationTitle("ToDo")
+            .toolbar {
+                ToolbarItem {
+                    Button(action: {
+                        showCreate.toggle()
+                    }, label: {
+                        Label("Add Item", systemImage: "plus")
+                    })
+                }
+            }
+            .sheet(isPresented: $showCreate, content: {
+                NavigationStack {
+                    CreateToDoView()
+                }
+                .presentationDetents([.medium])
+            })
         }
     }
 }

@@ -43,18 +43,26 @@ struct CreateToDoView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.modelContext) var context
     
-@State private var item = ToDoItem()
+    @State private var item = ToDoItem()
+    
     
     var body: some View {
         List {
-            TextField("Title", text: .constant(""))
-            DatePicker("Date", selection: .constant(.now))
-            Toggle("Important?", isOn: .constant(false))
+            TextField("Title", text: $item.title)
+            DatePicker("Date", selection: $item.timestamp)
+            Toggle("Important?", isOn: $item.isCritical)
             Button("Create") {
+                withAnimation {
+                    context.insert(item)
+                }
                 dismiss()
             }
         }
         .navigationTitle("Create ToDo")
-        
     }
+}
+
+#Preview {
+    CreateToDoView()
+        .modelContainer(for: ToDoItem.self)
 }
