@@ -83,7 +83,11 @@ struct TodoPage1: View {
     
     @State private var showCreate = false
     @State private var toDoToEdit: ToDoItem?
-    @Query(filter: #Predicate { $0.isCompleted == false)private var items: [ToDoItem]
+    @Query(
+//        filter: #Predicate { $0.isCompleted == false },
+//        sort: \.timestamp,
+//        order: .forward
+    ) private var items: [ToDoItem]
     
     var body: some View {
         
@@ -166,8 +170,8 @@ struct TodoPage1: View {
     }
 }
 
-struct ToDo_List_1_Previews: PreviewProvider {
-    static var previews: some View {
-        TodoPage1()
-    }
-}
+//struct ToDo_List_1_Previews: PreviewProvider {
+//    static var previews: some View {
+//        TodoPage1()
+//    }
+//}

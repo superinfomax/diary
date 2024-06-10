@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		405D510C2C1748F20078CC17 /* UpdateToDoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405D510B2C1748F20078CC17 /* UpdateToDoView.swift */; };
 		500A1D002C133023004755EB /* DiaryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500A1CFF2C133023004755EB /* DiaryViewModel.swift */; };
 		500A1D022C133060004755EB /* DiaryEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500A1D012C133060004755EB /* DiaryEntry.swift */; };
 		500A1D042C13307C004755EB /* AddEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500A1D032C13307C004755EB /* AddEntryView.swift */; };
@@ -48,6 +49,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		405D510B2C1748F20078CC17 /* UpdateToDoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateToDoView.swift; sourceTree = "<group>"; };
 		500A1CFF2C133023004755EB /* DiaryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryViewModel.swift; sourceTree = "<group>"; };
 		500A1D012C133060004755EB /* DiaryEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEntry.swift; sourceTree = "<group>"; };
 		500A1D032C13307C004755EB /* AddEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEntryView.swift; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 				500A1CFF2C133023004755EB /* DiaryViewModel.swift */,
 				500A1D012C133060004755EB /* DiaryEntry.swift */,
 				500A1D032C13307C004755EB /* AddEntryView.swift */,
+				405D510B2C1748F20078CC17 /* UpdateToDoView.swift */,
 				50F72D522C033A2500F5BBBA /* Assets.xcassets */,
 				50F72D542C033A2500F5BBBA /* Preview Content */,
 			);
@@ -316,6 +319,7 @@
 				500A1D1A2C15F801004755EB /* SearchView.swift in Sources */,
 				500A1D102C1497FC004755EB /* First_1.swift in Sources */,
 				500A1D142C15A93E004755EB /* Setting_2.swift in Sources */,
+				405D510C2C1748F20078CC17 /* UpdateToDoView.swift in Sources */,
 				500A1D062C1330DE004755EB /* LoginView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -481,7 +485,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"JourneySpace/Preview Content\"";
-				DEVELOPMENT_TEAM = R5VMN6QYN8;
+				DEVELOPMENT_TEAM = MW9FJYQ3NQ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -511,7 +515,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"JourneySpace/Preview Content\"";
-				DEVELOPMENT_TEAM = R5VMN6QYN8;
+				DEVELOPMENT_TEAM = MW9FJYQ3NQ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
