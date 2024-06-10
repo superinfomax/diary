@@ -84,10 +84,12 @@ struct TodoPage1: View {
     @State private var showCreate = false
     @State private var toDoToEdit: ToDoItem?
     @Query(
-//        filter: #Predicate { $0.isCompleted == false },
-//        sort: \.timestamp,
-//        order: .forward
+        filter: #Predicate<ToDoItem> { $0.isCompleted == false },
+        sort: \.timestamp,
+        order: .forward
     ) private var items: [ToDoItem]
+    
+    
     
     var body: some View {
         

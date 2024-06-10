@@ -102,6 +102,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		405D510D2C17546C0078CC17 /* ToDo */ = {
+			isa = PBXGroup;
+			children = (
+				500A1D1F2C1615A9004755EB /* CreateToDoView.swift */,
+				500A1D092C1405C2004755EB /* ToDo_list_1.swift */,
+				500A1D1D2C160F87004755EB /* ToDoItem.swift */,
+				405D510B2C1748F20078CC17 /* UpdateToDoView.swift */,
+			);
+			path = ToDo;
+			sourceTree = "<group>";
+		};
 		50F72D422C033A2400F5BBBA = {
 			isa = PBXGroup;
 			children = (
@@ -133,16 +144,13 @@
 				50F72D502C033A2400F5BBBA /* ContentView.swift */,
 				500A1D192C15F801004755EB /* SearchView.swift */,
 				500A1D152C15C899004755EB /* EntryDetailView.swift */,
-				500A1D1F2C1615A9004755EB /* CreateToDoView.swift */,
-				500A1D092C1405C2004755EB /* ToDo_list_1.swift */,
-				500A1D1D2C160F87004755EB /* ToDoItem.swift */,
+				405D510D2C17546C0078CC17 /* ToDo */,
 				500A1D0D2C1496F7004755EB /* Setting_1.swift */,
 				500A1D132C15A93E004755EB /* Setting_2.swift */,
 				500A1D172C15EFB2004755EB /* TeamMemberView.swift */,
 				500A1CFF2C133023004755EB /* DiaryViewModel.swift */,
 				500A1D012C133060004755EB /* DiaryEntry.swift */,
 				500A1D032C13307C004755EB /* AddEntryView.swift */,
-				405D510B2C1748F20078CC17 /* UpdateToDoView.swift */,
 				50F72D522C033A2500F5BBBA /* Assets.xcassets */,
 				50F72D542C033A2500F5BBBA /* Preview Content */,
 			);
