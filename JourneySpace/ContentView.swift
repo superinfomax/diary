@@ -1,10 +1,3 @@
-//
-//  JourneySpaceApp.swift
-//  JourneySpace
-//
-//  Created by max on 2024/5/26.
-//
-//
 import SwiftUI
 
 struct ContentView: View {
@@ -38,17 +31,21 @@ struct ContentView: View {
                         Text(currentDateComponents.0)
                             .font(.custom("KOHO", size: 42))
                             .foregroundColor(.white)
-                        HStack {
+                        HStack(alignment: .bottom) {
                             Text(currentDateComponents.1)
                                 .font(.custom("KOHO", size: 42))
                                 .foregroundColor(.white)
+                                .alignmentGuide(.bottom) { d in d[.lastTextBaseline] }
                             Text(currentDateComponents.2)
-                                .font(.custom("KOHO", size: 15))
+                                .font(.custom("KOHO", size: 17))
                                 .foregroundColor(.white)
+                                .alignmentGuide(.bottom) { d in d[.lastTextBaseline] }
                         }
                     }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.leading, 30)
                     .padding(.top, 40)
-                    Spacer()
+                    
                     List {
                         ForEach(viewModel.entries) { entry in
                             NavigationLink(destination: EntryDetailView(entry: entry)) {
@@ -76,25 +73,33 @@ struct ContentView: View {
                     }
                     .padding(.bottom, 20)
                 }
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button(action: {
-                        showingSearchView.toggle()
-                    }) {
-                        Image(systemName: "magnifyingglass")
-                            .font(.system(size: 24))
-                            .foregroundColor(.white)
-                    }
-                }
-                ToolbarItem(placement: .navigationBarTrailing) {
+                // Button with specific position
+                GeometryReader { geometry in
                     Button(action: {
                         showingAddEntryView.toggle()
                     }) {
                         Image(systemName: "doc.fill.badge.plus")
-                            .font(.system(size: 24))
+                            .font(.system(size: 60))
                             .foregroundColor(.white)
                     }
+                    .position(x: geometry.size.width - 60, y: geometry.size.height - 621) // 调整 X 和 Y 位置
+                }
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button(action: {
+                            showingSearchView.toggle()
+                            }) {
+                                Image(systemName: "magnifyingglass")
+                                    .font(.system(size: 24))
+                                        .foregroundColor(.white)
+                                }
+                    }
+                }
+                VStack() {
+                    Image("Image 6")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 400, height: 400)
                 }
             }
             .sheet(isPresented: $showingAddEntryView) {
@@ -110,27 +115,30 @@ struct ContentView: View {
     }
 }
 
-
-
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
+}
 
 //struct ContentView: View {
-//    
+//
 //    @StateObject private var viewModel = DiaryViewModel()
 //    @State private var showingAddEntryView = false
 //    @State private var showingSearchView = false
-//    
+//
 //    private var currentDateComponents: (String, String, String) {
 //        let dateFormatter = DateFormatter()
-//        
+//
 //        dateFormatter.dateFormat = "MMMM"
 //        let monthDate = dateFormatter.string(from: Date())
-//        
+//
 //        dateFormatter.dateFormat = "yyyy"
 //        let year = dateFormatter.string(from: Date())
-//        
+//
 //        return (year, monthDate, "")
 //    }
-//    
+//
 //    let columns = [
 //        GridItem(.flexible()),
 //        GridItem(.flexible()),
@@ -138,13 +146,13 @@ struct ContentView: View {
 //        GridItem(.flexible()),
 //        GridItem(.flexible()),
 //    ]
-//    
+//
 //    var body: some View {
 //        NavigationView {
 //            ZStack {
 //                Color.white
 //                    .edgesIgnoringSafeArea(.all)
-//                
+//
 //                VStack {
 //                    HStack {
 //                        Button(action: {
@@ -154,22 +162,22 @@ struct ContentView: View {
 //                                .font(.system(size: 24))
 //                                .foregroundColor(.black)
 //                        }
-//                        
+//
 //                        Spacer()
-//                        
+//
 //                        VStack {
 //                            Text(currentDateComponents.0)
 //                                .font(.custom("KOHO", size: 20))
 //                                .foregroundColor(.black)
-//                            
+//
 //                            Text(currentDateComponents.1)
 //                                .font(.custom("KOHO", size: 32))
 //                                .foregroundColor(.black)
 //                                .padding(.bottom, 5)
 //                        }
-//                        
+//
 //                        Spacer()
-//                        
+//
 //                        Button(action: {
 //                            showingAddEntryView.toggle()
 //                        }) {
@@ -179,7 +187,7 @@ struct ContentView: View {
 //                        }
 //                    }
 //                    .padding()
-//                    
+//
 //                    ScrollView {
 //                        VStack {
 //                            ForEach(getMonthsData(), id: \.self) { monthData in
@@ -187,14 +195,14 @@ struct ContentView: View {
 //                                    Text(monthData.monthName)
 //                                        .font(.custom("KOHO", size: 32))
 //                                        .padding(.vertical, 10)
-//                                    
+//
 //                                    LazyVGrid(columns: columns, spacing: 20) {
 //                                        ForEach(1...monthData.daysCount, id: \.self) { day in
 //                                            ZStack {
 //                                                Circle()
 //                                                    .stroke(Color.black, lineWidth: 2)
 //                                                    .frame(width: 50, height: 50)
-//                                                
+//
 //                                                if let entry = viewModel.entries.first(where: { Calendar.current.isDate($0.date, equalTo: monthData.firstDate.addingTimeInterval(TimeInterval((day - 1) * 86400)), toGranularity: .day) }) {
 //                                                    NavigationLink(destination: EntryDetailView(entry: entry)) {
 //                                                        Image(systemName: entry.emoji)
@@ -217,7 +225,7 @@ struct ContentView: View {
 //                            }
 //                        }
 //                    }
-//                    
+//
 //                    Spacer()
 //                }
 //            }
@@ -232,12 +240,12 @@ struct ContentView: View {
 //            }
 //        }
 //    }
-//    
+//
 //    private func getMonthsData() -> [MonthData] {
 //        let calendar = Calendar.current
 //        let today = Date()
 //        var monthsData: [MonthData] = []
-//        
+//
 //        // Start from the current month and go back to January 1970
 //        var date = today
 //        while date > calendar.date(from: DateComponents(year: 1970, month: 1))! {
@@ -245,14 +253,14 @@ struct ContentView: View {
 //            let year = calendar.component(.year, from: date)
 //            let range = calendar.range(of: .day, in: .month, for: date)!
 //            let numDays = range.count
-//            
+//
 //            let monthName = DateFormatter().monthSymbols[month - 1]
 //            monthsData.append(MonthData(monthName: "\(monthName) \(year)", daysCount: numDays, firstDate: calendar.date(from: calendar.dateComponents([.year, .month], from: date))!))
-//            
+//
 //            // Move to the previous month
 //            date = calendar.date(byAdding: .month, value: -1, to: date)!
 //        }
-//        
+//
 //        return monthsData
 //    }
 //}
