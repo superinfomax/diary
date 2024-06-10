@@ -123,13 +123,13 @@
 			isa = PBXGroup;
 			children = (
 				50F72D4E2C033A2400F5BBBA /* JourneySpaceApp.swift */,
-				500A1D1F2C1615A9004755EB /* CreateToDoView.swift */,
 				500A1D052C1330DE004755EB /* mainview.swift */,
 				500A1D072C133444004755EB /* menu.swift */,
 				500A1D0F2C1497FC004755EB /* First_1.swift */,
 				50F72D502C033A2400F5BBBA /* ContentView.swift */,
 				500A1D192C15F801004755EB /* SearchView.swift */,
 				500A1D152C15C899004755EB /* EntryDetailView.swift */,
+				500A1D1F2C1615A9004755EB /* CreateToDoView.swift */,
 				500A1D092C1405C2004755EB /* ToDo_list_1.swift */,
 				500A1D1D2C160F87004755EB /* ToDoItem.swift */,
 				500A1D0D2C1496F7004755EB /* Setting_1.swift */,

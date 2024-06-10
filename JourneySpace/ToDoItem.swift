@@ -9,7 +9,6 @@ import Foundation
 import SwiftData
 
 @Model
-
 final class ToDoItem {
     var title: String
     var timestamp: Date
@@ -26,3 +25,11 @@ final class ToDoItem {
         self.isCompleted = isCompleted
     }
 }
+//import Foundation
+//
+//struct ToDoItem: Identifiable {
+//    var id = UUID()
+//    var title: String = ""
+//    var date: Date = Date()
+//    var isImportant: Bool = false
+//}

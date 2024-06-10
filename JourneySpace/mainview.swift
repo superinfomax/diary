@@ -6,9 +6,12 @@
 //
 
 import SwiftUI
-import Foundation
+import LocalAuthentication
+
 struct LoginView: View {
+    @AppStorage("isScreenLockOn") private var isScreenLockOn = false
     @State private var showMenuView = false
+    @State private var authFailed = false
     
     var body: some View {
         VStack {
@@ -26,7 +29,11 @@ struct LoginView: View {
             Spacer()
             
             Button(action: {
-                showMenuView = true
+                if isScreenLockOn {
+                    authenticate()
+                } else {
+                    showMenuView = true
+                }
             }) {
                 Text("Depart")
                     .font(.custom("AmericanTypewriter", size: 42))
@@ -46,12 +53,29 @@ struct LoginView: View {
             Spacer()
         }
         .background(Color(red: 82/255, green: 78/255, blue: 124/255).edgesIgnoringSafeArea(.all))
+        .alert(isPresented: $authFailed) {
+            Alert(title: Text("Authentication Failed"), message: Text("Failed to authenticate, please try again."), dismissButton: .default(Text("OK")))
+        }
     }
-}
-
-
-struct LoginView_Previews: PreviewProvider {
-    static var previews: some View {
-        LoginView()
+    
+    func authenticate() {
+        let context = LAContext()
+        var error: NSError?
+        
+        if context.canEvaluatePolicy(.deviceOwnerAuthentication, error: &error) {
+            let reason = "Authenticate to proceed with departure"
+            
+            context.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: reason) { success, authenticationError in
+                DispatchQueue.main.async {
+                    if success {
+                        showMenuView = true
+                    } else {
+                        authFailed = true
+                    }
+                }
+            }
+        } else {
+            authFailed = true
+        }
     }
 }
