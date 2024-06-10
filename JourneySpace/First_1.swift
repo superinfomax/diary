@@ -13,7 +13,7 @@ struct FirstPage1: View {
         ZStack {
             VStack(alignment: .leading) {
                 HStack(alignment: .top) {
-                    Text("第一頁可以放凱文自由自在")
+                    Text("第一頁可以放凱文自由自在QQ")
                         .font(.custom("KOHO", size: 96))
                         .fontWeight(.bold)
                         .foregroundColor(.white)
