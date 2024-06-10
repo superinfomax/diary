@@ -6,12 +6,14 @@
 //
 
 import SwiftUI
+import LocalAuthentication
 
 struct SettingsView: View {
-    @State private var isScreenLockOn = false
+    @AppStorage("isScreenLockOn") private var isScreenLockOn = false
     @State private var isMaxRewardOn = false
     @State private var isVibrationOn = true
     @State private var isNotificationOn = true
+    @State private var showingAuth = false
     
     @Environment(\.presentationMode) var presentationMode
     
@@ -36,6 +38,11 @@ struct SettingsView: View {
                 Section(header: Text("系統設定")) {
                     Toggle(isOn: $isScreenLockOn) {
                         Text("螢幕鎖定")
+                    }
+                    .onChange(of: isScreenLockOn) { value in
+                        if value {
+                            authenticate()
+                        }
                     }
                     Toggle(isOn: $isMaxRewardOn) {
                         Text("獲得煎餅")
@@ -76,7 +83,38 @@ struct SettingsView: View {
                 }
             }
         }
+        .onAppear {
+            if isScreenLockOn {
+                authenticate()
+            }
+        }
         .navigationBarHidden(true)
+        .alert(isPresented: $showingAuth) {
+            Alert(title: Text("認證失敗"), message: Text("無法進行身份驗證，請重試。"), dismissButton: .default(Text("確定")))
+        }
+    }
+    
+    func authenticate() {
+        let context = LAContext()
+        var error: NSError?
+        
+        if context.canEvaluatePolicy(.deviceOwnerAuthentication, error: &error) {
+            let reason = "需要您的認證以啟用螢幕鎖定功能"
+            
+            context.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: reason) { success, authenticationError in
+                DispatchQueue.main.async {
+                    if success {
+                        isScreenLockOn = true
+                    } else {
+                        isScreenLockOn = false
+                        showingAuth = true
+                    }
+                }
+            }
+        } else {
+            isScreenLockOn = false
+            showingAuth = true
+        }
     }
 }
 
@@ -89,8 +127,5 @@ struct SettingRow1: View {
                 .foregroundColor(.black)
             Spacer()
         }
-//        .padding()
-//        .background(Color.white)
-//        .cornerRadius(8)
     }
 }

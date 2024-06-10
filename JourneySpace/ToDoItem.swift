@@ -26,3 +26,11 @@ final class ToDoItem {
         self.isCompleted = isCompleted
     }
 }
+//import Foundation
+//
+//struct ToDoItem: Identifiable {
+//    var id = UUID()
+//    var title: String = ""
+//    var date: Date = Date()
+//    var isImportant: Bool = false
+//}
