@@ -82,7 +82,8 @@ struct TodoPage1: View {
     @Environment(\.modelContext) var context
     
     @State private var showCreate = false
-    @Query private var items: [ToDoItem]
+    @State private var toDoToEdit: ToDoItem?
+    @Query(filter: #Predicate { $0.isCompleted == false)private var items: [ToDoItem]
     
     var body: some View {
         
@@ -109,15 +110,17 @@ struct TodoPage1: View {
                         
                         Spacer()
                         
-//                        Button {
-//                            
-//                        } Label: {
-//                            Image(systemName: "checkmark")
-//                                .symbolVariant(.circle.fill)
-//                                .foregroundStyle(item.isCompleted ? .green : .gray)
-//                                .font(.largetitle)
-//                        }
-//                        .buttonStyle(.plain)
+                        Button {
+                            withAnimation{
+                                item.isCompleted.toggle()
+                            }
+                        } label: {
+                            Image(systemName: "checkmark")
+                                .symbolVariant(.circle.fill)
+                                .foregroundStyle(item.isCompleted ? .green :.gray)
+                                .font(.largeTitle)
+                        }
+                        .buttonStyle(.plain)
                         
                     }
                     .swipeActions {
@@ -129,6 +132,12 @@ struct TodoPage1: View {
                             Label("Delete", systemImage: "trash")
                                 .symbolVariant(.fill)
                         }
+                        Button{
+                            toDoToEdit = item
+                        }label: {
+                            Label("Edit", systemImage: "pencil")
+                        }
+                        .tint(.orange)
                     }
                 }
             }
@@ -148,6 +157,11 @@ struct TodoPage1: View {
                 }
                 .presentationDetents([.medium])
             })
+            .sheet(item: $toDoToEdit) {
+                toDoToEdit = nil
+            }content: { item in
+                UpdateToDoView(item: item)
+            }
         }
     }
 }
