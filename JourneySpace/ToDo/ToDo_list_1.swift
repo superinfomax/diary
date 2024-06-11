@@ -8,10 +8,10 @@
 //import SwiftUI
 //
 //struct TodoPage1: View {
-//    
+//
 //    @State private var showCreate = false
 //    @State private var todos = [ToDoItem]()
-//    
+//
 //    var body: some View {
 //        ZStack {
 //            Color(red: 71/255, green: 114/255, blue: 186/255)
@@ -21,7 +21,7 @@
 //                    Text("ToDo")
 //                        .font(.largeTitle)
 //                        .foregroundColor(.white)
-//                    
+//
 //                    List {
 //                        ForEach(todos) { todo in
 //                            VStack(alignment: .leading) {
@@ -92,12 +92,12 @@ struct TodoPage1: View {
     ) private var items: [ToDoItem]
     
     init() {
-            //Use this if NavigationBarTitle is with Large Font
-            UINavigationBar.appearance().largeTitleTextAttributes = [.font : UIFont(name: "Georgia-Bold", size: 20)!]
-
-            //Use this if NavigationBarTitle is with displayMode = .inline
-            //UINavigationBar.appearance().titleTextAttributes = [.font : UIFont(name: "Georgia-Bold", size: 20)!]
-        }
+        //Use this if NavigationBarTitle is with Large Font
+        UINavigationBar.appearance().largeTitleTextAttributes = [.font : UIFont(name: "Georgia-Bold", size: 20)!]
+        
+        //Use this if NavigationBarTitle is with displayMode = .inline
+        //UINavigationBar.appearance().titleTextAttributes = [.font : UIFont(name: "Georgia-Bold", size: 20)!]
+    }
     
     
     
@@ -114,9 +114,10 @@ struct TodoPage1: View {
                                     .foregroundColor(.red)
                                     .font(.largeTitle)
                                     .bold()
+                                    .padding(.bottom,4)
                                 
                             }
-//                            Text("\(item.timestamp, format: Date.FormatStyle(date: .abbreviated, time: .shortened))")
+                            //                            Text("\(item.timestamp, format: Date.FormatStyle(date: .abbreviated, time: .shortened))")
                             Text("\(item.timestamp, format: Date.FormatStyle(date: .abbreviated))")
                                 .font(.callout)
                             
@@ -129,7 +130,7 @@ struct TodoPage1: View {
                         Text("\(item.timestamp, format: Date.FormatStyle(time: .shortened))")
                             .font(.title)
                             .bold()
-                            
+                        
                         Spacer()
                         
                         Button {
@@ -165,24 +166,24 @@ struct TodoPage1: View {
             }
             .scrollContentBackground(.hidden)
             .background(Color(red: 71/255, green: 114/255, blue: 186/255))
-//            .navigationBarTitle(Text("To Do").font(.subheadline), displayMode: .large)
-//            Text("")
-//                    .navigationBarTitleDisplayMode(.inline)
-                    .toolbar {
-                        ToolbarItem(placement: .principal) {
-                            HStack {
-                                Text("ToDo")
-                                    .offset(y:20)
-                                    .padding()
-                                    .font(.system(size: 50))
-                                    .bold()
-                                    .foregroundColor(Color.white)
-                                    .background(.clear)
-                                    .frame(height:300)
-                                Spacer()
-                            }
-                        }
+            //            .navigationBarTitle(Text("To Do").font(.subheadline), displayMode: .large)
+            //            Text("")
+            //                    .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    HStack {
+                        Text("ToDo")
+                            .offset(y:20)
+                            .padding()
+                            .font(.system(size: 50))
+                            .bold()
+                            .foregroundColor(Color.white)
+                            .background(.clear)
+                            .frame(height:300)
+                        Spacer()
                     }
+                }
+            }
             
             
             .toolbar {
@@ -190,10 +191,10 @@ struct TodoPage1: View {
                     Button(action: {
                         showCreate.toggle()
                     }, label: {
-//                        Label("Add Item", systemImage: "plus")
+                        //                        Label("Add Item", systemImage: "plus")
                         Image(systemName: "plus.circle")
-                                        .foregroundColor(.white)
-                                        .bold()
+                            .foregroundColor(.white)
+                            .bold()
                     })
                 }
             }
