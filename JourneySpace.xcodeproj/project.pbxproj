@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3136A84F2C184F13006D40CD /* test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3136A84E2C184F13006D40CD /* test.swift */; };
 		405D510C2C1748F20078CC17 /* UpdateToDoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405D510B2C1748F20078CC17 /* UpdateToDoView.swift */; };
 		500A1D002C133023004755EB /* DiaryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500A1CFF2C133023004755EB /* DiaryViewModel.swift */; };
 		500A1D022C133060004755EB /* DiaryEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500A1D012C133060004755EB /* DiaryEntry.swift */; };
@@ -49,6 +50,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3136A84E2C184F13006D40CD /* test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
 		405D510B2C1748F20078CC17 /* UpdateToDoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateToDoView.swift; sourceTree = "<group>"; };
 		500A1CFF2C133023004755EB /* DiaryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryViewModel.swift; sourceTree = "<group>"; };
 		500A1D012C133060004755EB /* DiaryEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEntry.swift; sourceTree = "<group>"; };
@@ -160,6 +162,7 @@
 			isa = PBXGroup;
 			children = (
 				500A1D212C17071C004755EB /* JourneySpace.entitlements */,
+				3136A84E2C184F13006D40CD /* test.swift */,
 				50F72D4E2C033A2400F5BBBA /* JourneySpaceApp.swift */,
 				500A1D052C1330DE004755EB /* LoginView.swift */,
 				500A1D072C133444004755EB /* ToolBar.swift */,
@@ -341,6 +344,7 @@
 				500A1D0A2C1405C2004755EB /* ToDo_list_1.swift in Sources */,
 				500A1D082C133444004755EB /* ToolBar.swift in Sources */,
 				500A1D1A2C15F801004755EB /* SearchView.swift in Sources */,
+				3136A84F2C184F13006D40CD /* test.swift in Sources */,
 				500A1D102C1497FC004755EB /* First_1.swift in Sources */,
 				500A1D142C15A93E004755EB /* Setting_2.swift in Sources */,
 				405D510C2C1748F20078CC17 /* UpdateToDoView.swift in Sources */,
@@ -509,7 +513,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"JourneySpace/Preview Content\"";
-				DEVELOPMENT_TEAM = MW9FJYQ3NQ;
+				DEVELOPMENT_TEAM = R5VMN6QYN8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -539,7 +543,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"JourneySpace/Preview Content\"";
-				DEVELOPMENT_TEAM = MW9FJYQ3NQ;
+				DEVELOPMENT_TEAM = R5VMN6QYN8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

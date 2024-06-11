@@ -37,21 +37,40 @@ struct SearchView: View {
                     ForEach(sortedEntries.keys.sorted(), id: \.self) { key in
                         Section(header: Text(key).font(.headline)) {
                             ForEach(sortedEntries[key]!) { entry in
-                                VStack(alignment: .leading, spacing: 8) {
-                                    Text(entry.title)
-                                        .font(.headline)
-                                    Text(entry.content)
-                                        .font(.subheadline)
-                                        .lineLimit(2)
-                                    Text(entry.date, style: .date)
-                                        .font(.footnote)
-                                        .foregroundColor(.gray)
+                                NavigationLink(destination: EntryDetailView(entry: entry)) {
+                                    VStack(alignment: .leading, spacing: 8) {
+                                        Text(entry.title)
+                                            .font(.headline)
+                                        Text(entry.content)
+                                            .font(.subheadline)
+                                            .lineLimit(2)
+                                        Text(entry.date, style: .date)
+                                            .font(.footnote)
+                                            .foregroundColor(.gray)
+                                    }
                                 }
                             }
                         }
                     }
                 }
                 .listStyle(InsetGroupedListStyle())
+                .overlay(
+                    Group {
+                        if filteredEntries.isEmpty {
+                            VStack {
+                                Image(systemName: "magnifyingglass")
+                                    .font(.largeTitle)
+                                    .padding(.bottom)
+                                Text("No Results for \"\(searchText)\"")
+                                    .font(.headline)
+                                Text("Check the spelling or try a new search.")
+                                    .font(.subheadline)
+                                    .foregroundColor(.gray)
+                            }
+                            .padding()
+                        }
+                    }
+                )
                 .navigationBarTitle("Diary Library", displayMode: .inline)
                 .navigationBarItems(trailing: Button("Done") {
                     presentationMode.wrappedValue.dismiss()
@@ -74,6 +93,15 @@ struct SearchBar: UIViewRepresentable {
         func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
             text = searchText
         }
+        
+        func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+            text = ""
+            searchBar.resignFirstResponder()
+        }
+        
+        func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+            searchBar.resignFirstResponder()
+        }
     }
     
     func makeCoordinator() -> Coordinator {
@@ -84,6 +112,7 @@ struct SearchBar: UIViewRepresentable {
         let searchBar = UISearchBar(frame: .zero)
         searchBar.delegate = context.coordinator
         searchBar.placeholder = "Search entries"
+        searchBar.showsCancelButton = true
         return searchBar
     }
     
