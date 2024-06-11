@@ -73,7 +73,7 @@ struct LoginView: View {
             let screenWidth = UIScreen.main.bounds.width
             let screenHeight = UIScreen.main.bounds.height
             
-            for _ in 0..<3 {
+            for _ in 0..<3 { 
                 let star = Star(
                     x: CGFloat.random(in: 0...screenWidth * 1.5),
                     y: CGFloat.random(in: -screenHeight * 0.5...screenHeight),
