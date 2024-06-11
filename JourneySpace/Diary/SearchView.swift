@@ -29,53 +29,66 @@ struct SearchView: View {
 
     var body: some View {
         NavigationView {
-            VStack {
+            VStack(spacing: 0) {
                 SearchBar(text: $searchText)
-                    .padding(.horizontal)
+                    .padding(.top, 8)
+                    .background(Color(.systemGray6))
                 
-                List {
-                    ForEach(sortedEntries.keys.sorted(), id: \.self) { key in
-                        Section(header: Text(key).font(.headline)) {
-                            ForEach(sortedEntries[key]!) { entry in
-                                NavigationLink(destination: EntryDetailView(entry: entry)) {
-                                    VStack(alignment: .leading, spacing: 8) {
-                                        Text(entry.title)
-                                            .font(.headline)
-                                        Text(entry.content)
-                                            .font(.subheadline)
-                                            .lineLimit(2)
-                                        Text(entry.date, style: .date)
-                                            .font(.footnote)
-                                            .foregroundColor(.gray)
+                if filteredEntries.isEmpty {
+                    VStack {
+                        Spacer()
+                        Image(systemName: "magnifyingglass")
+                            .resizable()
+                            .frame(width: 50, height: 50)
+                            .foregroundColor(.gray)
+                        Text("No Results for \"\(searchText)\"")
+                            .font(.headline)
+                            .padding(.top, 8)
+                        Text("Check the spelling or try a new search.")
+                            .font(.subheadline)
+                            .foregroundColor(.gray)
+                            .padding(.top, 4)
+                        Spacer()
+                    }
+                    .padding()
+//                    .background(Color(.systemGray6))
+                } else {
+                    List {
+                        ForEach(sortedEntries.keys.sorted(), id: \.self) { key in
+                            Section(header: Text(key).font(.headline)) {
+                                ForEach(sortedEntries[key]!) { entry in
+                                    NavigationLink(destination: EntryDetailView(entry: entry)) {
+                                        HStack(spacing: 12) {
+                                            Image(systemName: entry.emoji)
+                                                .resizable()
+                                                .frame(width: 40, height: 40)
+                                                .padding(8)
+                                                .background(Color(UIColor.systemGray5))
+                                                .clipShape(Circle())
+                                            VStack(alignment: .leading, spacing: 4) {
+                                                Text(entry.title)
+                                                    .font(.headline)
+                                                Text(entry.content)
+                                                    .font(.subheadline)
+                                                    .lineLimit(2)
+                                                Text(entry.date, style: .date)
+                                                    .font(.footnote)
+                                                    .foregroundColor(.gray)
+                                            }
+                                        }
+                                        .padding(.vertical, 4)
                                     }
                                 }
                             }
                         }
                     }
+                    .listStyle(InsetGroupedListStyle())
                 }
-                .listStyle(InsetGroupedListStyle())
-                .overlay(
-                    Group {
-                        if filteredEntries.isEmpty {
-                            VStack {
-                                Image(systemName: "magnifyingglass")
-                                    .font(.largeTitle)
-                                    .padding(.bottom)
-                                Text("No Results for \"\(searchText)\"")
-                                    .font(.headline)
-                                Text("Check the spelling or try a new search.")
-                                    .font(.subheadline)
-                                    .foregroundColor(.gray)
-                            }
-                            .padding()
-                        }
-                    }
-                )
-                .navigationBarTitle("Diary Library", displayMode: .inline)
-                .navigationBarItems(trailing: Button("Done") {
-                    presentationMode.wrappedValue.dismiss()
-                })
             }
+            .navigationBarTitle("Diary Library", displayMode: .inline)
+            .navigationBarItems(trailing: Button("Done") {
+                presentationMode.wrappedValue.dismiss()
+            })
         }
     }
 }
@@ -113,6 +126,8 @@ struct SearchBar: UIViewRepresentable {
         searchBar.delegate = context.coordinator
         searchBar.placeholder = "Search entries"
         searchBar.showsCancelButton = true
+        searchBar.searchBarStyle = .minimal
+        searchBar.setBackgroundImage(UIImage(), for: .any, barMetrics: .default)
         return searchBar
     }
     

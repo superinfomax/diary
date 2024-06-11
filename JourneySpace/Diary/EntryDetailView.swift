@@ -55,3 +55,17 @@ private let itemFormatter: DateFormatter = {
     formatter.timeStyle = .none
     return formatter
 }()
+
+struct VisualEffectBlur: UIViewRepresentable {
+    var blurStyle: UIBlurEffect.Style
+    var vibrancyStyle: UIVibrancyEffectStyle? = nil
+
+    func makeUIView(context: Context) -> UIVisualEffectView {
+        let view = UIVisualEffectView(effect: UIBlurEffect(style: blurStyle))
+        return view
+    }
+
+    func updateUIView(_ uiView: UIVisualEffectView, context: Context) {
+        uiView.effect = UIBlurEffect(style: blurStyle)
+    }
+}
