@@ -17,14 +17,9 @@ struct LoginView: View {
         VStack {
             Spacer()
             
-            Text("Journal")
-                .font(.custom("AmericanTypewriter", size: 85))
-                .fontWeight(.bold)
-                .foregroundColor(.white)
-            Text("Space")
-                .font(.custom("AmericanTypewriter", size: 85))
-                .fontWeight(.bold)
-                .foregroundColor(.white)
+            Image("journeySpace")
+                .resizable()
+                .scaledToFit()
             
             Spacer()
             
@@ -77,5 +72,11 @@ struct LoginView: View {
         } else {
             authFailed = true
         }
+    }
+}
+
+struct LoginView_Previews: PreviewProvider {
+    static var previews: some View {
+        LoginView()
     }
 }
