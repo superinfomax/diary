@@ -77,6 +77,8 @@ import SwiftUI
 import SwiftData
 import Foundation
 
+
+
 struct TodoPage1: View {
     
     @Environment(\.modelContext) var context
@@ -88,6 +90,14 @@ struct TodoPage1: View {
         sort: \.timestamp,
         order: .forward
     ) private var items: [ToDoItem]
+    
+    init() {
+            //Use this if NavigationBarTitle is with Large Font
+            UINavigationBar.appearance().largeTitleTextAttributes = [.font : UIFont(name: "Georgia-Bold", size: 20)!]
+
+            //Use this if NavigationBarTitle is with displayMode = .inline
+            //UINavigationBar.appearance().titleTextAttributes = [.font : UIFont(name: "Georgia-Bold", size: 20)!]
+        }
     
     
     
@@ -106,14 +116,20 @@ struct TodoPage1: View {
                                     .bold()
                                 
                             }
+//                            Text("\(item.timestamp, format: Date.FormatStyle(date: .abbreviated, time: .shortened))")
+                            Text("\(item.timestamp, format: Date.FormatStyle(date: .abbreviated))")
+                                .font(.callout)
+                            
                             Text(item.title)
                                 .font(.largeTitle)
                                 .bold()
-                            
-                            Text("\(item.timestamp, format: Date.FormatStyle(date: .abbreviated, time: .shortened))")
-                                .font(.callout)
                         }
+                        Spacer()
                         
+                        Text("\(item.timestamp, format: Date.FormatStyle(time: .shortened))")
+                            .font(.title)
+                            .bold()
+                            
                         Spacer()
                         
                         Button {
@@ -127,8 +143,8 @@ struct TodoPage1: View {
                                 .font(.largeTitle)
                         }
                         .buttonStyle(.plain)
-                        
                     }
+                    
                     .swipeActions {
                         Button(role: .destructive) {
                             withAnimation {
@@ -143,17 +159,41 @@ struct TodoPage1: View {
                         }label: {
                             Label("Edit", systemImage: "pencil")
                         }
-                        .tint(.orange)
+                        .tint(.indigo)
                     }
                 }
             }
-            .navigationTitle("ToDo")
+            .scrollContentBackground(.hidden)
+            .background(Color(red: 71/255, green: 114/255, blue: 186/255))
+//            .navigationBarTitle(Text("To Do").font(.subheadline), displayMode: .large)
+//            Text("")
+//                    .navigationBarTitleDisplayMode(.inline)
+                    .toolbar {
+                        ToolbarItem(placement: .principal) {
+                            HStack {
+                                Text("ToDo")
+                                    .offset(y:20)
+                                    .padding()
+                                    .font(.system(size: 50))
+                                    .bold()
+                                    .foregroundColor(Color.white)
+                                    .background(.clear)
+                                    .frame(height:300)
+                                Spacer()
+                            }
+                        }
+                    }
+            
+            
             .toolbar {
                 ToolbarItem {
                     Button(action: {
                         showCreate.toggle()
                     }, label: {
-                        Label("Add Item", systemImage: "plus")
+//                        Label("Add Item", systemImage: "plus")
+                        Image(systemName: "plus.circle")
+                                        .foregroundColor(.white)
+                                        .bold()
                     })
                 }
             }
