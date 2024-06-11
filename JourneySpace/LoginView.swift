@@ -39,7 +39,6 @@ struct LoginView: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: 300, height: 250)
-                
                 Spacer()
                 
                 Button(action: {
@@ -54,7 +53,7 @@ struct LoginView: View {
                         .scaledToFit()
                         .frame(width: 150, height: 250)
                 }
-                .padding(.bottom, -150)
+                .padding(.bottom, -100)
                 
                 .fullScreenCover(isPresented: $showMenuView) {
                     ToolBar()
