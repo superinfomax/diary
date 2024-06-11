@@ -38,7 +38,8 @@ struct LoginView: View {
                 Image("journeySpace")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 250, height: 250)
+                    .frame(width: 300, height: 250)
+                
                 Spacer()
                 
                 Button(action: {
@@ -48,16 +49,12 @@ struct LoginView: View {
                         showMenuView = true
                     }
                 }) {
-                    Text("Depart")
-                        .font(.custom("AmericanTypewriter", size: 42))
-                        .fontWeight(.semibold)
-                        .foregroundColor(.black)
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(Color(red: 127/255, green: 125/255, blue: 183/255))
-                        .cornerRadius(10)
-                        .padding(.horizontal, 40)
+                    Image("depart")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 150, height: 250)
                 }
+                .padding(.bottom, -150)
                 
                 .fullScreenCover(isPresented: $showMenuView) {
                     ToolBar()
