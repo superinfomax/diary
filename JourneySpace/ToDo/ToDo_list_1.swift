@@ -77,8 +77,6 @@ import SwiftUI
 import SwiftData
 import Foundation
 
-
-
 struct TodoPage1: View {
     
     @Environment(\.modelContext) var context
@@ -92,17 +90,14 @@ struct TodoPage1: View {
     ) private var items: [ToDoItem]
     
     init() {
-            //Use this if NavigationBarTitle is with Large Font
-            UINavigationBar.appearance().largeTitleTextAttributes = [.font : UIFont(name: "Georgia-Bold", size: 20)!]
-
-            //Use this if NavigationBarTitle is with displayMode = .inline
-            //UINavigationBar.appearance().titleTextAttributes = [.font : UIFont(name: "Georgia-Bold", size: 20)!]
-        }
-    
-    
+        // 使用這個設置大標題字體
+        UINavigationBar.appearance().largeTitleTextAttributes = [.font: UIFont(name: "Georgia-Bold", size: 20)!]
+        
+        // 使用這個設置小標題字體
+        // UINavigationBar.appearance().titleTextAttributes = [.font: UIFont(name: "Georgia-Bold", size: 20)!]
+    }
     
     var body: some View {
-        
         NavigationStack {
             List {
                 ForEach(items) { item in
@@ -114,50 +109,43 @@ struct TodoPage1: View {
                                     .foregroundColor(.red)
                                     .font(.largeTitle)
                                     .bold()
-                                
                             }
-//                            Text("\(item.timestamp, format: Date.FormatStyle(date: .abbreviated, time: .shortened))")
                             Text("\(item.timestamp, format: Date.FormatStyle(date: .abbreviated))")
                                 .font(.callout)
-                            
                             Text(item.title)
                                 .font(.largeTitle)
                                 .bold()
                         }
                         Spacer()
-                        
                         Text("\(item.timestamp, format: Date.FormatStyle(time: .shortened))")
                             .font(.title)
                             .bold()
-                            
                         Spacer()
-                        
                         Button {
-                            withAnimation{
+                            withAnimation {
                                 item.isCompleted.toggle()
                             }
                         } label: {
                             Image(systemName: "checkmark")
                                 .symbolVariant(.circle.fill)
-                                .foregroundStyle(item.isCompleted ? .green :.gray)
+                                .foregroundStyle(item.isCompleted ? .green : .gray)
                                 .font(.largeTitle)
                         }
                         .buttonStyle(.plain)
                     }
-                    
                     .swipeActions {
                         Button(role: .destructive) {
                             withAnimation {
                                 context.delete(item)
                             }
-                        }label: {
-                            Label("Delete", systemImage: "trash")
+                        } label: {
+                            Label("刪除", systemImage: "trash")
                                 .symbolVariant(.fill)
                         }
-                        Button{
+                        Button {
                             toDoToEdit = item
-                        }label: {
-                            Label("Edit", systemImage: "pencil")
+                        } label: {
+                            Label("編輯", systemImage: "pencil")
                         }
                         .tint(.indigo)
                     }
@@ -165,36 +153,22 @@ struct TodoPage1: View {
             }
             .scrollContentBackground(.hidden)
             .background(Color(red: 71/255, green: 114/255, blue: 186/255))
-//            .navigationBarTitle(Text("To Do").font(.subheadline), displayMode: .large)
-//            Text("")
-//                    .navigationBarTitleDisplayMode(.inline)
-                    .toolbar {
-                        ToolbarItem(placement: .principal) {
-                            HStack {
-                                Text("ToDo")
-                                    .offset(y:20)
-                                    .padding()
-                                    .font(.system(size: 50))
-                                    .bold()
-                                    .foregroundColor(Color.white)
-                                    .background(.clear)
-                                    .frame(height:300)
-                                Spacer()
-                            }
-                        }
-                    }
-            
-            
             .toolbar {
-                ToolbarItem {
-                    Button(action: {
-                        showCreate.toggle()
-                    }, label: {
-//                        Label("Add Item", systemImage: "plus")
-                        Image(systemName: "plus.circle")
-                                        .foregroundColor(.white)
-                                        .bold()
-                    })
+                ToolbarItem(placement: .principal) {
+                    HStack {
+                        Text("ToDo")
+                            .font(.system(size: 60))
+                            .bold()
+                            .foregroundColor(Color.white)
+                        //Spacer()
+                        Button(action: {
+                            showCreate.toggle()
+                        }, label: {
+                            Image(systemName: "plus.circle")
+                                .foregroundColor(.white)
+                                .bold()
+                        })
+                    }
                 }
             }
             .sheet(isPresented: $showCreate, content: {
@@ -205,15 +179,15 @@ struct TodoPage1: View {
             })
             .sheet(item: $toDoToEdit) {
                 toDoToEdit = nil
-            }content: { item in
+            } content: { item in
                 UpdateToDoView(item: item)
             }
         }
     }
 }
 
-//struct ToDo_List_1_Previews: PreviewProvider {
-//    static var previews: some View {
-//        TodoPage1()
-//    }
-//}
+struct ToDo_List_1_Previews: PreviewProvider {
+    static var previews: some View {
+        TodoPage1()
+    }
+}
