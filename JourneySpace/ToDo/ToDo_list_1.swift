@@ -99,57 +99,63 @@ struct TodoPage1: View {
     
     var body: some View {
         NavigationStack {
-            List {
-                ForEach(items) { item in
-                    HStack {
-                        VStack(alignment: .leading) {
-                            if item.isCritical {
-                                Image(systemName: "exclamationmark.3")
-                                    .symbolVariant(.fill)
-                                    .foregroundColor(.red)
-                                    .font(.largeTitle)
-                                    .bold()
+            ZStack {
+                List {
+                                ForEach(items) { item in
+                                    HStack {
+                                        VStack(alignment: .leading) {
+                                            if item.isCritical {
+                                                Image(systemName: "exclamationmark.3")
+                                                    .symbolVariant(.fill)
+                                                    .foregroundColor(.red)
+                                                    .font(.largeTitle)
+                                                    .bold()
+                                            }
+                                            Text("\(item.timestamp, format: Date.FormatStyle(date: .abbreviated))")
+                                                .font(.callout)
+                                            Text(item.title)
+                                                .font(.largeTitle)
+                                                .bold()
+                                        }
+                                        Spacer()
+                                        Text("\(item.timestamp, format: Date.FormatStyle(time: .shortened))")
+                                            .font(.title)
+                                            .bold()
+                                        Spacer()
+                                        Button {
+                                            withAnimation {
+                                                item.isCompleted.toggle()
+                                            }
+                                        } label: {
+                                            Image(systemName: "checkmark")
+                                                .symbolVariant(.circle.fill)
+                                                .foregroundStyle(item.isCompleted ? .green : .gray)
+                                                .font(.largeTitle)
+                                        }
+                                        .buttonStyle(.plain)
+                                    }
+                                    .swipeActions {
+                                        Button(role: .destructive) {
+                                            withAnimation {
+                                                context.delete(item)
+                                            }
+                                        } label: {
+                                            Label("刪除", systemImage: "trash")
+                                                .symbolVariant(.fill)
+                                        }
+                                        Button {
+                                            toDoToEdit = item
+                                        } label: {
+                                            Label("編輯", systemImage: "pencil")
+                                        }
+                                        .tint(.indigo)
+                                    }
+                                }
                             }
-                            Text("\(item.timestamp, format: Date.FormatStyle(date: .abbreviated))")
-                                .font(.callout)
-                            Text(item.title)
-                                .font(.largeTitle)
-                                .bold()
-                        }
-                        Spacer()
-                        Text("\(item.timestamp, format: Date.FormatStyle(time: .shortened))")
-                            .font(.title)
-                            .bold()
-                        Spacer()
-                        Button {
-                            withAnimation {
-                                item.isCompleted.toggle()
-                            }
-                        } label: {
-                            Image(systemName: "checkmark")
-                                .symbolVariant(.circle.fill)
-                                .foregroundStyle(item.isCompleted ? .green : .gray)
-                                .font(.largeTitle)
-                        }
-                        .buttonStyle(.plain)
-                    }
-                    .swipeActions {
-                        Button(role: .destructive) {
-                            withAnimation {
-                                context.delete(item)
-                            }
-                        } label: {
-                            Label("刪除", systemImage: "trash")
-                                .symbolVariant(.fill)
-                        }
-                        Button {
-                            toDoToEdit = item
-                        } label: {
-                            Label("編輯", systemImage: "pencil")
-                        }
-                        .tint(.indigo)
-                    }
-                }
+                Image("Image 4") // 替換 "yourImage" 為您的圖片名稱
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
             }
             .scrollContentBackground(.hidden)
             .background(Color(red: 71/255, green: 114/255, blue: 186/255))
