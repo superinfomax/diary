@@ -73,12 +73,12 @@ struct LoginView: View {
             let screenWidth = UIScreen.main.bounds.width
             let screenHeight = UIScreen.main.bounds.height
             
-            for _ in 0..<3 {
+            for _ in 0..<5 {
                 let star = Star(
-                    x: CGFloat.random(in: 0...screenWidth * 1.5),
-                    y: CGFloat.random(in: -screenHeight * 0.5...screenHeight),
-                    size: CGFloat.random(in: 450...500),
-                    speed: CGFloat.random(in: 1...5)
+                    x: CGFloat.random(in: 0...screenWidth),
+                    y: CGFloat.random(in: 0...screenHeight),
+                    size: CGFloat.random(in: 450...900),
+                    speed: CGFloat.random(in: 0...1)
                 )
                 stars.append(star)
             }
@@ -87,14 +87,14 @@ struct LoginView: View {
     }
     
     func startStarAnimation() {
-        Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { timer in
-            withAnimation(.linear(duration: 0.05)) {
+        Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true) { timer in
+            withAnimation(.linear(duration: 0.01)) {
                 for index in stars.indices {
                     stars[index].x -= stars[index].speed
                     stars[index].y += stars[index].speed
                     if stars[index].x < -stars[index].size || stars[index].y > UIScreen.main.bounds.height + stars[index].size {
-                        stars[index].x = CGFloat.random(in: UIScreen.main.bounds.width...UIScreen.main.bounds.width * 1.5)
-                        stars[index].y = CGFloat.random(in: -UIScreen.main.bounds.height * 0.5...0)
+                        stars[index].x = UIScreen.main.bounds.width + stars[index].size
+                        stars[index].y = -stars[index].size
                     }
                 }
             }
@@ -123,10 +123,8 @@ struct LoginView: View {
     }
 }
 
-
-
-//struct LoginView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        LoginView()
-//    }
-//}
+struct LoginView_Previews: PreviewProvider {
+    static var previews: some View {
+        LoginView()
+    }
+}
