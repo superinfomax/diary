@@ -21,6 +21,10 @@ struct LoginView: View {
     @State private var showMenuView = false
     @State private var authFailed = false
     @State private var stars: [Star] = []
+    @State private var departButtonScale: CGFloat = 1.0
+    @State private var departButtonOpacity: Double = 1.0
+    private let animationDuration: TimeInterval = 1
+    
 
     var body: some View {
         ZStack {
@@ -47,21 +51,26 @@ struct LoginView: View {
                 Spacer()
                 
                 Button(action: {
-                    if isScreenLockOn {
-                        authenticate()
-                    } else {
-                        showMenuView = true
-                    }
-                }) {
-                    Image("depart")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 150, height: 250)
-                }
-                .padding(.bottom, -150)
-                .fullScreenCover(isPresented: $showMenuView) {
-                    ToolBar()
-                }
+                            if isScreenLockOn {
+                                authenticate()
+                            } else {
+                                showMenuView = true
+                            }
+                        }) {
+                            Image("depart")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 150, height: 250)
+                                .scaleEffect(departButtonScale) // 添加 scaleEffect modifier
+                                .opacity(departButtonOpacity) // 添加 opacity modifier
+                        }
+                        .padding(.bottom, -150)
+                        .fullScreenCover(isPresented: $showMenuView) {
+                            ToolBar()
+                        }
+                        .onAppear {
+                            startButtonAnimation()
+                        }
                 
                 Spacer()
             }
@@ -73,11 +82,11 @@ struct LoginView: View {
             let screenWidth = UIScreen.main.bounds.width
             let screenHeight = UIScreen.main.bounds.height
             
-            for _ in 0..<5 {
+            for _ in 0..<40 {
                 let star = Star(
                     x: CGFloat.random(in: 0...screenWidth),
                     y: CGFloat.random(in: 0...screenHeight),
-                    size: CGFloat.random(in: 450...900),
+                    size: CGFloat.random(in: 100...200),
                     speed: CGFloat.random(in: 0...1)
                 )
                 stars.append(star)
@@ -87,19 +96,38 @@ struct LoginView: View {
     }
     
     func startStarAnimation() {
-        Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true) { timer in
+        Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { timer in
             withAnimation(.linear(duration: 0.01)) {
                 for index in stars.indices {
                     stars[index].x -= stars[index].speed
                     stars[index].y += stars[index].speed
                     if stars[index].x < -stars[index].size || stars[index].y > UIScreen.main.bounds.height + stars[index].size {
-                        stars[index].x = UIScreen.main.bounds.width + stars[index].size
-                        stars[index].y = -stars[index].size
+                        let spawnFromRight = Bool.random()
+                        if spawnFromRight {
+                            let randomY = CGFloat.random(in: 0...(UIScreen.main.bounds.height - stars[index].size))
+                            stars[index].x = UIScreen.main.bounds.width + stars[index].size
+                            stars[index].y = randomY
+                        } else {
+                            let randomX = CGFloat.random(in: 0...(UIScreen.main.bounds.width - stars[index].size))
+                            stars[index].x = randomX
+                            stars[index].y = -stars[index].size
+                        }
                     }
                 }
             }
         }
     }
+    
+    func startButtonAnimation() {
+        Timer.scheduledTimer(withTimeInterval: animationDuration, repeats: true) { timer in
+            withAnimation {
+                departButtonScale = departButtonScale == 1.0 ? 1.0 : 1.0
+                departButtonOpacity = departButtonOpacity == 1.0 ? 0.5 : 1.0
+            }
+        }
+    }
+
+
     
     func authenticate() {
         let context = LAContext()
