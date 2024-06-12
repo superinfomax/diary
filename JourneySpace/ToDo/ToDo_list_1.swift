@@ -8,10 +8,10 @@
 //import SwiftUI
 //
 //struct TodoPage1: View {
-//    
+//
 //    @State private var showCreate = false
 //    @State private var todos = [ToDoItem]()
-//    
+//
 //    var body: some View {
 //        ZStack {
 //            Color(red: 71/255, green: 114/255, blue: 186/255)
@@ -21,7 +21,7 @@
 //                    Text("ToDo")
 //                        .font(.largeTitle)
 //                        .foregroundColor(.white)
-//                    
+//
 //                    List {
 //                        ForEach(todos) { todo in
 //                            VStack(alignment: .leading) {
@@ -100,65 +100,96 @@ struct TodoPage1: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                List {
-                                ForEach(items) { item in
-                                    HStack {
-                                        VStack(alignment: .leading) {
-                                            if item.isCritical {
-                                                Image(systemName: "exclamationmark.3")
-                                                    .symbolVariant(.fill)
-                                                    .foregroundColor(.red)
-                                                    .font(.largeTitle)
-                                                    .bold()
-                                            }
-                                            Text("\(item.timestamp, format: Date.FormatStyle(date: .abbreviated))")
-                                                .font(.callout)
-                                            Text(item.title)
-                                                .font(.largeTitle)
-                                                .bold()
-                                        }
-                                        Spacer()
-                                        Text("\(item.timestamp, format: Date.FormatStyle(time: .shortened))")
-                                            .font(.title)
-                                            .bold()
-                                        Spacer()
-                                        Button {
-                                            withAnimation {
-                                                item.isCompleted.toggle()
-                                            }
-                                        } label: {
-                                            Image(systemName: "checkmark")
-                                                .symbolVariant(.circle.fill)
-                                                .foregroundStyle(item.isCompleted ? .green : .gray)
-                                                .font(.largeTitle)
-                                        }
-                                        .buttonStyle(.plain)
-                                    }
-                                    .swipeActions {
-                                        Button(role: .destructive) {
-                                            withAnimation {
-                                                context.delete(item)
-                                            }
-                                        } label: {
-                                            Label("刪除", systemImage: "trash")
-                                                .symbolVariant(.fill)
-                                        }
-                                        Button {
-                                            toDoToEdit = item
-                                        } label: {
-                                            Label("編輯", systemImage: "pencil")
-                                        }
-                                        .tint(.indigo)
-                                    }
+                Color(red: 71/255, green: 114/255, blue: 186/255)
+                    .edgesIgnoringSafeArea(.all)
+                
+                VStack {
+                    Image("Image 4")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(height: 300)
+                        .padding(.top, 50)
+                    
+                    List {
+                        ForEach(items) { item in
+                            HStack {
+                                if item.isCritical {
+                                    Image(systemName: "exclamationmark.3")
+                                        .symbolVariant(.fill)
+                                        .foregroundColor(.red)
+                                        .font(.largeTitle)
+                                        .bold()
+                                        .padding(.trailing, 10)
                                 }
+                                VStack(alignment: .leading) {
+                                    Text("\(item.timestamp, format: Date.FormatStyle(date: .abbreviated))")
+                                        .font(.callout)
+                                        .foregroundColor(.black)
+                                    Text(item.title)
+                                        .font(.title)
+                                        .bold()
+                                        .foregroundColor(.black)
+                                }
+                                Spacer()
+                                Text("\(item.timestamp, format: Date.FormatStyle(time: .shortened))")
+                                    .font(.title)
+                                    .bold()
+                                    .foregroundColor(.black)
+                                    .padding(.trailing, 10)
+                                Button {
+                                    withAnimation {
+                                        item.isCompleted.toggle()
+                                    }
+                                } label: {
+                                    Image(systemName: "checkmark")
+                                        .symbolVariant(.circle.fill)
+                                        .foregroundStyle(item.isCompleted ? .green : .gray)
+                                        .font(.largeTitle)
+                                }
+                                .buttonStyle(.plain)
                             }
-                Image("Image 4") // 替換 "yourImage" 為您的圖片名稱
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
+                            .padding()
+                            .background(Color.white)
+                            .cornerRadius(10)
+                            .shadow(radius: 5)
+                            .swipeActions {
+                                Button(role: .destructive) {
+                                    withAnimation {
+                                        context.delete(item)
+                                    }
+                                } label: {
+                                    Circle()
+                                        .fill(Color.red)
+                                        .frame(width: 50, height: 50)
+                                        .overlay(
+                                            Image(systemName: "trash")
+                                                .foregroundColor(.white)
+                                                .font(.system(size: 20))
+                                        )
+                                }
+                                .tint(.red)
+                                
+                                Button {
+                                    toDoToEdit = item
+                                } label: {
+                                    Circle()
+                                        .fill(Color.indigo)
+                                        .frame(width: 50, height: 50)
+                                        .overlay(
+                                            Image(systemName: "pencil")
+                                                .foregroundColor(.white)
+                                                .font(.system(size: 20))
+                                        )
+                                }
+                                .tint(.indigo)
+                            }
+                        }
+                        .listRowBackground(Color.clear)
+                    }
+                    .listStyle(PlainListStyle())
+                    .background(Color.clear)
+                }
             }
-            .scrollContentBackground(.hidden)
-            .background(Color(red: 71/255, green: 114/255, blue: 186/255))
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     HStack {
@@ -166,7 +197,6 @@ struct TodoPage1: View {
                             .font(.system(size: 60))
                             .bold()
                             .foregroundColor(Color.white)
-                        //Spacer()
                         Button(action: {
                             showCreate.toggle()
                         }, label: {
