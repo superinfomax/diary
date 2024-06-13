@@ -29,3 +29,9 @@ struct FirstPage1: View {
 
       }
 }
+
+struct FirstPage1_Previews: PreviewProvider {
+    static var previews: some View {
+        FirstPage1()
+    }
+}
