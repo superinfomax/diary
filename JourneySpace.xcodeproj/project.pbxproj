@@ -16,7 +16,7 @@
 		500A1D082C133444004755EB /* ToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500A1D072C133444004755EB /* ToolBar.swift */; };
 		500A1D0A2C1405C2004755EB /* ToDo_list_1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500A1D092C1405C2004755EB /* ToDo_list_1.swift */; };
 		500A1D0E2C1496F7004755EB /* Setting_1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500A1D0D2C1496F7004755EB /* Setting_1.swift */; };
-		500A1D102C1497FC004755EB /* First_1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500A1D0F2C1497FC004755EB /* First_1.swift */; };
+		500A1D102C1497FC004755EB /* FirstPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500A1D0F2C1497FC004755EB /* FirstPage.swift */; };
 		500A1D142C15A93E004755EB /* Setting_2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500A1D132C15A93E004755EB /* Setting_2.swift */; };
 		500A1D162C15C899004755EB /* EntryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500A1D152C15C899004755EB /* EntryDetailView.swift */; };
 		500A1D182C15EFB2004755EB /* TeamMemberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500A1D172C15EFB2004755EB /* TeamMemberView.swift */; };
@@ -59,7 +59,7 @@
 		500A1D072C133444004755EB /* ToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolBar.swift; sourceTree = "<group>"; };
 		500A1D092C1405C2004755EB /* ToDo_list_1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDo_list_1.swift; sourceTree = "<group>"; };
 		500A1D0D2C1496F7004755EB /* Setting_1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting_1.swift; sourceTree = "<group>"; };
-		500A1D0F2C1497FC004755EB /* First_1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = First_1.swift; sourceTree = "<group>"; };
+		500A1D0F2C1497FC004755EB /* FirstPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstPage.swift; sourceTree = "<group>"; };
 		500A1D132C15A93E004755EB /* Setting_2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting_2.swift; sourceTree = "<group>"; };
 		500A1D152C15C899004755EB /* EntryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryDetailView.swift; sourceTree = "<group>"; };
 		500A1D172C15EFB2004755EB /* TeamMemberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamMemberView.swift; sourceTree = "<group>"; };
@@ -166,7 +166,7 @@
 				50F72D4E2C033A2400F5BBBA /* JourneySpaceApp.swift */,
 				500A1D052C1330DE004755EB /* LoginView.swift */,
 				500A1D072C133444004755EB /* ToolBar.swift */,
-				500A1D0F2C1497FC004755EB /* First_1.swift */,
+				500A1D0F2C1497FC004755EB /* FirstPage.swift */,
 				50CEE4E82C1757070066BE72 /* Diary */,
 				405D510D2C17546C0078CC17 /* ToDo */,
 				50CEE4E92C17571C0066BE72 /* Setting */,
@@ -345,7 +345,7 @@
 				500A1D082C133444004755EB /* ToolBar.swift in Sources */,
 				500A1D1A2C15F801004755EB /* SearchView.swift in Sources */,
 				3136A84F2C184F13006D40CD /* test.swift in Sources */,
-				500A1D102C1497FC004755EB /* First_1.swift in Sources */,
+				500A1D102C1497FC004755EB /* FirstPage.swift in Sources */,
 				500A1D142C15A93E004755EB /* Setting_2.swift in Sources */,
 				405D510C2C1748F20078CC17 /* UpdateToDoView.swift in Sources */,
 				500A1D062C1330DE004755EB /* LoginView.swift in Sources */,
