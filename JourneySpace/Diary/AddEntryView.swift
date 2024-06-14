@@ -4,6 +4,7 @@
 //
 //  Created by max on 2024/6/7.
 //
+// AddEntryView.swift
 import Foundation
 import SwiftUI
 
@@ -13,11 +14,11 @@ struct AddEntryView: View {
     
     @State private var date = Date()
     @State private var content = ""
-    @State private var currentEmoji = "face.smiling"
+    @State private var currentEmoji = "happy" // 默認使用自定義圖片
     @State private var title = ""
     @State private var showEmojiPicker = false
     
-    let emojis = ["face.smiling", "face.smiling.inverse", "face.dashed", "face.dashed.fill", "die.face.1", "die.face.2", "die.face.3", "die.face.4"]
+    let emojis = ["happy", "sad", "angry", "confuse", "nowords", "tired", "sleepy", "love", "nervous"]
     
     var body: some View {
         NavigationView {
@@ -41,9 +42,9 @@ struct AddEntryView: View {
                 Button(action: {
                     showEmojiPicker.toggle()
                 }) {
-                    Image(systemName: currentEmoji)
+                    Image(currentEmoji)
                         .resizable()
-                        .frame(width: 40, height: 40)
+                        .frame(width: 70, height: 70)
                         .padding(.horizontal)
                 }
                 .popover(isPresented: $showEmojiPicker) {
@@ -97,30 +98,32 @@ struct EmojiPicker: View {
     @Binding var currentEmoji: String
     var onEmojiSelected: () -> Void
     
-    let emojis = ["face.smiling", "face.smiling.inverse", "face.dashed", "face.dashed.fill", "die.face.1", "die.face.2", "die.face.3", "die.face.4"]
+    let emojis = ["happy", "sad", "angry", "confuse", "nowords", "tired", "sleepy", "love", "nervous"]
     
     let columns = [
-        GridItem(.adaptive(minimum: 60))
+        GridItem(.flexible(), spacing: 30), // 設置橫向間距
+        GridItem(.flexible(), spacing: 30),
+        GridItem(.flexible(), spacing: 30)
     ]
     
     var body: some View {
         VStack {
-            LazyVGrid(columns: columns, spacing: 20) {
+            LazyVGrid(columns: columns, spacing: 10) { // 縱向間距
                 ForEach(emojis, id: \.self) { emoji in
                     Button(action: {
                         currentEmoji = emoji
                         onEmojiSelected()
                     }) {
-                        Image(systemName: emoji)
+                        Image(emoji)
                             .resizable()
-                            .frame(width: 40, height: 40)
+                            .frame(width: 60, height: 60)
                             .padding()
                     }
                 }
             }
             .padding()
         }
-        .frame(width: 200, height: 200)
+        .frame(width: 250, height: 250) // 調整彈出窗口的大小
     }
 }
 

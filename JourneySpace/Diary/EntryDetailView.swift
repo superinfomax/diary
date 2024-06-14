@@ -11,13 +11,13 @@ struct EntryDetailView: View {
     var entry: DiaryEntry
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
+        VStack(alignment: .leading, spacing: 20) {
             HStack {
-                Spacer()
-                Image(systemName: entry.emoji)
+                Image(entry.emoji) // 使用 entry.emoji 來顯示自定義圖片
                     .resizable()
-                    .frame(width: 40, height: 40)
+                    .frame(width: 70, height: 70) // 調整圖片大小
                     .padding(.leading)
+                    .padding(.top, 25)
                 Spacer()
             }
 
@@ -39,13 +39,13 @@ struct EntryDetailView: View {
                 .padding(.bottom)
         }
         .background(Color(UIColor.systemGray6))
-        .navigationTitle("Emotion Detail")
+        //.navigationTitle("Emotion Detail")
     }
 }
 
 struct EntryDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        EntryDetailView(entry: DiaryEntry(title: "Sample Title", content: "Sample Content", emoji: "face.smiling", date: Date()))
+        EntryDetailView(entry: DiaryEntry(title: "Sample Title", content: "Sample Content", emoji: "happy", date: Date()))
     }
 }
 
