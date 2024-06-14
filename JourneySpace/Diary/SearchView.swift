@@ -51,7 +51,6 @@ struct SearchView: View {
                         Spacer()
                     }
                     .padding()
-//                    .background(Color(.systemGray6))
                 } else {
                     List {
                         ForEach(sortedEntries.keys.sorted(), id: \.self) { key in
@@ -59,7 +58,7 @@ struct SearchView: View {
                                 ForEach(sortedEntries[key]!) { entry in
                                     NavigationLink(destination: EntryDetailView(entry: entry)) {
                                         HStack(spacing: 12) {
-                                            Image(systemName: entry.emoji)
+                                            Image(entry.emoji)
                                                 .resizable()
                                                 .frame(width: 40, height: 40)
                                                 .padding(8)

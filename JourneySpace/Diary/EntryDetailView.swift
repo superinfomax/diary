@@ -43,11 +43,6 @@ struct EntryDetailView: View {
     }
 }
 
-struct EntryDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        EntryDetailView(entry: DiaryEntry(title: "Sample Title", content: "Sample Content", emoji: "happy", date: Date()))
-    }
-}
 
 private let itemFormatter: DateFormatter = {
     let formatter = DateFormatter()
