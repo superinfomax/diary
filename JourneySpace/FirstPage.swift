@@ -42,14 +42,14 @@ struct FloatingImage: View {
             .onReceive(timer) { _ in
                 guard !isDragging else { return }
 
-                // 更新图片位置
+
                 position.x += velocity.x
                 position.y += velocity.y
 
-                // 检查边界并平滑处理
+
                 if position.x > 430 - imageSize.width / 2 {
                     position.x = 430 - imageSize.width / 2
-                    velocity.x = -velocity.x * 0.7 // 减少速度，模拟更弱的反弹
+                    velocity.x = -velocity.x * 0.7 //
                 } else if position.x < imageSize.width / 2 {
                     position.x = imageSize.width / 2
                     velocity.x = -velocity.x * 0.7
@@ -63,12 +63,10 @@ struct FloatingImage: View {
                     velocity.y = -velocity.y * 0.7
                 }
 
-                // 随机变换速度方向
                 velocity.x += CGFloat.random(in: -0.05...0.05)
                 velocity.y += CGFloat.random(in: -0.05...0.05)
             }
             .onAppear {
-                // 设置自转动画
                 withAnimation(Animation.linear(duration: 10).repeatForever(autoreverses: false)) {
                     self.rotationAngle = 360
                 }
