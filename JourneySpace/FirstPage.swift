@@ -100,6 +100,8 @@ struct FirstPage1: View {
         ZStack {
             FloatingImage(imageName: "love", imageSize: CGSize(width: 100, height: 100), initialPosition: CGPoint(x: CGFloat.random(in: 0...400), y: CGFloat.random(in: 0...900)))
             FloatingImage(imageName: "angry", imageSize: CGSize(width: 150, height: 150), initialPosition: CGPoint(x: CGFloat.random(in: 0...400), y: CGFloat.random(in: 0...900)))
+            FloatingImage(imageName: "happy", imageSize: CGSize(width: 150, height: 150), initialPosition: CGPoint(x: CGFloat.random(in: 0...400), y: CGFloat.random(in: 0...900)))
+
         }
         .frame(width: 400, height: 932)
         .background(

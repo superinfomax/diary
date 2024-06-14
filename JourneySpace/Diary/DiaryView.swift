@@ -31,8 +31,12 @@ struct DiaryView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                Color(red: 237/255, green: 156/255, blue: 149/255)
-                    .edgesIgnoringSafeArea(.all)
+//                Color(red: 237/255, green: 156/255, blue: 149/255)
+//                    .edgesIgnoringSafeArea(.all)
+                Image("birdplanet")
+                        .resizable()
+                        .scaledToFill()
+                        .edgesIgnoringSafeArea(.all)
                 VStack(spacing: 0) {
                     HStack {
                         VStack(alignment: .leading) {

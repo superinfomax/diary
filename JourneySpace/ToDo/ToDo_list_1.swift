@@ -100,9 +100,12 @@ struct TodoPage1: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color(red: 71/255, green: 114/255, blue: 186/255)
-                    .edgesIgnoringSafeArea(.all)
-                
+                Image("yeloplanet")
+                        .resizable()
+                        .scaledToFill()
+                        .edgesIgnoringSafeArea(.all)
+//                Color(red: 71/255, green: 114/255, blue: 186/255)
+//                    .edgesIgnoringSafeArea(.all)
                 VStack {
                     Image("Image 4")
                         .resizable()
