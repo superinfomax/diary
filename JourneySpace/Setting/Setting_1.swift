@@ -24,18 +24,14 @@ struct SettingPage1: View {
                 VStack(alignment: .center, spacing: 16) {
                     Text("開發的 第 \(daysSinceDevelop()) 天")
                         .font(.system(size: 18))
-                    Text("大統領 ❤️ 小統領")
+                    Text("Diary")
                         .font(.system(size: 18))
-                    Text("石雅箬 ❤️ 社恐煎餅")
-                        .font(.system(size: 18))
-                    Text("我們的Diary")
-                        .font(.system(size: 14))
                         .multilineTextAlignment(.center)
                 }
                 .padding()
                 
                 HStack(spacing: 16) {
-                    SettingButton(title: "便條紙", imageName: "note.text")
+                    SettingButton(title: "抽獎", imageName: "ticket.fill")
                     SettingButton(title: "道具背包", imageName: "backpack.fill")
                     SettingButton(title: "公告", imageName: "megaphone.fill")
                 }
