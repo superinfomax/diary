@@ -11,7 +11,7 @@ struct FirstPage1: View {
     @State private var rotationAngle: Double = 0
     @State private var yeloImageName: String = "firstYelo"
     @Environment(\.scenePhase) var scenePhase
-
+    
     let yeloImages = ["firstYelo", "firstCharlie", "firstKevin"]
     let quotes = [
         "心美，你看什麼都美；但人美，看你什麼都美。",
@@ -91,7 +91,7 @@ struct FirstPage1: View {
         "當你的左臉被人打，那你的左臉就會痛"
     ]
     @State private var currentQuote: String = ""
-
+    
     var body: some View {
         ZStack {
             Image(yeloImageName)
@@ -99,7 +99,7 @@ struct FirstPage1: View {
                 .scaledToFit()
                 .frame(width: 400, height: 932)
             Image("firstRocket")
-                
+            
             VStack {
                 Image("firstBubble")
                     .shadow(color: .blue, radius: 2, x: 0, y: 5)
@@ -134,16 +134,16 @@ struct FirstPage1: View {
             }
         }
     }
-
+    
     func startRotation() {
         withAnimation(
             Animation.linear(duration: 25)
-            .repeatForever(autoreverses: false)
+                .repeatForever(autoreverses: false)
         ) {
             rotationAngle = 360
         }
     }
-
+    
     func randomizeImages() {
         yeloImageName = yeloImages.randomElement() ?? "firstYelo"
     }
