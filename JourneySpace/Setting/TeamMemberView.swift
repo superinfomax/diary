@@ -6,62 +6,127 @@
 //
 
 import SwiftUI
+
 struct TeamMember: Identifiable {
     var id = UUID()
     var name: String
     var role: String
     var image: String
 }
+
 struct TeamMemberView: View {
     let teamMembers: [TeamMember] = [
         TeamMember(name: "邱茂齊", role: "iOS Developer", image: "max"),
         TeamMember(name: "邱子君", role: "iOS Developer", image: "jessie"),
-        TeamMember(name: "屎雅箬", role: "UI/UX Designer                                                            Project Manager's Owner", image: "roi"),
+        TeamMember(name: "石雅箬", role: "UI/UX Designer                                                            Project Manager's Owner", image: "roi"),
         TeamMember(name: "i煎餅", role: "Project Manager", image: "senbei_team")
     ]
     
+    @State private var selectedMember: TeamMember?
+    
     var body: some View {
-        VStack {
-            Text("Our Team")
-                .font(.largeTitle)
-                .bold()
-                .padding()
-            
+        ZStack {
             ForEach(teamMembers) { member in
-                HStack(spacing: 16) {
-                    Image(member.image)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 80, height: 80)
-                        .clipShape(Circle())
-                        .overlay(Circle().stroke(Color.gray, lineWidth: 2))
-                        .shadow(radius: 3)
-                    
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text(member.name)
-                            .font(.title2)
-                            .bold()
-                        
-                        Text(member.role)
-                            .font(.subheadline)
-                            .foregroundColor(.gray)
+                FloatingMemberView(member: member)
+                    .onTapGesture {
+                        selectedMember = member
                     }
-                    
-                    Spacer()
-                }
-                .padding(.horizontal)
-                .padding(.vertical, 8)
             }
-            
-            Spacer()
         }
-        .background(Color(UIColor.systemGray6))
-        .navigationTitle("Team Members")
+        .background(Color(UIColor.systemGray6).edgesIgnoringSafeArea(.all))
+        .sheet(item: $selectedMember) { member in
+            VStack {
+                Image(member.image)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 150, height: 150)
+                    .clipShape(Circle())
+                    .overlay(Circle().stroke(Color.gray, lineWidth: 2))
+                    .shadow(radius: 3)
+                
+                Text(member.name)
+                    .font(.largeTitle)
+                    .bold()
+                    .padding(.top)
+                
+                Text(member.role)
+                    .font(.title2)
+                    .foregroundColor(.gray)
+                    .padding(.top, 4)
+                
+                Spacer()
+            }
+            .padding()
+        }
     }
 }
 
-struct TeamMemberView_Previews: PreviewProvider {
-    static var previews: some View {
-        TeamMemberView()
+struct FloatingMemberView: View {
+    let member: TeamMember
+    @State private var position: CGPoint
+    @State private var velocity: CGPoint = CGPoint(x: CGFloat.random(in: -0.5...0.5), y: CGFloat.random(in: -0.5...0.5))
+    @State private var isDragging = false
+    @State private var rotationAngle: Double = 0
+    
+    let timer = Timer.publish(every: 0.01, on: .main, in: .common).autoconnect()
+
+    init(member: TeamMember) {
+        self.member = member
+        self._position = State(initialValue: CGPoint(x: CGFloat.random(in: 100...300), y: CGFloat.random(in: 100...600)))
+    }
+    
+    var body: some View {
+        Image(member.image)
+            .resizable()
+            .scaledToFit()
+            .frame(width: 80, height: 80)
+            .clipShape(Circle())
+            .overlay(Circle().stroke(Color.gray, lineWidth: 2))
+            .shadow(radius: 3)
+            .rotationEffect(.degrees(rotationAngle))
+            .position(position)
+            .gesture(
+                DragGesture()
+                    .onChanged { value in
+                        self.isDragging = true
+                        self.position = value.location
+                        self.velocity = CGPoint(x: value.translation.width / 10, y: value.translation.height / 10)
+                    }
+                    .onEnded { _ in
+                        self.isDragging = false
+                    }
+            )
+            .onReceive(timer) { _ in
+                guard !isDragging else { return }
+                
+                withAnimation(.spring(response: 0.3, dampingFraction: 0.5, blendDuration: 0.5)) {
+                    position.x += velocity.x
+                    position.y += velocity.y
+                }
+                
+                let screenWidth = UIScreen.main.bounds.width
+                let screenHeight = UIScreen.main.bounds.height
+                
+                if position.x > screenWidth - 40 {
+                    position.x = screenWidth - 40
+                    velocity.x = -velocity.x * 0.8
+                } else if position.x < 40 {
+                    position.x = 40
+                    velocity.x = -velocity.x * 0.8
+                }
+                
+                if position.y > screenHeight - 40 {
+                    position.y = screenHeight - 40
+                    velocity.y = -velocity.y * 0.8
+                } else if position.y < 40 {
+                    position.y = 40
+                    velocity.y = -velocity.y * 0.8
+                }
+            }
+            .onAppear {
+                withAnimation(Animation.linear(duration: 10).repeatForever(autoreverses: true)) {
+                    self.rotationAngle = 360
+                }
+            }
     }
 }

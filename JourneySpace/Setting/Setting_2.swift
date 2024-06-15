@@ -7,13 +7,15 @@
 
 import SwiftUI
 import LocalAuthentication
+import UserNotifications
 
 struct SettingsView: View {
     @AppStorage("isScreenLockOn") private var isScreenLockOn = false
+    @AppStorage("isNotificationOn") private var isNotificationOn = false
     @State private var isMaxRewardOn = false
     @State private var isVibrationOn = true
-    @State private var isNotificationOn = true
     @State private var showingAuth = false
+    @State private var showingNotificationError = false
     
     @Environment(\.presentationMode) var presentationMode
     
@@ -68,6 +70,11 @@ struct SettingsView: View {
                     Toggle(isOn: $isNotificationOn) {
                         Text("通知")
                     }
+                    .onChange(of: isNotificationOn) { value in
+                        if value {
+                            requestNotificationPermission()
+                        }
+                    }
                 }
                 
                 Section {
@@ -92,6 +99,9 @@ struct SettingsView: View {
         .alert(isPresented: $showingAuth) {
             Alert(title: Text("認證失敗"), message: Text("無法進行身份驗證，請重試。"), dismissButton: .default(Text("確定")))
         }
+        .alert(isPresented: $showingNotificationError) {
+            Alert(title: Text("通知失敗"), message: Text("無法開啟通知，請檢查您的設定。"), dismissButton: .default(Text("確定")))
+        }
     }
     
     func authenticate() {
@@ -114,6 +124,19 @@ struct SettingsView: View {
         } else {
             isScreenLockOn = false
             showingAuth = true
+        }
+    }
+    
+    func requestNotificationPermission() {
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+            DispatchQueue.main.async {
+                if granted {
+                    isNotificationOn = true
+                } else {
+                    isNotificationOn = false
+                    showingNotificationError = true
+                }
+            }
         }
     }
 }
