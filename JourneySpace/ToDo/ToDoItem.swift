@@ -24,6 +24,13 @@ final class ToDoItem {
         self.isCritical = isCritical
         self.isCompleted = isCompleted
     }
+    
+//    func getCurrentTime() -> String {
+//        let formatter = DateFormatter()
+//        let dateString = formatter.string(from: Date())
+//        
+//        return dateString
+//    }
 }
 //import Foundation
 //

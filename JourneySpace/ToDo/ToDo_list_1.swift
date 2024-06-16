@@ -52,12 +52,11 @@ struct TodoPage1: View {
                     List {
                         ForEach(items) { item in
                             HStack {
-                                
                                 VStack(alignment: .leading) {
                                     Text("\(item.timestamp, format: Date.FormatStyle(date: .abbreviated))")
                                         .font(.caption2)
                                         .foregroundColor(.gray)
-//                                        .offset(y:0)
+                                        
                                     if item.isCritical {
                                         Image(systemName: "exclamationmark.2")
                                             .symbolVariant(.fill)
@@ -168,7 +167,8 @@ struct TodoPage1: View {
                 NavigationStack {
                     CreateToDoView()
                 }
-                .presentationDetents([.medium])
+//                .presentationDetents([.medium ,.large])
+                .presentationDetents([.fraction(0.8)])
             })
             .sheet(item: $toDoToEdit) {
                 toDoToEdit = nil
