@@ -51,7 +51,7 @@ struct SettingsView: View {
                     .font(.system(size: 18))
                     .multilineTextAlignment(.center)
             }
-            .frame(maxWidth: .infinity) // 使 VStack 滿寬度
+            .frame(maxWidth: .infinity)
             
             Form {
                 Section(header: Text("系統設定")) {
@@ -70,9 +70,6 @@ struct SettingsView: View {
                     
                     NavigationLink(destination: Text("可以設定幾點要通知使用者寫日記")) {
                         SettingRow1(title: "通知設定")
-                    }
-                    NavigationLink(destination: Text("還想問問題？？？？")) {
-                        SettingRow1(title: "經常問的問題")
                     }
                     NavigationLink(destination: TeamMemberView()) {
                         SettingRow1(title: "團隊成員")
@@ -97,7 +94,7 @@ struct SettingsView: View {
                 }
                 
                 Section {
-                    NavigationLink(destination: Text("個人相關APP連結")) {
+                    NavigationLink(destination: Text("個人APP連結")) {
                         SettingRow1(title: "個人")
                     }
                     
