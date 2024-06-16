@@ -48,15 +48,21 @@ struct CreateToDoView: View {
     
     var body: some View {
         List {
-            TextField("Title", text: $item.title)
-            DatePicker("Date", selection: $item.timestamp)
-            Toggle("Important?", isOn: $item.isCritical)
-            Button("Create") {
+            TextField("What ToDo ?", text: $item.title)
+            DatePicker("TIME", selection: $item.timestamp)
+            Toggle("Important !!!", isOn: $item.isCritical)
+            
+            Button(action: {
                 withAnimation {
                     context.insert(item)
                 }
                 dismiss()
-            }
+            },
+                   label: {
+                       Text("Create ToDo !")
+                        .font(.system(size: 32))
+                        
+            })
         }
         .navigationTitle("Create ToDo")
     }
