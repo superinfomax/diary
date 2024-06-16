@@ -19,11 +19,11 @@ struct BackpageView: View {
                     .scaledToFit()
                     .frame(width: 200, height: 200)
                     .padding()
-                Text("This is your prize!")
+                Text("這是你獲得的新造型")
                     .font(.title)
                     .padding()
             } else {
-                Text("No prize won yet.")
+                Text("還沒有造型喔")
                     .font(.title)
                     .padding()
             }

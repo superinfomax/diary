@@ -40,18 +40,8 @@ struct SettingsView: View {
                             .font(.system(size: 24))
                             .padding()
                     }
-                    //Spacer()
                 }
                 .padding(.horizontal)
-            
-                
-    //            VStack(alignment: .center) {
-    //                Text("開發的 第 \(daysSinceDevelop()) 天")
-    //                    .font(.system(size: 18))
-    //                    .multilineTextAlignment(.center)
-    //                    .padding()
-    //            }
-    //            .frame(maxWidth: .infinity)
                 
                 Form {
                     Section(header: Text("系統設定")) {
@@ -80,7 +70,6 @@ struct SettingsView: View {
                         NavigationLink(destination: Text("可以設定幾點要通知使用者寫日記")) {
                             SettingRow1(title: "通知設定", imageName: "bell")
                         }
-                        
                     }
                     Section(header: Text("有關團隊")) {
                         NavigationLink(destination: TeamMemberView()) {
@@ -190,7 +179,6 @@ struct SettingsView: View {
         }
     }
 }
-
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
         SettingsView()
