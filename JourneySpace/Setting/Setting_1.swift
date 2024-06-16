@@ -9,7 +9,11 @@ import SwiftUI
 struct SettingPage1: View {
     @State private var rotationAngle: Double = 0
     @State private var isPressed: Bool = false
+    @State private var showAlert: Bool = false
+    @State private var prizeImage: String? = nil
+    @State private var showPrizeImage: String? = nil
     let floatingImages = ["Charlie_K", "Kevin_C", "triangleYelo", "2pCharlie", "2pKevin", "2pYelo"]
+    let prizes = ["Charlie_K", "Kevin_C", "triangleYelo", "2pCharlie", "2pKevin", "2pYelo"]
     
     var body: some View {
         NavigationView {
@@ -26,22 +30,33 @@ struct SettingPage1: View {
                 VStack {
                     Spacer()
                     Button(action: {
-                        withAnimation(.easeInOut(duration: 0.5)) {
+                        withAnimation(.easeInOut(duration: 1.0)) {
                             isPressed.toggle()
+                            if isPressed {
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                                    prizeImage = prizes.randomElement()
+                                    showPrizeImage = prizeImage
+                                    showAlert = true
+                                    isPressed = false
+                                }
+                            }
                         }
-                        }) {
-                            Image("blackhole")
-                                    .rotationEffect(.degrees(rotationAngle))
-                                    .scaleEffect(isPressed ? 1.5 : 1.0) // Animate scale when pressed
-                                    .onAppear {
-                                        startRotation()
-                                    }
-                        }
+                    }) {
+                        Image("blackhole")
+                            .rotationEffect(.degrees(rotationAngle))
+                            .scaleEffect(isPressed ? 2.0 : 1.0) // Animate scale when pressed
+                            .onAppear {
+                                startRotation()
+                            }
+                    }
                 }
                 .padding(.bottom, 70)
+                .alert(isPresented: $showAlert) {
+                    Alert(title: Text("Congratulations!"), message: Text("You won a prize! Check your backpack."), dismissButton: .default(Text("OK")))
+                }
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
-                        NavigationLink(destination: BackpageView()) {
+                        NavigationLink(destination: BackpageView(prizeImage: showPrizeImage)) {
                             Image(systemName: "backpack.fill")
                                 .font(.system(size: 24))
                                 .foregroundColor(.gray)
@@ -58,6 +73,7 @@ struct SettingPage1: View {
             }
         }
     }
+    
     func startRotation() {
         withAnimation(
             Animation.linear(duration: 5)
@@ -77,7 +93,7 @@ struct FloatingImage: View {
         Image(imageName)
             .resizable()
             .scaledToFit()
-            .frame(width: 200, height: 200) // Adjust size as needed
+            .frame(width: 200, height: 200)
             .position(position)
             .rotationEffect(.degrees(rotationAngle))
             .onAppear {
@@ -111,89 +127,3 @@ struct SettingPage1_Previews: PreviewProvider {
         SettingPage1()
     }
 }
-
-//                .frame(width: 380, height: 150)
-//                
-//                VStack(alignment: .center, spacing: 16) {
-//                    Text("開發的 第 \(daysSinceDevelop()) 天")
-//                        .font(.system(size: 18))
-//                    Text("Diary")
-//                        .font(.system(size: 18))
-//                        .multilineTextAlignment(.center)
-//                }
-//                .padding()
-//                
-//                HStack(spacing: 16) {
-//                    SettingButton(title: "抽獎", imageName: "ticket.fill")
-//                    SettingButton(title: "道具背包", imageName: "backpack.fill")
-//                    SettingButton(title: "公告", imageName: "megaphone.fill")
-//                }
-//                .padding(.horizontal)
-//                
-//                VStack(alignment: .leading, spacing: 8) {
-//                    NavigationLink(destination: Text("還想問問題？？？？")) {
-//                        SettingRow(title: "經常問的問題")
-//                    }
-//                    NavigationLink(destination: TeamMemberView()) {
-//                        SettingRow(title: "團隊成員")
-//                    }
-//                    NavigationLink(destination: Text("我愛東華")) {
-//                        SettingRow(title: "想問的資訊")
-//                    }
-//                    NavigationLink(destination: Image("senbei1").scaledToFit) {
-//                        SettingRow(title: "拜訪煎餅的IG")
-//                    }
-//                    NavigationLink(destination: Text("垃圾郵箱")) {
-//                        SettingRow(title: "問題郵箱")
-//                    }
-//                }
-//                Spacer()
-//            }
-//            .background(Color(UIColor.systemGray6))
-//            .ignoresSafeArea()
-//        }
-//        .navigationBarHidden(true)
-//    }
-//    
-//    func daysSinceDevelop() -> Int {
-//        let calendar = Calendar.current
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "yyyy/MM/dd"
-//        guard let may26 = dateFormatter.date(from: "2024/05/26") else { return 0 }
-//        let currentDate = Date()
-//        let components = calendar.dateComponents([.day], from: may26, to: currentDate)
-//        return components.day ?? 0
-//    }
-//}
-//
-//struct SettingButton: View {
-//    let title: String
-//    let imageName: String
-//    
-//    var body: some View {
-//        VStack {
-//            Image(systemName: imageName)
-//                .font(.system(size: 36))
-//            Text(title)
-//                .font(.system(size: 16))
-//        }
-//        .frame(maxWidth: .infinity)
-//    }
-//}
-//
-//struct SettingRow: View {
-//    let title: String
-//    
-//    var body: some View {
-//        HStack {
-//            Text(title)
-//                .foregroundColor(.black)
-//            Spacer()
-//            Image(systemName: "chevron.right")
-//                .foregroundColor(.gray)
-//        }
-//        .padding()
-//        .background(Color.white)
-//        .cornerRadius(8)
-//    }
-//}
