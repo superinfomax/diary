@@ -9,6 +9,16 @@ import SwiftUI
 import LocalAuthentication
 import UserNotifications
 
+func daysSinceDevelop() -> Int {
+    let calendar = Calendar.current
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "yyyy/MM/dd"
+    guard let may26 = dateFormatter.date(from: "2024/05/26") else { return 0 }
+    let currentDate = Date()
+    let components = calendar.dateComponents([.day], from: may26, to: currentDate)
+    return components.day ?? 0
+}
+
 struct SettingsView: View {
     @AppStorage("isScreenLockOn") private var isScreenLockOn = false
     @AppStorage("isNotificationOn") private var isNotificationOn = false
@@ -30,11 +40,18 @@ struct SettingsView: View {
                         .padding()
                 }
                 Spacer()
-                Text("Setting")
-                    .font(.custom("AmericanTypewriter", size: 24))
-                Spacer()
             }
             .padding(.horizontal)
+            
+            VStack(alignment: .center, spacing: 16) {
+                Text("開發的 第 \(daysSinceDevelop()) 天")
+                    .font(.system(size: 18))
+                    .multilineTextAlignment(.center)
+                Text("Diary")
+                    .font(.system(size: 18))
+                    .multilineTextAlignment(.center)
+            }
+            .frame(maxWidth: .infinity) // 使 VStack 滿寬度
             
             Form {
                 Section(header: Text("系統設定")) {
@@ -54,7 +71,21 @@ struct SettingsView: View {
                     NavigationLink(destination: Text("可以設定幾點要通知使用者寫日記")) {
                         SettingRow1(title: "通知設定")
                     }
-                    
+                    NavigationLink(destination: Text("還想問問題？？？？")) {
+                        SettingRow1(title: "經常問的問題")
+                    }
+                    NavigationLink(destination: TeamMemberView()) {
+                        SettingRow1(title: "團隊成員")
+                    }
+                    NavigationLink(destination: Text("我愛東華")) {
+                        SettingRow1(title: "想問的資訊")
+                    }
+                    NavigationLink(destination: Image("senbei1").scaledToFit) {
+                        SettingRow1(title: "拜訪煎餅的IG")
+                    }
+                    NavigationLink(destination: Text("垃圾郵箱")) {
+                        SettingRow1(title: "問題郵箱")
+                    }
                     Toggle(isOn: $isNotificationOn) {
                         Text("通知")
                     }
