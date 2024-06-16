@@ -18,7 +18,7 @@ struct TeamMemberView: View {
     let teamMembers: [TeamMember] = [
         TeamMember(name: "邱茂齊", role: "iOS Developer", image: "max"),
         TeamMember(name: "邱子君", role: "iOS Developer", image: "jessie"),
-        TeamMember(name: "石雅箬", role: "UI/UX Designer                                                            Project Manager's Owner", image: "roi"),
+        TeamMember(name: "石雅箬", role: "UI/UX Designer\nProject Manager's Owner", image: "roi"),
         TeamMember(name: "i煎餅", role: "Project Manager", image: "senbei_team")
     ]
     
@@ -106,6 +106,7 @@ struct FloatingMemberView: View {
                 
                 let screenWidth = UIScreen.main.bounds.width
                 let screenHeight = UIScreen.main.bounds.height
+                let bottomPadding: CGFloat = 230
                 
                 if position.x > screenWidth - 40 {
                     position.x = screenWidth - 40
@@ -115,8 +116,8 @@ struct FloatingMemberView: View {
                     velocity.x = -velocity.x * 0.8
                 }
                 
-                if position.y > screenHeight - 40 {
-                    position.y = screenHeight - 40
+                if position.y > screenHeight - bottomPadding {
+                    position.y = screenHeight - bottomPadding
                     velocity.y = -velocity.y * 0.8
                 } else if position.y < 40 {
                     position.y = 40
