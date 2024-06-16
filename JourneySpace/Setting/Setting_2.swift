@@ -47,9 +47,7 @@ struct SettingsView: View {
                 Text("開發的 第 \(daysSinceDevelop()) 天")
                     .font(.system(size: 18))
                     .multilineTextAlignment(.center)
-                Text("Diary")
-                    .font(.system(size: 18))
-                    .multilineTextAlignment(.center)
+                    .padding()
             }
             .frame(maxWidth: .infinity)
             
@@ -64,25 +62,6 @@ struct SettingsView: View {
                         }
                     }
                     
-                    NavigationLink(destination: Text("語言設定")) {
-                        SettingRow1(title: "語言設定")
-                    }
-                    
-                    NavigationLink(destination: Text("可以設定幾點要通知使用者寫日記")) {
-                        SettingRow1(title: "通知設定")
-                    }
-                    NavigationLink(destination: TeamMemberView()) {
-                        SettingRow1(title: "團隊成員")
-                    }
-                    NavigationLink(destination: Text("我愛東華")) {
-                        SettingRow1(title: "想問的資訊")
-                    }
-                    NavigationLink(destination: Image("senbei1").scaledToFit) {
-                        SettingRow1(title: "拜訪煎餅的IG")
-                    }
-                    NavigationLink(destination: Text("垃圾郵箱")) {
-                        SettingRow1(title: "問題郵箱")
-                    }
                     Toggle(isOn: $isNotificationOn) {
                         Text("通知")
                     }
@@ -91,15 +70,37 @@ struct SettingsView: View {
                             requestNotificationPermission()
                         }
                     }
+                    
+                    NavigationLink(destination: Text("語言設定")) {
+                        SettingRow1(title: "語言設定", imageName: "translate")
+                    }
+                    
+                    NavigationLink(destination: Text("可以設定幾點要通知使用者寫日記")) {
+                        SettingRow1(title: "通知設定", imageName: "bell")
+                    }
+                }
+                Section(header: Text("有關團隊")) {
+                    NavigationLink(destination: TeamMemberView()) {
+                        SettingRow1(title: "團隊成員", imageName: "person.2")
+                    }
+                    NavigationLink(destination: Text("我愛東華")) {
+                        SettingRow1(title: "想問的資訊", imageName: "questionmark.circle")
+                    }
+                    NavigationLink(destination: Image("senbei1").scaledToFit) {
+                        SettingRow1(title: "拜訪煎餅的IG", imageName: "camera")
+                    }
+                    NavigationLink(destination: Text("垃圾郵箱")) {
+                        SettingRow1(title: "問題郵箱", imageName: "trash")
+                    }
                 }
                 
                 Section {
                     NavigationLink(destination: Text("個人APP連結")) {
-                        SettingRow1(title: "個人")
+                        SettingRow1(title: "個人", imageName: "person.crop.circle")
                     }
                     
                     NavigationLink(destination: Text("登出")) {
-                        SettingRow1(title: "登出")
+                        SettingRow1(title: "登出", imageName: "arrowshape.turn.up.left")
                     }
                 }
             }
@@ -156,9 +157,16 @@ struct SettingsView: View {
     
     struct SettingRow1: View {
         let title: String
+        let imageName: String
         
         var body: some View {
             HStack {
+                Image(systemName: imageName)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 30, height: 30)
+                    .foregroundColor(.black)
+                    .padding(.trailing, 8)
                 Text(title)
                     .foregroundColor(.black)
                 Spacer()
