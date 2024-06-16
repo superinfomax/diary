@@ -46,27 +46,15 @@ struct SettingsView: View {
                             authenticate()
                         }
                     }
-                    Toggle(isOn: $isMaxRewardOn) {
-                        Text("獲得煎餅")
-                    }
-                    Toggle(isOn: $isVibrationOn) {
-                        Text("震動")
-                    }
-                }
-                
-                Section {
-                    NavigationLink(destination: Text("解決問題")) {
-                        SettingRow1(title: "解決問題")
-                    }
+                    
                     NavigationLink(destination: Text("語言設定")) {
                         SettingRow1(title: "語言設定")
                     }
-                    NavigationLink(destination: Text("通知設定")) {
+                    
+                    NavigationLink(destination: Text("可以設定幾點要通知使用者寫日記")) {
                         SettingRow1(title: "通知設定")
                     }
-                }
-                
-                Section(header: Text("通知")) {
+                    
                     Toggle(isOn: $isNotificationOn) {
                         Text("通知")
                     }
@@ -78,29 +66,27 @@ struct SettingsView: View {
                 }
                 
                 Section {
-                    NavigationLink(destination: Text("個人")) {
+                    NavigationLink(destination: Text("個人相關APP連結")) {
                         SettingRow1(title: "個人")
                     }
-                    NavigationLink(destination: Text("連接")) {
-                        SettingRow1(title: "連接")
-                    }
+                    
                     NavigationLink(destination: Text("登出")) {
                         SettingRow1(title: "登出")
                     }
                 }
             }
-        }
-        .onAppear {
-            if isScreenLockOn {
-                authenticate()
+            .onAppear {
+                if isScreenLockOn {
+                    authenticate()
+                }
             }
-        }
-        .navigationBarHidden(true)
-        .alert(isPresented: $showingAuth) {
-            Alert(title: Text("認證失敗"), message: Text("無法進行身份驗證，請重試。"), dismissButton: .default(Text("確定")))
-        }
-        .alert(isPresented: $showingNotificationError) {
-            Alert(title: Text("通知失敗"), message: Text("無法開啟通知，請檢查您的設定。"), dismissButton: .default(Text("確定")))
+            .navigationBarHidden(true)
+            .alert(isPresented: $showingAuth) {
+                Alert(title: Text("認證失敗"), message: Text("無法進行身份驗證，請重試。"), dismissButton: .default(Text("確定")))
+            }
+            .alert(isPresented: $showingNotificationError) {
+                Alert(title: Text("通知失敗"), message: Text("無法開啟通知，請檢查您的設定。"), dismissButton: .default(Text("確定")))
+            }
         }
     }
     
@@ -139,16 +125,16 @@ struct SettingsView: View {
             }
         }
     }
-}
-
-struct SettingRow1: View {
-    let title: String
     
-    var body: some View {
-        HStack {
-            Text(title)
-                .foregroundColor(.black)
-            Spacer()
+    struct SettingRow1: View {
+        let title: String
+        
+        var body: some View {
+            HStack {
+                Text(title)
+                    .foregroundColor(.black)
+                Spacer()
+            }
         }
     }
 }
