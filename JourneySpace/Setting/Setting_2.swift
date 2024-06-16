@@ -30,91 +30,96 @@ struct SettingsView: View {
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            HStack {
-                Button(action: {
-                    presentationMode.wrappedValue.dismiss()
-                }) {
-                    Image(systemName: "arrow.left")
-                        .font(.system(size: 24))
-                        .padding()
-                }
-                Spacer()
-            }
-            .padding(.horizontal)
-            
-            VStack(alignment: .center, spacing: 16) {
-                Text("開發的 第 \(daysSinceDevelop()) 天")
-                    .font(.system(size: 18))
-                    .multilineTextAlignment(.center)
-                    .padding()
-            }
-            .frame(maxWidth: .infinity)
-            
-            Form {
-                Section(header: Text("系統設定")) {
-                    Toggle(isOn: $isScreenLockOn) {
-                        Text("螢幕鎖定")
-                    }
-                    .onChange(of: isScreenLockOn) { value in
-                        if value {
-                            authenticate()
-                        }
-                    }
-                    
-                    Toggle(isOn: $isNotificationOn) {
-                        Text("通知")
-                    }
-                    .onChange(of: isNotificationOn) { value in
-                        if value {
-                            requestNotificationPermission()
-                        }
-                    }
-                    
-                    NavigationLink(destination: Text("語言設定")) {
-                        SettingRow1(title: "語言設定", imageName: "translate")
-                    }
-                    
-                    NavigationLink(destination: Text("可以設定幾點要通知使用者寫日記")) {
-                        SettingRow1(title: "通知設定", imageName: "bell")
+        ZStack {
+            VStack(alignment: .leading, spacing: 1) {
+                HStack {
+                    Button(action: {
+                        presentationMode.wrappedValue.dismiss()
+                    }) {
+                        Image(systemName: "arrow.left")
+                            .font(.system(size: 24))
+                            .padding()
                     }
                 }
-                Section(header: Text("有關團隊")) {
-                    NavigationLink(destination: TeamMemberView()) {
-                        SettingRow1(title: "團隊成員", imageName: "person.2")
-                    }
-                    NavigationLink(destination: Text("我愛東華")) {
-                        SettingRow1(title: "想問的資訊", imageName: "questionmark.circle")
-                    }
-                    NavigationLink(destination: Image("senbei1").scaledToFit) {
-                        SettingRow1(title: "拜訪煎餅的IG", imageName: "camera")
-                    }
-                    NavigationLink(destination: Text("垃圾郵箱")) {
-                        SettingRow1(title: "問題郵箱", imageName: "trash")
-                    }
-                }
+                .padding(.horizontal)
                 
-                Section {
-                    NavigationLink(destination: Text("個人APP連結")) {
-                        SettingRow1(title: "個人", imageName: "person.crop.circle")
+                Form {
+                    Section(header: Text("系統設定")) {
+                        Toggle(isOn: $isScreenLockOn) {
+                            Text("螢幕鎖定")
+                        }
+                        .onChange(of: isScreenLockOn) { value in
+                            if value {
+                                authenticate()
+                            }
+                        }
+                        
+                        Toggle(isOn: $isNotificationOn) {
+                            Text("通知")
+                        }
+                        .onChange(of: isNotificationOn) { value in
+                            if value {
+                                requestNotificationPermission()
+                            }
+                        }
+                        
+                        NavigationLink(destination: Text("語言設定")) {
+                            SettingRow1(title: "語言設定", imageName: "translate")
+                        }
+                        
+                        NavigationLink(destination: Text("可以設定幾點要通知使用者寫日記")) {
+                            SettingRow1(title: "通知設定", imageName: "bell")
+                        }
+                    }
+                    Section(header: Text("有關團隊")) {
+                        NavigationLink(destination: TeamMemberView()) {
+                            SettingRow1(title: "團隊成員", imageName: "person.2")
+                        }
+                        
+                        NavigationLink(destination: 
+                                        Text("開發的 第 \(daysSinceDevelop()) 天")
+                                            .font(.system(size: 18))
+                                            .multilineTextAlignment(.center)
+                                            .padding()) {
+                            SettingRow1(title: "開發狀況", imageName: "wrench.and.screwdriver")
+                        }
+                        
+                        NavigationLink(destination: Text("我愛東華")) {
+                            SettingRow1(title: "想問的資訊", imageName: "questionmark.circle")
+                        }
+                        
+                        NavigationLink(destination: Image("senbei1").scaledToFit) {
+                            SettingRow1(title: "拜訪煎餅的IG", imageName: "camera")
+                        }
+                        
+                        NavigationLink(destination: Text("垃圾郵箱")) {
+                            SettingRow1(title: "問題郵箱", imageName: "trash")
+                        }
                     }
                     
-                    NavigationLink(destination: Text("登出")) {
-                        SettingRow1(title: "登出", imageName: "arrowshape.turn.up.left")
+                    
+                    Section {
+                        NavigationLink(destination: Text("個人APP連結")) {
+                            SettingRow1(title: "個人", imageName: "person.crop.circle")
+                        }
+                        
+                        NavigationLink(destination: Text("登出")) {
+                            SettingRow1(title: "登出", imageName: "arrowshape.turn.up.left")
+                        }
                     }
                 }
-            }
-            .onAppear {
-                if isScreenLockOn {
-                    authenticate()
+                .onAppear {
+                    if isScreenLockOn {
+                        authenticate()
+                    }
                 }
-            }
-            .navigationBarHidden(true)
-            .alert(isPresented: $showingAuth) {
-                Alert(title: Text("認證失敗"), message: Text("無法進行身份驗證，請重試。"), dismissButton: .default(Text("確定")))
-            }
-            .alert(isPresented: $showingNotificationError) {
-                Alert(title: Text("通知失敗"), message: Text("無法開啟通知，請檢查您的設定。"), dismissButton: .default(Text("確定")))
+                .navigationBarHidden(true)
+                .alert(isPresented: $showingAuth) {
+                    Alert(title: Text("認證失敗"), message: Text("無法進行身份驗證，請重試。"), dismissButton: .default(Text("確定")))
+                }
+                .alert(isPresented: $showingNotificationError) {
+                    Alert(title: Text("通知失敗"), message: Text("無法開啟通知，請檢查您的設定。"), dismissButton: .default(Text("確定")))
+                }
             }
         }
     }
@@ -164,7 +169,7 @@ struct SettingsView: View {
                 Image(systemName: imageName)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: 30, height: 30)
+                    .frame(width: 25, height: 25)
                     .foregroundColor(.black)
                     .padding(.trailing, 8)
                 Text(title)
@@ -174,7 +179,6 @@ struct SettingsView: View {
         }
     }
 }
-
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
         SettingsView()
