@@ -7,20 +7,111 @@
 import SwiftUI
 
 struct SettingPage1: View {
+    @State private var rotationAngle: Double = 0
+    @State private var isPressed: Bool = false
+    let floatingImages = ["Charlie_K", "Kevin_C", "triangleYelo", "2pCharlie", "2pKevin", "2pYelo"]
+    
     var body: some View {
         NavigationView {
-            VStack{
-                HStack{
-                    NavigationLink(destination: SettingsView()) {
-                        Image(systemName: "gearshape")
-                            .font(.system(size: 24))
-                            .foregroundColor(.gray)
+            ZStack {
+                Image("drawSpace")
+                    .resizable()
+                    .scaledToFill()
+                    .edgesIgnoringSafeArea(.all)
+                
+                ForEach(floatingImages, id: \.self) { imageName in
+                    FloatingImage(imageName: imageName)
+                }
+                
+                VStack {
+                    Spacer()
+                    Button(action: {
+                        withAnimation(.easeInOut(duration: 0.5)) {
+                            isPressed.toggle()
+                        }
+                        }) {
+                            Image("blackhole")
+                                    .rotationEffect(.degrees(rotationAngle))
+                                    .scaleEffect(isPressed ? 1.5 : 1.0) // Animate scale when pressed
+                                    .onAppear {
+                                        startRotation()
+                                    }
+                        }
+                }
+                .padding(.bottom, 70)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        NavigationLink(destination: BackpageView()) {
+                            Image(systemName: "backpack.fill")
+                                .font(.system(size: 24))
+                                .foregroundColor(.gray)
+                        }
+                    }
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        NavigationLink(destination: SettingsView()) {
+                            Image(systemName: "gearshape")
+                                .font(.system(size: 24))
+                                .foregroundColor(.gray)
+                        }
                     }
                 }
             }
         }
     }
+    func startRotation() {
+        withAnimation(
+            Animation.linear(duration: 5)
+                .repeatForever(autoreverses: false)
+        ) {
+            rotationAngle = 360
+        }
+    }
 }
+
+struct FloatingImage: View {
+    let imageName: String
+    @State private var position: CGPoint = .zero
+    @State private var rotationAngle: Double = 0
+    
+    var body: some View {
+        Image(imageName)
+            .resizable()
+            .scaledToFit()
+            .frame(width: 200, height: 200) // Adjust size as needed
+            .position(position)
+            .rotationEffect(.degrees(rotationAngle))
+            .onAppear {
+                startFloating()
+                startRotation()
+            }
+    }
+    
+    private func startFloating() {
+        let screenWidth = UIScreen.main.bounds.width
+        let screenHeight = UIScreen.main.bounds.height
+        
+        position = CGPoint(x: CGFloat.random(in: 0...screenWidth), y: CGFloat.random(in: 0...screenHeight))
+        
+        withAnimation(Animation.linear(duration: 10).repeatForever(autoreverses: true)) {
+            position = CGPoint(x: CGFloat.random(in: 0...screenWidth), y: CGFloat.random(in: 0...screenHeight))
+        }
+    }
+    
+    private func startRotation() {
+        withAnimation(
+            Animation.linear(duration: 10).repeatForever(autoreverses: false)
+        ) {
+            rotationAngle = 360
+        }
+    }
+}
+
+struct SettingPage1_Previews: PreviewProvider {
+    static var previews: some View {
+        SettingPage1()
+    }
+}
+
 //                .frame(width: 380, height: 150)
 //                
 //                VStack(alignment: .center, spacing: 16) {
