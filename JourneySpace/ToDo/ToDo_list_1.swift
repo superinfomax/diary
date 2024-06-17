@@ -4,7 +4,7 @@
 //
 //  Created by max on 2024/6/8.
 //  Edited by Jessie on 2024/6/8
-
+//  藍色色碼    .background(Color(red: 71/255, green: 114/255, blue: 186/255))
 
 import SwiftUI
 import SwiftData
@@ -50,7 +50,7 @@ struct TodoPage1: View {
 //                        .offset(y:-15)
                     
                     List {
-                        ForEach(items) { item in
+                        ForEach(sortedItems) { item in
                             HStack {
                                 VStack(alignment: .leading) {
                                     Text("\(item.timestamp, format: Date.FormatStyle(date: .abbreviated))")
@@ -177,7 +177,18 @@ struct TodoPage1: View {
             }
         }
     }
+    private var sortedItems: [ToDoItem] {
+            items.sorted {
+                if $0.isCritical != $1.isCritical {
+                    return $0.isCritical && !$1.isCritical
+                }
+                return $0.timestamp < $1.timestamp
+            }
+        }
 }
+
+
+
 
 struct ToDo_List_1_Previews: PreviewProvider {
     static var previews: some View {

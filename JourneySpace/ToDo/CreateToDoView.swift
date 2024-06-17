@@ -81,7 +81,7 @@ struct CreateToDoView: View {
                                             .font(.callout)
                                             .frame(width: geometry.size.width / 6, height: 50)
                                     }
-                                    .background(Color.blue)
+                                    .background(Color(red: 71/255, green: 114/255, blue: 186/255))
                                     .foregroundColor(.white)
                                     .cornerRadius(0) // 圓角設定為0，使其成為一個完整的區塊
                                 }
@@ -93,7 +93,7 @@ struct CreateToDoView: View {
                         .padding(EdgeInsets(top: 10, leading: 30, bottom: 10, trailing: 30))
             
             Toggle("Important !!!", isOn: $item.isCritical)
-                .padding(EdgeInsets(top: 0, leading: 30, bottom: 10, trailing: 30))
+                .padding(EdgeInsets(top: 10, leading: 30, bottom: 20, trailing: 30))
                 .font(.system(size: 30))
             
             Button(action: {
@@ -104,12 +104,12 @@ struct CreateToDoView: View {
             },
                label: {
                    Text("Create   ToDo !")
-                    .padding(EdgeInsets(top: 0, leading: 30, bottom: 0, trailing: 30))
+                    .padding(EdgeInsets(top: 0, leading: 40, bottom: 0, trailing: 40))
                     .fontWeight(.bold)
                     .font(.title)
             })
             .padding()
-            .background(Color.blue)
+            .background(Color(red: 71/255, green: 114/255, blue: 186/255))
             .foregroundColor(.white)
             .cornerRadius(15)
         }

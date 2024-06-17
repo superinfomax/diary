@@ -47,19 +47,20 @@ struct UpdateToDoView: View {
                                             .font(.callout)
                                             .frame(width: geometry.size.width / 6, height: 50)
                                     }
-                                    .background(Color.blue)
+//                                    .background(Color.blue)
+                                    .background(Color(red: 71/255, green: 114/255, blue: 186/255))
                                     .foregroundColor(.white)
                                     .cornerRadius(0) // 圓角設定為0，使其成為一個完整的區塊
                                 }
                             }
-                            .background(Color.blue)
+                            .background(Color(red: 71/255, green: 114/255, blue: 186/255))
                             .cornerRadius(15) // 設置整個區塊的圓角
                         }
                         .frame(height: 50)
                         .padding(EdgeInsets(top: 10, leading: 30, bottom: 10, trailing: 30))
             
             Toggle("Important !!!", isOn: $item.isCritical)
-                .padding(EdgeInsets(top: 0, leading: 30, bottom: 10, trailing: 30))
+                .padding(EdgeInsets(top: 10, leading: 30, bottom: 20, trailing: 30))
                 .font(.system(size: 30))
             
             Button("Update") {
@@ -68,7 +69,7 @@ struct UpdateToDoView: View {
             .fontWeight(.bold)
             .font(.title)
             .padding()
-            .background(Color.blue)
+            .background(Color(red: 71/255, green: 114/255, blue: 186/255))
             .foregroundColor(.white)
             .cornerRadius(15)
         }

@@ -52,7 +52,7 @@ struct SettingPage1: View {
                 }
                 .padding(.bottom, 70)
                 .alert(isPresented: $showAlert) {
-                    Alert(title: Text("恭喜!"), message: Text("你抽到了新造型，可以在背包做查看"), dismissButton: .default(Text("OK")))
+                    Alert(title: Text("恭喜!"), message: Text("你抽到了新造型，可以在背包裡查看"), dismissButton: .default(Text("OK")))
                 }
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
