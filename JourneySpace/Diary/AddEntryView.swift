@@ -5,6 +5,7 @@
 //  Created by max on 2024/6/7.
 //
 // AddEntryView.swift
+//  豆沙色號 .background(Color(red: 237/255, green: 156/255, blue: 149/255))
 import Foundation
 import SwiftUI
 
@@ -76,7 +77,7 @@ struct AddEntryView: View {
                         .frame(maxWidth: .infinity)
                         .padding()
 //                        .background(Color.blue)
-                        .background(Color(red: 237/255, green: 156/255, blue: 149/255))
+                        .background(Color(red: 249/255, green: 132/255, blue: 135/255))
                         .foregroundColor(.white)
                         .cornerRadius(10)
                         .padding(.horizontal)

@@ -39,15 +39,18 @@ struct SettingsView: View {
                         Image(systemName: "arrow.left")
                             .font(.system(size: 24))
                             .padding()
+                            .foregroundColor(.white)
                     }
                 }
                 .padding(.horizontal)
+                
                 
                 Form {
                     Section(header: Text("系統設定")) {
                         Toggle(isOn: $isScreenLockOn) {
                             Text("螢幕鎖定")
                         }
+                        .foregroundColor(.white)
                         .onChange(of: isScreenLockOn) { value in
                             if value {
                                 authenticate()
@@ -57,6 +60,7 @@ struct SettingsView: View {
                         Toggle(isOn: $isNotificationOn) {
                             Text("通知")
                         }
+                        .foregroundColor(.white)
                         .onChange(of: isNotificationOn) { value in
                             if value {
                                 requestNotificationPermission()
@@ -66,37 +70,45 @@ struct SettingsView: View {
                         NavigationLink(destination: Text("語言設定")) {
                             SettingRow1(title: "語言設定", imageName: "translate")
                         }
+                        .foregroundColor(.white)
                         
                         NavigationLink(destination: Text("可以設定幾點要通知使用者寫日記")) {
                             SettingRow1(title: "通知設定", imageName: "bell")
                         }
+                        .foregroundColor(.white)
                     }
+                    .foregroundColor(.gray)
+                    .listRowBackground(Color(red: 145/255, green: 186/255, blue: 214/255).opacity(0.2))
+
                     Section(header: Text("有關團隊")) {
                         NavigationLink(destination: TeamMemberView()) {
                             SettingRow1(title: "團隊成員", imageName: "person.2")
                         }
-                        
-                        NavigationLink(destination: 
+                        .foregroundColor(.white)
+                        NavigationLink(destination:
                                         Text("開發的 第 \(daysSinceDevelop()) 天")
                                             .font(.system(size: 18))
                                             .multilineTextAlignment(.center)
                                             .padding()) {
                             SettingRow1(title: "開發狀況", imageName: "wrench.and.screwdriver")
                         }
+                        .foregroundColor(.white)
                         
                         NavigationLink(destination: Text("我愛東華")) {
                             SettingRow1(title: "想問的資訊", imageName: "questionmark.circle")
                         }
-                        
+                        .foregroundColor(.white)
                         NavigationLink(destination: Image("senbei1").scaledToFit) {
                             SettingRow1(title: "拜訪煎餅的IG", imageName: "camera")
                         }
-                        
+                        .foregroundColor(.white)
                         NavigationLink(destination: Text("垃圾郵箱")) {
                             SettingRow1(title: "問題郵箱", imageName: "trash")
                         }
+                        .foregroundColor(.white)
                     }
-                    
+                    .foregroundColor(.gray)
+                    .listRowBackground(Color(red: 145/255, green: 186/255, blue: 214/255).opacity(0.2))
                     
                     Section {
                         NavigationLink(destination: Text("個人APP連結")) {
@@ -107,6 +119,8 @@ struct SettingsView: View {
                             SettingRow1(title: "登出", imageName: "arrowshape.turn.up.left")
                         }
                     }
+                    .foregroundColor(.white)
+                    .listRowBackground(Color(red: 145/255, green: 186/255, blue: 214/255).opacity(0.2))
                 }
                 .onAppear {
                     if isScreenLockOn {
@@ -120,8 +134,14 @@ struct SettingsView: View {
                 .alert(isPresented: $showingNotificationError) {
                     Alert(title: Text("通知失敗"), message: Text("無法開啟通知，請檢查您的設定。"), dismissButton: .default(Text("確定")))
                 }
+//                .tint(.pink)
+                .background(Color(red: 83/255, green: 68/255, blue: 107/255))
+                .scrollContentBackground(.hidden)
+                
             }
         }
+        // for navigationBar color
+        .background(Color(red: 83/255, green: 68/255, blue: 107/255))
     }
     
     func authenticate() {
@@ -170,10 +190,10 @@ struct SettingsView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 25, height: 25)
-                    .foregroundColor(.black)
+                    .foregroundColor(.white)
                     .padding(.trailing, 8)
                 Text(title)
-                    .foregroundColor(.black)
+                    .foregroundColor(.white)
                 Spacer()
             }
         }

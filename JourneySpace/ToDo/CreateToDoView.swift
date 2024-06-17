@@ -81,7 +81,8 @@ struct CreateToDoView: View {
                                             .font(.callout)
                                             .frame(width: geometry.size.width / 6, height: 50)
                                     }
-                                    .background(Color(red: 71/255, green: 114/255, blue: 186/255))
+//                                    .background(Color(red: 71/255, green: 114/255, blue: 186/255))
+                                    .background(Color(red: 112/255, green: 168/255, blue: 222/255))
                                     .foregroundColor(.white)
                                     .cornerRadius(0) // 圓角設定為0，使其成為一個完整的區塊
                                 }
@@ -109,7 +110,7 @@ struct CreateToDoView: View {
                     .font(.title)
             })
             .padding()
-            .background(Color(red: 71/255, green: 114/255, blue: 186/255))
+            .background(Color(red: 112/255, green: 168/255, blue: 222/255))
             .foregroundColor(.white)
             .cornerRadius(15)
         }

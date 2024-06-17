@@ -87,7 +87,8 @@ struct SearchView: View {
             .navigationBarTitle("Diary Library", displayMode: .inline)
             .navigationBarItems(trailing: Button("Done") {
                 presentationMode.wrappedValue.dismiss()
-            })
+            }.foregroundColor(Color(red: 249/255, green: 132/255, blue: 135/255))
+            )
         }
     }
 }

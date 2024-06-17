@@ -103,17 +103,19 @@ struct TodoPage1: View {
                                         context.delete(item)
                                     }
                                 } label: {
-//                                            Image(systemName: "trash")
-//                                                .foregroundColor(.white)
-//                                                .font(.system(size: 20))
-                                    Image(uiImage: UIImage(systemName: "trash")!.withTintColor(.red, renderingMode: .alwaysOriginal))
+//                                  Image(systemName: "trash")
+//                                      .foregroundColor(.white)
+//                                      .font(.system(size: 20))
+//                                    Image(uiImage: UIImage(systemName:    "trash")!.withTintColor(.red, renderingMode: .alwaysOriginal))
+                                    Image("trashCan_icon_ToDo")
                                 }
                                 .tint(.clear)
                                 
                                 Button {
                                     toDoToEdit = item
                                 } label: {
-                                    Image(uiImage: UIImage(systemName: "square.and.pencil")!.withTintColor(.white, renderingMode: .alwaysOriginal))
+//                                    Image(uiImage: UIImage(systemName: "square.and.pencil")!.withTintColor(.white, renderingMode: .alwaysOriginal))
+                                    Image("edit_icon_ToDo")
                                     
                                 }
                                 .tint(.clear)
@@ -124,7 +126,7 @@ struct TodoPage1: View {
                                         item.isCompleted.toggle()
                                     }
                                 } label: {
-                                    Image(uiImage: UIImage(systemName: "checkmark.circle")!.withTintColor(.green, renderingMode: .alwaysOriginal))
+                                    Image(uiImage: UIImage(systemName: "checkmark.circle.fill")!.withTintColor(.green, renderingMode: .alwaysOriginal))
                                     }
                                     .tint(.clear)
                                 }
