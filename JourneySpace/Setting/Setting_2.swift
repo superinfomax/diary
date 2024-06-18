@@ -78,7 +78,7 @@ struct SettingsView: View {
                         .foregroundColor(.white)
                     }
                     .foregroundColor(.gray)
-                    .listRowBackground(Color(red: 145/255, green: 186/255, blue: 214/255).opacity(0.2))
+                    .listRowBackground(Color(red: 144/255, green: 132/255, blue: 204/255))
 
                     Section(header: Text("有關團隊")) {
                         NavigationLink(destination: TeamMemberView()) {
@@ -108,7 +108,7 @@ struct SettingsView: View {
                         .foregroundColor(.white)
                     }
                     .foregroundColor(.gray)
-                    .listRowBackground(Color(red: 145/255, green: 186/255, blue: 214/255).opacity(0.2))
+                    .listRowBackground(Color(red: 144/255, green: 132/255, blue: 204/255))
                     
                     Section {
                         NavigationLink(destination: Text("個人APP連結")) {
@@ -120,7 +120,7 @@ struct SettingsView: View {
                         }
                     }
                     .foregroundColor(.white)
-                    .listRowBackground(Color(red: 145/255, green: 186/255, blue: 214/255).opacity(0.2))
+                    .listRowBackground(Color(red: 144/255, green: 132/255, blue: 204/255))
                 }
                 .onAppear {
                     if isScreenLockOn {
@@ -134,14 +134,14 @@ struct SettingsView: View {
                 .alert(isPresented: $showingNotificationError) {
                     Alert(title: Text("通知失敗"), message: Text("無法開啟通知，請檢查您的設定。"), dismissButton: .default(Text("確定")))
                 }
-//                .tint(.pink)
-                .background(Color(red: 83/255, green: 68/255, blue: 107/255))
+                .tint(Color(red: 34/255, green: 40/255, blue: 64/255))
+                .background(Color(red: 34/255, green: 40/255, blue: 64/255))
                 .scrollContentBackground(.hidden)
                 
             }
         }
         // for navigationBar color
-        .background(Color(red: 83/255, green: 68/255, blue: 107/255))
+        .background(Color(red: 34/255, green: 40/255, blue: 64/255))
     }
     
     func authenticate() {
