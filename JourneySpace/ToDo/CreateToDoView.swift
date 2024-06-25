@@ -58,17 +58,22 @@ struct CreateToDoView: View {
                 .padding(EdgeInsets(top: 0, leading: 30, bottom: 5, trailing: 30))
             
             
-            HStack {
-                Spacer()
-                Text("TIME")
-                    .font(.system(size: 30))
-                    .foregroundColor(.gray)
-                Spacer()
-            }
+//            HStack {
+//                Spacer()
+//                Text("TIME")
+//                    .font(.system(size: 30))
+//                    .foregroundColor(.gray)
+//                Spacer()
+//            }
             DatePicker("", selection: $item.timestamp)
-                .datePickerStyle(.wheel)
+//                .datePickerStyle(.wheel)
+                .datePickerStyle(GraphicalDatePickerStyle())
                 .padding(EdgeInsets(top: 0, leading: 30, bottom: 5, trailing: 30))
                 .font(.system(size: 30))
+                .accentColor(Color(red: 112/255, green: 168/255, blue: 222/255))
+//                如果想要有比較小size的datepicker 可以把下面註解取消
+//                .frame(width: 320)
+//                .presentationCompactAdaptation(.popover)
 
             GeometryReader { geometry in
                             HStack(spacing: 0) {
