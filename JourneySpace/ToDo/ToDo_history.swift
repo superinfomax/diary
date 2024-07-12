@@ -22,6 +22,25 @@ struct ToDo_history: View {
     
     @State private var currentImage: String = "eatTrashYelo"
     
+    //設定返回鍵顏色
+    init() {
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = .clear
+        appearance.shadowColor = .clear
+        appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
+        appearance.setBackIndicatorImage(UIImage(systemName: "chevron.backward"), transitionMaskImage: UIImage(systemName: "chevron.backward"))
+        UINavigationBar.appearance().tintColor = .white
+            
+        // 設置返回鍵的顏色
+        appearance.backButtonAppearance.normal.titleTextAttributes = [.foregroundColor:UIColor.white]
+            
+        UINavigationBar.appearance().standardAppearance = appearance
+        UINavigationBar.appearance().scrollEdgeAppearance = appearance
+        UINavigationBar.appearance().compactAppearance = appearance
+    }
+    
     var body: some View {
         ZStack {
             Image("todo_HistoryBackground")
