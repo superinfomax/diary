@@ -6,28 +6,38 @@
 //
 
 import SwiftUI
-import Foundation
 
 struct BackpageView: View {
-    let prizeImage: String?
+    let prizes: [Prize] // 獎品和名稱的數組
+    
+    let columns = [
+        GridItem(.flexible()),
+        GridItem(.flexible()),
+        GridItem(.flexible())
+    ]
     
     var body: some View {
-        VStack {
-            if let prizeImage = prizeImage {
-                Image(prizeImage)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 200, height: 200)
-                    .padding()
-                Text("這是你獲得的新造型")
-                    .font(.title)
-                    .padding()
-            } else {
-                Text("還沒有造型喔")
-                    .font(.title)
-                    .padding()
+        ScrollView {
+            LazyVGrid(columns: columns, spacing: 20) {
+                ForEach(prizes, id: \.self) { prize in
+                    VStack {
+                        Image(prize.imageName)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 100, height: 100)
+                            .padding()
+                        Text(prize.name)
+                            .font(.caption)
+                    }
+                }
             }
+            .padding()
         }
-        .navigationTitle("Your Prize")
+        .navigationTitle("Your Prizes")
     }
+}
+
+struct Prize: Hashable {
+    let imageName: String
+    let name: String
 }

@@ -10,10 +10,19 @@ struct SettingPage1: View {
     @State private var rotationAngle: Double = 0
     @State private var isPressed: Bool = false
     @State private var showAlert: Bool = false
-    @State private var prizeImage: String? = nil
-    @State private var showPrizeImage: String? = nil
+    @State private var prizeImage: Prize? = nil
+    @State private var showPrizeImage: Prize? = nil
+    @State private var collectedPrizes: [Prize] = []
+    
     let floatingImages = ["Charlie_K", "Kevin_C", "triangleYelo", "2pCharlie", "2pKevin", "2pYelo"]
-    let prizes = ["Charlie_K", "Kevin_C", "triangleYelo", "2pCharlie", "2pKevin", "2pYelo"]
+    let prizes = [
+        Prize(imageName: "Charlie_K", name: "Charlie"),
+        Prize(imageName: "Kevin_C", name: "Kevin"),
+        Prize(imageName: "triangleYelo", name: "Triangle Yelo"),
+        Prize(imageName: "2pCharlie", name: "2P Charlie"),
+        Prize(imageName: "2pKevin", name: "2P Kevin"),
+        Prize(imageName: "2pYelo", name: "2P Yelo")
+    ]
     
     var body: some View {
         NavigationView {
@@ -35,6 +44,9 @@ struct SettingPage1: View {
                             if isPressed {
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                                     prizeImage = prizes.randomElement()
+                                    if let prizeImage = prizeImage {
+                                        collectedPrizes.append(prizeImage)
+                                    }
                                     showPrizeImage = prizeImage
                                     showAlert = true
                                     isPressed = false
@@ -56,7 +68,7 @@ struct SettingPage1: View {
                 }
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
-                        NavigationLink(destination: BackpageView(prizeImage: showPrizeImage)) {
+                        NavigationLink(destination: BackpageView(prizes: collectedPrizes)) {
                             Image(systemName: "backpack.fill")
                                 .font(.system(size: 24))
                                 .foregroundColor(.gray)

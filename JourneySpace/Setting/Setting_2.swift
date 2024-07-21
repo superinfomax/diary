@@ -79,7 +79,7 @@ struct SettingsView: View {
                     }
                     .foregroundColor(.gray)
                     .listRowBackground(Color(red: 144/255, green: 132/255, blue: 204/255))
-
+                    
                     Section(header: Text("有關團隊")) {
                         NavigationLink(destination: TeamMemberView()) {
                             SettingRow1(title: "團隊成員", imageName: "person.2")
@@ -87,12 +87,12 @@ struct SettingsView: View {
                         .foregroundColor(.white)
                         NavigationLink(destination:
                                         Text("開發的 第 \(daysSinceDevelop()) 天")
-                                            .font(.system(size: 18))
-                                            .multilineTextAlignment(.center)
-                                            .padding()) {
-                            SettingRow1(title: "開發狀況", imageName: "wrench.and.screwdriver")
-                        }
-                        .foregroundColor(.white)
+                            .font(.system(size: 18))
+                            .multilineTextAlignment(.center)
+                            .padding()) {
+                                SettingRow1(title: "開發狀況", imageName: "wrench.and.screwdriver")
+                            }
+                            .foregroundColor(.white)
                         
                         NavigationLink(destination: Text("我愛東華")) {
                             SettingRow1(title: "想問的資訊", imageName: "questionmark.circle")
