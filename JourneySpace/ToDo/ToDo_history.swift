@@ -49,6 +49,7 @@ struct ToDo_history: View {
                 .edgesIgnoringSafeArea(.all)
             
             VStack {
+                Spacer()    //entry不會太靠近返回按鈕
                 List {
                     ForEach(sortedItems) { item in
                         HStack {
