@@ -11,6 +11,9 @@ struct FirstPage1: View {
     @State private var rotationAngle: Double = 0
     @State private var yeloImageName: String = "firstYelo"
     @Environment(\.scenePhase) var scenePhase
+    @State private var offset: CGFloat = 0
+    @State private var isDragging: Bool = false
+    @State private var currentView: String = "FirstPage1"
     
     let yeloImages = ["firstYelo", "firstCharlie", "firstKevin"]
     let quotes = [
@@ -92,6 +95,47 @@ struct FirstPage1: View {
     
     var body: some View {
         ZStack {
+            // 當前的視圖
+            if currentView == "FirstPage1" {
+                firstPageView
+            } else if currentView == "Cockpit" {
+                Cockpit()
+            }
+        }
+        .offset(x: offset)
+        .gesture(
+            DragGesture()
+                .onChanged { value in
+                    isDragging = true
+                    offset = value.translation.width
+                }
+                .onEnded { value in
+                    if value.translation.width < -100 && currentView == "FirstPage1" {
+                        // 左滑，切換到Cockpit
+                        switchToNextView(direction: "left")
+                    } else if value.translation.width > 100 && currentView == "FirstPage1" {
+                        // 右滑，切換到FirstPage1
+                        switchToNextView(direction: "right")
+                    } else if value.translation.width < -100 && currentView == "Cockpit" {
+                        // 右滑，切換到FirstPage1
+                        switchToPreviousView(direction: "left")
+                    } else if value.translation.width > 100 && currentView == "Cockpit" {
+                        // 右滑，切換到FirstPage1
+                        switchToPreviousView(direction: "right")
+                    } else {
+                        // 恢復原狀
+                        withAnimation {
+                            offset = 0
+                        }
+                    }
+                    isDragging = false
+                }
+        )
+        .animation(.easeInOut, value: offset)
+    }
+    
+    var firstPageView: some View {
+        ZStack {
             Image(yeloImageName)
                 .resizable()
                 .scaledToFit()
@@ -117,8 +161,9 @@ struct FirstPage1: View {
         .background(
             Image("firstSpace")
                 .resizable()
-                .scaledToFill()
+                .scaledToFit()
                 .rotationEffect(.degrees(rotationAngle))
+                .offset(y: -80)
                 .onAppear {
                     startRotation()
                     randomizeImages()
@@ -129,6 +174,54 @@ struct FirstPage1: View {
             if newScenePhase == .active {
                 randomizeImages()
                 randomizeQuote()
+            }
+        }
+    }
+    
+    func switchToNextView(direction: String) {
+        withAnimation {
+            if direction == "left" {
+                offset = -400 // 偏移視圖
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    currentView = "Cockpit"
+                    offset = 400
+                    withAnimation {
+                        offset = 0
+                    }
+                }
+            } else {
+                offset = 400 // 偏移視圖
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    currentView = "Cockpit"
+                    offset = -400
+                    withAnimation {
+                        offset = 0
+                    }
+                }
+            }
+        }
+    }
+
+    func switchToPreviousView(direction: String) {
+        withAnimation {
+            if direction == "left" {
+                offset = -400 // 偏移視圖
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    currentView = "FirstPage1"
+                    offset = 400
+                    withAnimation {
+                        offset = 0
+                    }
+                }
+            } else {
+                offset = 400 // 偏移視圖
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    currentView = "FirstPage1"
+                    offset = -400
+                    withAnimation {
+                        offset = 0
+                    }
+                }
             }
         }
     }
