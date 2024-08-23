@@ -30,7 +30,7 @@ struct ToolBar: View {
                 }
                 .tag(2)
             
-            SettingPage1()
+            SettingsView()
                 .tabItem {
                     Image("tapBar4_" + (selectedTab == 3 ? "2" : "1"))
                 }
