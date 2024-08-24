@@ -98,8 +98,8 @@ struct FirstPage1: View {
             // 當前的視圖
             if currentView == "FirstPage1" {
                 firstPageView
-            } else if currentView == "Cockpit" {
-                Cockpit()
+            } else if currentView == "BlackHoleView" {
+                BlackHoleView()
             }
         }
         .offset(x: offset)
@@ -111,15 +111,15 @@ struct FirstPage1: View {
                 }
                 .onEnded { value in
                     if value.translation.width < -100 && currentView == "FirstPage1" {
-                        // 左滑，切換到Cockpit
+                        // 左滑，切換到BlackHoleView
                         switchToNextView(direction: "left")
                     } else if value.translation.width > 100 && currentView == "FirstPage1" {
-                        // 右滑，切換到FirstPage1
+                        // 右滑，切換到BlackHoleView
                         switchToNextView(direction: "right")
-                    } else if value.translation.width < -100 && currentView == "Cockpit" {
+                    } else if value.translation.width < -100 && currentView == "BlackHoleView" {
                         // 右滑，切換到FirstPage1
                         switchToPreviousView(direction: "left")
-                    } else if value.translation.width > 100 && currentView == "Cockpit" {
+                    } else if value.translation.width > 100 && currentView == "BlackHoleView" {
                         // 右滑，切換到FirstPage1
                         switchToPreviousView(direction: "right")
                     } else {
@@ -183,7 +183,7 @@ struct FirstPage1: View {
             if direction == "left" {
                 offset = -400 // 偏移視圖
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                    currentView = "Cockpit"
+                    currentView = "BlackHoleView"
                     offset = 400
                     withAnimation {
                         offset = 0
@@ -192,7 +192,7 @@ struct FirstPage1: View {
             } else {
                 offset = 400 // 偏移視圖
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                    currentView = "Cockpit"
+                    currentView = "BlackHoleView"
                     offset = -400
                     withAnimation {
                         offset = 0

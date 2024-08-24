@@ -6,7 +6,7 @@
 //
 import SwiftUI
 
-struct SettingPage1: View {
+struct BlackHoleView: View {
     @State private var rotationAngle: Double = 0
     @State private var isPressed: Bool = false
     @State private var showAlert: Bool = false
@@ -27,15 +27,12 @@ struct SettingPage1: View {
     var body: some View {
         NavigationView {
             ZStack {
-                Image("drawSpace")
-                    .resizable()
-                    .scaledToFill()
-                    .edgesIgnoringSafeArea(.all)
-                
                 ForEach(floatingImages, id: \.self) { imageName in
                     FloatingImage(imageName: imageName)
                 }
                 
+                Image("blackholeCockpit")
+            
                 VStack {
                     Spacer()
                     Button(action: {
@@ -74,15 +71,21 @@ struct SettingPage1: View {
                                 .foregroundColor(.gray)
                         }
                     }
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        NavigationLink(destination: SettingsView()) {
-                            Image(systemName: "gearshape")
-                                .font(.system(size: 24))
-                                .foregroundColor(.gray)
-                        }
-                    }
+//                    ToolbarItem(placement: .navigationBarTrailing) {
+//                        NavigationLink(destination: SettingsView()) {
+//                            Image(systemName: "gearshape")
+//                                .font(.system(size: 24))
+//                                .foregroundColor(.gray)
+//                        }
+//                    }
                 }
             }
+            .background(
+                Image("drawSpace")
+                    .resizable()
+                    .scaledToFill()
+                    .edgesIgnoringSafeArea(.all)
+            )
         }
     }
     
@@ -134,8 +137,8 @@ struct FloatingImage: View {
     }
 }
 
-struct SettingPage1_Previews: PreviewProvider {
+struct BlackHoleView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingPage1()
+        BlackHoleView()
     }
 }

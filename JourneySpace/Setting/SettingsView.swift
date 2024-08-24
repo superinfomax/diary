@@ -32,17 +32,17 @@ struct SettingsView: View {
     var body: some View {
         ZStack {
             VStack(alignment: .leading, spacing: 1) {
-                HStack {
-                    Button(action: {
-                        presentationMode.wrappedValue.dismiss()
-                    }) {
-                        Image(systemName: "arrow.left")
-                            .font(.system(size: 24))
-                            .padding()
-                            .foregroundColor(.white)
-                    }
-                }
-                .padding(.horizontal)
+//                HStack {
+//                    Button(action: {
+//                        presentationMode.wrappedValue.dismiss()
+//                    }) {
+//                        Image(systemName: "arrow.left")
+//                            .font(.system(size: 24))
+//                            .padding()
+//                            .foregroundColor(.white)
+//                    }
+//                }
+//                .padding(.horizontal)
                 
                 
                 Form {
