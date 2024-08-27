@@ -57,6 +57,7 @@ struct BlackHoleView: View {
 //                            .onAppear {
 //                                startRotation()
                         }
+                        .padding(.bottom, 270)
                     }
                 }
                 .padding(.bottom, 70)
