@@ -51,12 +51,12 @@ struct BlackHoleView: View {
                             }
                         }
                     }) {
-                        Image("blackhole")
-                            .rotationEffect(.degrees(rotationAngle))
-                            .scaleEffect(isPressed ? 2.0 : 1.0) // Animate scale when pressed
-                            .onAppear {
-                                startRotation()
-                            }
+                        Image("blackholeButton")
+//                            .rotationEffect(.degrees(rotationAngle))
+                            .scaleEffect(isPressed ? 1.2 : 1.0) // Animate scale when pressed
+//                            .onAppear {
+//                                startRotation()
+                        }
                     }
                 }
                 .padding(.bottom, 70)
@@ -79,25 +79,25 @@ struct BlackHoleView: View {
 //                        }
 //                    }
                 }
+                .background(
+                    Image("drawSpace")
+                        .resizable()
+                        .scaledToFill()
+                        .edgesIgnoringSafeArea(.all)
+                )
             }
-            .background(
-                Image("drawSpace")
-                    .resizable()
-                    .scaledToFill()
-                    .edgesIgnoringSafeArea(.all)
-            )
         }
     }
     
-    func startRotation() {
-        withAnimation(
-            Animation.linear(duration: 5)
-                .repeatForever(autoreverses: false)
-        ) {
-            rotationAngle = 360
-        }
-    }
-}
+//    func startRotation() {
+//        withAnimation(
+//            Animation.linear(duration: 5)
+//                .repeatForever(autoreverses: false)
+//        ) {
+//            rotationAngle = 360
+//        }
+//    }
+//}
 
 struct FloatingImage: View {
     let imageName: String
