@@ -32,6 +32,7 @@ struct TodoPage1: View {
     
     var body: some View {
         NavigationStack {
+            
             ZStack {
                 Image("yeloplanet")
                         .resizable()
@@ -116,9 +117,9 @@ struct TodoPage1: View {
                                 } label: {
 //                                    Image(uiImage: UIImage(systemName: "square.and.pencil")!.withTintColor(.white,                                            renderingMode: .alwaysOriginal))
                                     Image("edit_icon_ToDo")
-                                    
                                 }
                                 .tint(.clear)
+                                .border(Color.red, width: 5)
                             }
                             .swipeActions(edge: .leading) {
                                 Button (role: .destructive){
@@ -148,11 +149,13 @@ struct TodoPage1: View {
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     HStack {
-                        Text("ToDo")
-                            .font(.system(size: 60))
-                            .bold()
-                            .foregroundColor(Color.white)
-                            .offset(y:10)
+                        Spacer()
+//                        Text("ToDo")
+//                            .font(.system(size: 60))
+//                            .bold()
+//                            .foregroundColor(Color.white)
+//                            .offset(y:10)
+                        
                         Button(action: {
                             showCreate.toggle()
                         }, label: {
@@ -173,6 +176,13 @@ struct TodoPage1: View {
                     }
                 }
             }
+            Text("ToDo")
+                .font(.system(size: 60))
+                .bold()
+                .foregroundColor(Color.white)
+                .offset(y:10)
+                .position(x:85, y: -760)
+            
             .sheet(isPresented: $showCreate, content: {
                 NavigationStack {
                     CreateToDoView()
