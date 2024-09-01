@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		3136A84F2C184F13006D40CD /* test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3136A84E2C184F13006D40CD /* test.swift */; };
-		31F16E162C75BF1900C479AA /* OutsideTheCockpit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F16E152C75BF1900C479AA /* OutsideTheCockpit.swift */; };
 		31FA66C82C1ECEFE00285505 /* BackpageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FA66C72C1ECEFE00285505 /* BackpageView.swift */; };
 		402E813D2C28BBA4003481F7 /* ToDo_history.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402E813C2C28BBA4003481F7 /* ToDo_history.swift */; };
 		405D510C2C1748F20078CC17 /* UpdateToDoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405D510B2C1748F20078CC17 /* UpdateToDoView.swift */; };
@@ -54,7 +53,6 @@
 
 /* Begin PBXFileReference section */
 		3136A84E2C184F13006D40CD /* test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
-		31F16E152C75BF1900C479AA /* OutsideTheCockpit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutsideTheCockpit.swift; sourceTree = "<group>"; };
 		31FA66C72C1ECEFE00285505 /* BackpageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackpageView.swift; sourceTree = "<group>"; };
 		402E813C2C28BBA4003481F7 /* ToDo_history.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDo_history.swift; sourceTree = "<group>"; };
 		405D510B2C1748F20078CC17 /* UpdateToDoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateToDoView.swift; sourceTree = "<group>"; };
@@ -175,7 +173,6 @@
 				500A1D052C1330DE004755EB /* LoginView.swift */,
 				500A1D072C133444004755EB /* ToolBar.swift */,
 				500A1D0F2C1497FC004755EB /* FirstPage.swift */,
-				31F16E152C75BF1900C479AA /* OutsideTheCockpit.swift */,
 				50CEE4E82C1757070066BE72 /* Diary */,
 				405D510D2C17546C0078CC17 /* ToDo */,
 				50CEE4E92C17571C0066BE72 /* Setting */,
@@ -349,7 +346,6 @@
 				500A1D0E2C1496F7004755EB /* BlackHoleView.swift in Sources */,
 				500A1D042C13307C004755EB /* AddEntryView.swift in Sources */,
 				50F72D512C033A2400F5BBBA /* DiaryView.swift in Sources */,
-				31F16E162C75BF1900C479AA /* OutsideTheCockpit.swift in Sources */,
 				500A1D022C133060004755EB /* DiaryEntry.swift in Sources */,
 				50F72D4F2C033A2400F5BBBA /* JourneySpaceApp.swift in Sources */,
 				31FA66C82C1ECEFE00285505 /* BackpageView.swift in Sources */,
