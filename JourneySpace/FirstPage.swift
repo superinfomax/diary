@@ -92,6 +92,8 @@ struct FirstPage1: View {
         "當你的左臉被人打，那你的左臉就會痛"
     ]
     @State private var currentQuote: String = ""
+    @State private var RightisBlinking = false // 控制閃爍效果
+    @State private var LeftisBlinking = false
     
     var body: some View {
         ZStack {
@@ -156,6 +158,27 @@ struct FirstPage1: View {
                     )
             }
             .padding(.top, 70)
+            Image(systemName: "chevron.right")
+                .foregroundColor(.white)
+                .font(.system(size: 50))
+                .padding(.leading, 320)
+                .opacity(RightisBlinking ? 0.2 : 0.7) // 不透明度變化
+                .onAppear {
+                    withAnimation(Animation.easeInOut(duration: 1.0).repeatForever(autoreverses: true)) {
+                        RightisBlinking.toggle() // 觸發狀態變化來開始閃爍
+                    }
+                }
+            
+            Image(systemName: "chevron.left")
+                .foregroundColor(.white)
+                .font(.system(size: 50))
+                .padding(.trailing, 320)
+                .opacity(LeftisBlinking ? 0.2 : 0.7) // 不透明度變化
+                .onAppear {
+                    withAnimation(Animation.easeInOut(duration: 1.0).repeatForever(autoreverses: true)) {
+                        LeftisBlinking.toggle() // 觸發狀態變化來開始閃爍
+                    }
+                }
         }
         .frame(width: 400, height: 932)
         .background(

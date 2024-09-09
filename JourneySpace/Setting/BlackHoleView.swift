@@ -13,6 +13,8 @@ struct BlackHoleView: View {
     @State private var prizeImage: Prize? = nil
     @State private var showPrizeImage: Prize? = nil
     @State private var collectedPrizes: [Prize] = []
+    @State private var RightisBlinking = false // 控制閃爍效果
+    @State private var LeftisBlinking = false
     
     let floatingImages = ["Charlie_K", "Kevin_C", "triangleYelo", "2pCharlie", "2pKevin", "2pYelo"]
     let prizes = [
@@ -59,6 +61,27 @@ struct BlackHoleView: View {
                         }
                         .padding(.bottom, 270)
                     }
+                    Image(systemName: "chevron.right")
+                        .foregroundColor(.white)
+                        .font(.system(size: 50))
+                        .padding(.leading, 320)
+                        .opacity(RightisBlinking ? 0.2 : 0.7) // 不透明度變化
+                        .onAppear {
+                            withAnimation(Animation.easeInOut(duration: 1.0).repeatForever(autoreverses: true)) {
+                                RightisBlinking.toggle() // 觸發狀態變化來開始閃爍
+                            }
+                        }
+                    
+                    Image(systemName: "chevron.left")
+                        .foregroundColor(.white)
+                        .font(.system(size: 50))
+                        .padding(.trailing, 320)
+                        .opacity(LeftisBlinking ? 0.2 : 0.7) // 不透明度變化
+                        .onAppear {
+                            withAnimation(Animation.easeInOut(duration: 1.0).repeatForever(autoreverses: true)) {
+                                LeftisBlinking.toggle() // 觸發狀態變化來開始閃爍
+                            }
+                        }
                 }
                 .padding(.bottom, 70)
                 .alert(isPresented: $showAlert) {
