@@ -16,7 +16,7 @@ struct DiaryView: View {
     private var currentDateComponents: (String, String, String) {
         let dateFormatter = DateFormatter()
         
-        dateFormatter.dateFormat = "MMMM"
+        dateFormatter.dateFormat = "MMM"
         let monthDate = dateFormatter.string(from: Date())
         
         dateFormatter.dateFormat = "dd"
