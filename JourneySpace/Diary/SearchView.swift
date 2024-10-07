@@ -135,7 +135,7 @@ struct SearchBar: UIViewRepresentable {
         let searchBar = UISearchBar(frame: .zero)
         searchBar.delegate = context.coordinator
         searchBar.placeholder = "Search entries"
-        searchBar.showsCancelButton = true
+        searchBar.showsCancelButton = false
         searchBar.searchBarStyle = .minimal
         searchBar.setBackgroundImage(UIImage(), for: .any, barMetrics: .default)
         return searchBar
