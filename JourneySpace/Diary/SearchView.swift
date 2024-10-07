@@ -16,19 +16,19 @@ struct SearchView: View {
         if searchText.isEmpty {
             return entries
         } else {
-            return entries.filter { $0.title.contains(searchText) || $0.content.contains(searchText) }
+            return entries.filter { $0.title.localizedCaseInsensitiveContains(searchText) || $0.content.localizedCaseInsensitiveContains(searchText) }
         }
     }
     
     var sortedEntries: [String: [DiaryEntry]] {
         let groupedEntries = Dictionary(grouping: filteredEntries) { entry in
-            String(entry.title.prefix(1)).uppercased()
+            entry.title.isEmpty ? "#" : String(entry.title.prefix(1)).uppercased()
         }
         return groupedEntries.mapValues { $0.sorted { $0.title < $1.title } }
     }
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack(spacing: 0) {
                 SearchBar(text: $searchText)
                     .padding(.top, 8)
@@ -43,6 +43,7 @@ struct SearchView: View {
                             .foregroundColor(.gray)
                         Text("No Results for \"\(searchText)\"")
                             .font(.headline)
+                            .truncationMode(.tail)
                             .padding(.top, 8)
                         Text("Check the spelling or try a new search.")
                             .font(.subheadline)
@@ -60,6 +61,7 @@ struct SearchView: View {
                                         HStack(spacing: 12) {
                                             Image(entry.emoji)
                                                 .resizable()
+                                                .scaledToFit()
                                                 .frame(width: 40, height: 40)
                                                 .padding(8)
                                                 .background(Color(UIColor.systemGray5))
@@ -67,9 +69,10 @@ struct SearchView: View {
                                             VStack(alignment: .leading, spacing: 4) {
                                                 Text(entry.title)
                                                     .font(.headline)
+                                                    .bold()
                                                 Text(entry.content)
                                                     .font(.subheadline)
-                                                    .lineLimit(2)
+                                                    .lineLimit(nil)
                                                 Text(entry.date, style: .date)
                                                     .font(.footnote)
                                                     .foregroundColor(.gray)
