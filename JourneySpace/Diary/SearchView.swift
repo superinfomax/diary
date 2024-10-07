@@ -87,8 +87,15 @@ struct SearchView: View {
             .navigationBarTitle("Diary Library", displayMode: .inline)
             .navigationBarItems(trailing: Button("Done") {
                 presentationMode.wrappedValue.dismiss()
-            }.foregroundColor(Color(red: 249/255, green: 132/255, blue: 135/255))
-            )
+            }.foregroundColor(Color(red: 249/255, green: 132/255, blue: 135/255)))
+            .onAppear {
+                let appearance = UINavigationBarAppearance()
+                appearance.configureWithOpaqueBackground()
+                appearance.titleTextAttributes = [.foregroundColor: UIColor.black]
+                appearance.backgroundColor = UIColor.systemGray6
+                UINavigationBar.appearance().standardAppearance = appearance
+                UINavigationBar.appearance().scrollEdgeAppearance = appearance
+            }
         }
     }
 }
