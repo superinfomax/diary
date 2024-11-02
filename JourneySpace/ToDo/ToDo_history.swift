@@ -30,7 +30,8 @@ struct ToDo_history: View {
         appearance.shadowColor = .clear
         appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
         appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
-        appearance.setBackIndicatorImage(UIImage(systemName: "chevron.backward"), transitionMaskImage: UIImage(systemName: "chevron.backward"))
+        appearance.setBackIndicatorImage(UIImage(systemName: "chevron.backward"),
+                                         transitionMaskImage: UIImage(systemName: "chevron.backward"))
         UINavigationBar.appearance().tintColor = .white
             
         // 設置返回鍵的顏色

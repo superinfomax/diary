@@ -16,6 +16,26 @@ struct BlackHoleView: View {
     @State private var RightisBlinking = false // 控制閃爍效果
     @State private var LeftisBlinking = false
     
+    init() {
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = .clear
+        appearance.shadowColor = .clear
+        appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.systemBlue]
+        appearance.setBackIndicatorImage(UIImage(systemName: "chevron.backward"),
+                                         transitionMaskImage: UIImage(systemName: "chevron.backward"))
+        UINavigationBar.appearance().tintColor = .white
+            
+        // 設置返回鍵的顏色
+        appearance.backButtonAppearance.normal.titleTextAttributes = [.foregroundColor:UIColor.systemBlue]
+            
+        UINavigationBar.appearance().standardAppearance = appearance
+        UINavigationBar.appearance().scrollEdgeAppearance = appearance
+        UINavigationBar.appearance().compactAppearance = appearance
+        
+    }
+    
     let floatingImages = ["Charlie_K", "Kevin_C", "triangleYelo", "2pCharlie", "2pKevin", "2pYelo"]
     let prizes = [
         Prize(imageName: "Charlie_K", name: "Charlie"),

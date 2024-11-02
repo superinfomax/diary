@@ -149,12 +149,12 @@ struct TodoPage1: View {
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     HStack {
-                        Spacer()
-//                        Text("ToDo")
-//                            .font(.system(size: 60))
-//                            .bold()
-//                            .foregroundColor(Color.white)
-//                            .offset(y:10)
+                        //下面的ToDo是暫時用來修NavigationLink from ToDo_history 的 bug（object not at the right postition）
+                        Text("ToDo")
+                            .font(.system(size: 60))
+                            .bold()
+                            .foregroundColor(Color.clear)
+                            .offset(y:10)
                         
                         Button(action: {
                             showCreate.toggle()
@@ -172,6 +172,7 @@ struct TodoPage1: View {
                                 .foregroundColor(.white)
                                 .bold()
                                 .offset(y:10)
+                                .padding(.leading,110)
                         }
                     }
                 }
@@ -181,7 +182,7 @@ struct TodoPage1: View {
                 .bold()
                 .foregroundColor(Color.white)
                 .offset(y:10)
-                .position(x:85, y: -760)
+                .position(x:85, y: -775)
             
             .sheet(isPresented: $showCreate, content: {
                 NavigationStack {
