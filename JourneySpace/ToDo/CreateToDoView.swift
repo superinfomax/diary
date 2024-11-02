@@ -8,13 +8,13 @@
 //import SwiftUI
 //
 //struct CreateToDoView: View {
-//    
+//
 //    @Environment(\.dismiss) var dismiss
-//    
+//
 //    @Binding var todos: [ToDoItem]
-//    
+//
 //    @State private var item = ToDoItem()
-//    
+//
 //    var body: some View {
 //        List {
 //            TextField("Title", text: $item.title)
@@ -44,6 +44,7 @@ struct CreateToDoView: View {
     @Environment(\.modelContext) var context
     
     @State private var item = ToDoItem()
+    @State private var selectedDate = Date() // 獨立的日期狀態變數
     
     
     var body: some View {
@@ -55,7 +56,7 @@ struct CreateToDoView: View {
                 .font(.system(size: 30))
             
             Divider()
-                .padding(EdgeInsets(top: 0, leading: 30, bottom: 5, trailing: 30))
+                .padding(EdgeInsets(top: 0, leading: 30, bottom: 0, trailing: 30))
             
             
 //            HStack {
@@ -65,12 +66,11 @@ struct CreateToDoView: View {
 //                    .foregroundColor(.gray)
 //                Spacer()
 //            }
-            DatePicker("", selection: $item.timestamp)
-//                .datePickerStyle(.wheel)
-                .datePickerStyle(GraphicalDatePickerStyle())
-                .padding(EdgeInsets(top: 0, leading: 30, bottom: 5, trailing: 30))
-                .font(.system(size: 30))
-                .accentColor(Color(red: 112/255, green: 168/255, blue: 222/255))
+            DatePicker("Date & Time", selection: $selectedDate, displayedComponents: [.date, .hourAndMinute])
+                            .datePickerStyle(GraphicalDatePickerStyle())
+                            .padding(EdgeInsets(top: 0, leading: 30, bottom: 5, trailing: 30))
+                            .font(.system(size: 30))
+                            .accentColor(Color(red: 112/255, green: 168/255, blue: 222/255))
 //                如果想要有比較小size的datepicker 可以把下面註解取消
 //                .frame(width: 320)
 //                .presentationCompactAdaptation(.popover)
@@ -79,7 +79,15 @@ struct CreateToDoView: View {
                             HStack(spacing: 0) {
                                 ForEach([300, 600, 900, 1800, 3600, 7200], id: \.self) { interval in
                                     Button(action: {
-                                        item.timestamp = Date().addingTimeInterval(TimeInterval(interval))
+//                                        item.timestamp = Date().addingTimeInterval(TimeInterval(interval))
+                                        let newTime = Calendar.current.date(byAdding: .second, value: interval, to: Date())!
+                                                                    selectedDate = Calendar.current.date(
+                                                                        bySettingHour: Calendar.current.component(.hour, from: newTime),
+                                                                        minute: Calendar.current.component(.minute, from: newTime),
+                                                                        second: 0,
+                                                                        of: selectedDate
+                                                                    ) ?? selectedDate
+                                            item.timestamp = selectedDate // 更新 item 的時間戳
                                     }) {
                                         Text("\(interval / 60)")
                                             .fontWeight(.bold)
@@ -104,6 +112,7 @@ struct CreateToDoView: View {
             
             Button(action: {
                 withAnimation {
+                    item.timestamp = selectedDate // 最終確認 item 的時間
                     context.insert(item)
                 }
                 dismiss()
