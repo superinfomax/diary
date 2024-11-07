@@ -198,6 +198,9 @@ struct TodoPage1: View {
                 UpdateToDoView(item: item)
             }
         }
+        .onChange(of: items) { _ in
+            // 當 items 發生變化時，自動更新 View
+        }
     }
     private var sortedItems: [ToDoItem] {
             items.sorted {

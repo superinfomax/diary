@@ -37,6 +37,9 @@
 //}
 
 import SwiftUI
+import LocalAuthentication
+import UserNotifications
+
 
 struct CreateToDoView: View {
     
@@ -46,7 +49,23 @@ struct CreateToDoView: View {
     @State private var item = ToDoItem()
     @State private var selectedDate = Date() // 獨立的日期狀態變數
     
-    
+    func scheduleNotification(for item: ToDoItem) {
+        let content = UNMutableNotificationContent()
+        content.title = "It's time to complete your task!"
+        content.body = item.title
+        content.sound = .default
+
+        // 設置通知觸發條件
+        let triggerDate = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: item.timestamp)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: false)
+
+        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+        UNUserNotificationCenter.current().add(request) { error in
+            if let error = error {
+                print("Error scheduling notification: \(error.localizedDescription)")
+            }
+        }
+    }
     var body: some View {
 //        List {
         VStack {
@@ -74,6 +93,7 @@ struct CreateToDoView: View {
 //                如果想要有比較小size的datepicker 可以把下面註解取消
 //                .frame(width: 320)
 //                .presentationCompactAdaptation(.popover)
+            
 
             GeometryReader { geometry in
                             HStack(spacing: 0) {
@@ -114,21 +134,24 @@ struct CreateToDoView: View {
                 withAnimation {
                     item.timestamp = selectedDate // 最終確認 item 的時間
                     context.insert(item)
+                    scheduleNotification(for: item) // 排程通知
                 }
                 dismiss()
             },
-               label: {
-                   Text("Create   ToDo !")
+            label: {
+                Text("Create   ToDo !")
                     .padding(EdgeInsets(top: 0, leading: 40, bottom: 0, trailing: 40))
                     .fontWeight(.bold)
                     .font(.title)
             })
+
             .padding()
             .background(Color(red: 112/255, green: 168/255, blue: 222/255))
             .foregroundColor(.white)
             .cornerRadius(15)
         }
 //        .navigationTitle("Create ToDo")
+        
     }
 }
 

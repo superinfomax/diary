@@ -111,10 +111,10 @@
 		405D510D2C17546C0078CC17 /* ToDo */ = {
 			isa = PBXGroup;
 			children = (
-				500A1D1F2C1615A9004755EB /* CreateToDoView.swift */,
-				500A1D092C1405C2004755EB /* ToDo_list_1.swift */,
 				500A1D1D2C160F87004755EB /* ToDoItem.swift */,
+				500A1D1F2C1615A9004755EB /* CreateToDoView.swift */,
 				405D510B2C1748F20078CC17 /* UpdateToDoView.swift */,
+				500A1D092C1405C2004755EB /* ToDo_list_1.swift */,
 				402E813C2C28BBA4003481F7 /* ToDo_history.swift */,
 			);
 			path = ToDo;

@@ -7,12 +7,41 @@
 
 import SwiftUI
 import SwiftData
+import UserNotifications
 
 struct UpdateToDoView: View {
     @Environment(\.dismiss) var dismiss
     
+    //@ObservedObject var item: ToDoItem // 使用 @ObservedObject 來追蹤變化
+    
     @Bindable var item: ToDoItem
     
+    func scheduleNotification(for item: ToDoItem) {
+        // 使用 item.id 作為通知的唯一 identifier
+        let notificationID = item.id.uuidString
+
+        // 先移除先前的通知請求（如果有的話）
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [notificationID])
+
+        // 設置通知內容
+        let content = UNMutableNotificationContent()
+        content.title = "It's time to complete your task!"
+        content.body = item.title
+        content.sound = .default
+
+        // 設置通知觸發條件
+        let triggerDate = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: item.timestamp)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: false)
+
+        // 使用 item.id 作為 identifier 排程新通知
+        let request = UNNotificationRequest(identifier: notificationID, content: content, trigger: trigger)
+        UNUserNotificationCenter.current().add(request) { error in
+            if let error = error {
+                print("Error scheduling notification: \(error.localizedDescription)")
+            }
+        }
+    }
+
     var body: some View {
         VStack {
             TextField("What ToDo ?", text: $item.title)
@@ -70,8 +99,10 @@ struct UpdateToDoView: View {
                 .font(.system(size: 30))
             
             Button("Update") {
+                scheduleNotification(for: item) // 更新後重新排程通知
                 dismiss()
             }
+
             .fontWeight(.bold)
             .font(.title)
             .padding()

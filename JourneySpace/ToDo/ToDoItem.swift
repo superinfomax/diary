@@ -9,7 +9,8 @@ import Foundation
 import SwiftData
 
 @Model
-final class ToDoItem {
+final class ToDoItem: ObservableObject{
+    var id = UUID() // 加入這行以確保每個 ToDoItem 都有唯一的 UUID
     var title: String
     var timestamp: Date
     var isCritical: Bool
