@@ -7,6 +7,7 @@
 import SwiftUI
 
 struct BlackHoleView: View {
+    @EnvironmentObject var prizeManager: PrizeManager // 使用共享的 PrizeManager
     @State private var rotationAngle: Double = 0
     @State private var isPressed: Bool = false
     @State private var showAlert: Bool = false
@@ -65,6 +66,7 @@ struct BlackHoleView: View {
                                     prizeImage = prizes.randomElement()
                                     if let prizeImage = prizeImage {
                                         collectedPrizes.append(prizeImage)
+                                        prizeManager.collectedPrizes.append(prizeImage) // 更新共享的獎勵清單
                                     }
                                     showPrizeImage = prizeImage
                                     showAlert = true
@@ -109,11 +111,12 @@ struct BlackHoleView: View {
                 }
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
-                        NavigationLink(destination: BackpageView(prizes: collectedPrizes)) {
+                        NavigationLink(destination: BackpageView()) {
                             Image(systemName: "backpack.fill")
                                 .font(.system(size: 24))
                                 .foregroundColor(.gray)
                         }
+
                     }
 //                    ToolbarItem(placement: .navigationBarTrailing) {
 //                        NavigationLink(destination: SettingsView()) {

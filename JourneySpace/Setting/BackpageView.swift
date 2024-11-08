@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct BackpageView: View {
-    let prizes: [Prize] // 獎品和名稱的數組
+    @EnvironmentObject var prizeManager: PrizeManager // 使用 @EnvironmentObject 存取共享狀態
     
     let columns = [
         GridItem(.flexible()),
@@ -19,7 +19,8 @@ struct BackpageView: View {
     var body: some View {
         ScrollView {
             LazyVGrid(columns: columns, spacing: 20) {
-                ForEach(prizes, id: \.self) { prize in
+                // 使用 prizeManager.collectedPrizes 來展示收集的獎勵
+                ForEach(prizeManager.collectedPrizes, id: \.self) { prize in
                     VStack {
                         Image(prize.imageName)
                             .resizable()

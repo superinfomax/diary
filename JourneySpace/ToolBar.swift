@@ -13,6 +13,7 @@ struct ToolBar: View {
     var body: some View {
         TabView(selection: $selectedTab) {
             FirstPage1()
+//            BlackHoleView()
                 .tabItem {
                     Image("tapBar1_" + (selectedTab == 0 ? "2" : "1"))
                 }
@@ -36,6 +37,7 @@ struct ToolBar: View {
                 }
                 .tag(3)
         }
+        .zIndex(0)  // 確保 ContentView 在底層
     }
 }
 
