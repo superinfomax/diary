@@ -16,6 +16,7 @@ struct BlackHoleView: View {
     @State private var collectedPrizes: [Prize] = []
     @State private var RightisBlinking = false // 控制閃爍效果
     @State private var LeftisBlinking = false
+    @State private var alertMessage: String = ""
     
     init() {
         let appearance = UINavigationBarAppearance()
@@ -63,13 +64,23 @@ struct BlackHoleView: View {
                             isPressed.toggle()
                             if isPressed {
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                                    // 隨機抽獎
                                     prizeImage = prizes.randomElement()
+                                    
                                     if let prizeImage = prizeImage {
-                                        collectedPrizes.append(prizeImage)
-                                        prizeManager.collectedPrizes.append(prizeImage) // 更新共享的獎勵清單
+                                        // 判斷是否為重複獎品
+                                        if collectedPrizes.contains(prizeImage) {
+                                            // 重複的獎品
+                                            showAlert = true
+                                            alertMessage = "這個獎品你已經擁有了，換個試試吧！"
+                                        } else {
+                                            // 新的獎品
+                                            collectedPrizes.append(prizeImage)
+                                            showAlert = true
+                                            alertMessage = "恭喜! 你抽到了新造型，可以在背包裡查看"
+                                        }
+                                        showPrizeImage = prizeImage
                                     }
-                                    showPrizeImage = prizeImage
-                                    showAlert = true
                                     isPressed = false
                                 }
                             }
@@ -107,16 +118,15 @@ struct BlackHoleView: View {
                 }
                 .padding(.bottom, 70)
                 .alert(isPresented: $showAlert) {
-                    Alert(title: Text("恭喜!"), message: Text("你抽到了新造型，可以在背包裡查看"), dismissButton: .default(Text("OK")))
+                    Alert(title: Text("抽獎結果"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
                 }
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
-                        NavigationLink(destination: BackpageView()) {
+                        NavigationLink(destination: BackpageView(prizes: Array(Set(collectedPrizes)))) {
                             Image(systemName: "backpack.fill")
                                 .font(.system(size: 24))
                                 .foregroundColor(.gray)
                         }
-
                     }
 //                    ToolbarItem(placement: .navigationBarTrailing) {
 //                        NavigationLink(destination: SettingsView()) {

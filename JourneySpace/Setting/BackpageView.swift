@@ -1,14 +1,7 @@
-//
-//  BackbageView.swift
-//  JourneySpace
-//
-//  Created by ㄚˇㄌㄛˋ on 2024/6/16.
-//
-
 import SwiftUI
 
 struct BackpageView: View {
-    @EnvironmentObject var prizeManager: PrizeManager // 使用 @EnvironmentObject 存取共享狀態
+    let prizes: [Prize] // 獎品和名稱的數組
     
     let columns = [
         GridItem(.flexible()),
@@ -19,8 +12,7 @@ struct BackpageView: View {
     var body: some View {
         ScrollView {
             LazyVGrid(columns: columns, spacing: 20) {
-                // 使用 prizeManager.collectedPrizes 來展示收集的獎勵
-                ForEach(prizeManager.collectedPrizes, id: \.self) { prize in
+                ForEach(Array(prizes.enumerated()), id: \.offset) { index, prize in
                     VStack {
                         Image(prize.imageName)
                             .resizable()
