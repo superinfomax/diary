@@ -11,6 +11,7 @@
 		31FA66C82C1ECEFE00285505 /* BackpageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FA66C72C1ECEFE00285505 /* BackpageView.swift */; };
 		402E813D2C28BBA4003481F7 /* ToDo_history.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402E813C2C28BBA4003481F7 /* ToDo_history.swift */; };
 		4036BD7F2CDCFD0900E56091 /* InfiniteTabView.swift .swift in Sources */ = {isa = PBXBuildFile; fileRef = 4036BD7E2CDCFD0900E56091 /* InfiniteTabView.swift .swift */; };
+		403CCED32CE10BCD00CDD0FB /* FloatingImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403CCED22CE10BCD00CDD0FB /* FloatingImageViewModel.swift */; };
 		405D510C2C1748F20078CC17 /* UpdateToDoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405D510B2C1748F20078CC17 /* UpdateToDoView.swift */; };
 		500A1D002C133023004755EB /* DiaryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500A1CFF2C133023004755EB /* DiaryViewModel.swift */; };
 		500A1D022C133060004755EB /* DiaryEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500A1D012C133060004755EB /* DiaryEntry.swift */; };
@@ -57,6 +58,7 @@
 		31FA66C72C1ECEFE00285505 /* BackpageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackpageView.swift; sourceTree = "<group>"; };
 		402E813C2C28BBA4003481F7 /* ToDo_history.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDo_history.swift; sourceTree = "<group>"; };
 		4036BD7E2CDCFD0900E56091 /* InfiniteTabView.swift .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InfiniteTabView.swift .swift"; sourceTree = "<group>"; };
+		403CCED22CE10BCD00CDD0FB /* FloatingImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingImageViewModel.swift; sourceTree = "<group>"; };
 		405D510B2C1748F20078CC17 /* UpdateToDoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateToDoView.swift; sourceTree = "<group>"; };
 		500A1CFF2C133023004755EB /* DiaryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryViewModel.swift; sourceTree = "<group>"; };
 		500A1D012C133060004755EB /* DiaryEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEntry.swift; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 		50CEE4E92C17571C0066BE72 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
+				403CCED22CE10BCD00CDD0FB /* FloatingImageViewModel.swift */,
 				500A1D0D2C1496F7004755EB /* BlackHoleView.swift */,
 				31FA66C72C1ECEFE00285505 /* BackpageView.swift */,
 				500A1D132C15A93E004755EB /* SettingsView.swift */,
@@ -360,6 +363,7 @@
 				500A1D102C1497FC004755EB /* FirstPage.swift in Sources */,
 				500A1D142C15A93E004755EB /* SettingsView.swift in Sources */,
 				405D510C2C1748F20078CC17 /* UpdateToDoView.swift in Sources */,
+				403CCED32CE10BCD00CDD0FB /* FloatingImageViewModel.swift in Sources */,
 				500A1D062C1330DE004755EB /* LoginView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -148,41 +148,24 @@ struct BlackHoleView: View {
 
 struct FloatingImage: View {
     let imageName: String
-    @State private var position: CGPoint = .zero
-    @State private var rotationAngle: Double = 0
-    
+    @ObservedObject private var viewModel = FloatingImageViewModel()
+
     var body: some View {
         Image(imageName)
             .resizable()
             .scaledToFit()
             .frame(width: 200, height: 200)
-            .position(position)
-            .rotationEffect(.degrees(rotationAngle))
+            .position(viewModel.position)
+            .rotationEffect(.degrees(viewModel.rotationAngle))
             .onAppear {
-                startFloating()
-                startRotation()
+                viewModel.startFloating()
+                viewModel.startRotation()
             }
     }
-    
-    private func startFloating() {
-        let screenWidth = UIScreen.main.bounds.width
-        let screenHeight = UIScreen.main.bounds.height
-        
-        position = CGPoint(x: CGFloat.random(in: 0...screenWidth), y: CGFloat.random(in: 0...screenHeight))
-        
-        withAnimation(Animation.linear(duration: 10).repeatForever(autoreverses: true)) {
-            position = CGPoint(x: CGFloat.random(in: 0...screenWidth), y: CGFloat.random(in: 0...screenHeight))
-        }
-    }
-    
-    private func startRotation() {
-        withAnimation(
-            Animation.linear(duration: 10).repeatForever(autoreverses: false)
-        ) {
-            rotationAngle = 360
-        }
-    }
 }
+
+
+
 
 struct BlackHoleView_Previews: PreviewProvider {
     static var previews: some View {

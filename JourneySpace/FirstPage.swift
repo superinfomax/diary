@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+var count = 0
 struct FirstPage1: View {
     @State private var rotationAngle: Double = 0
     @State private var yeloImageName: String = "firstYelo"
@@ -94,6 +94,7 @@ struct FirstPage1: View {
     @State private var currentQuote: String = ""
     @State private var RightisBlinking = false // 控制閃爍效果
     @State private var LeftisBlinking = false
+
     
     var body: some View {
         ZStack {
@@ -197,6 +198,7 @@ struct FirstPage1: View {
             if newScenePhase == .active {
                 randomizeImages()
                 randomizeQuote()
+                
             }
         }
     }
@@ -205,6 +207,7 @@ struct FirstPage1: View {
         withAnimation {
             if direction == "left" {
                 offset = -400 // 偏移視圖
+//                rotationAngle=0
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                     currentView = "BlackHoleView"
                     offset = 400
@@ -214,6 +217,7 @@ struct FirstPage1: View {
                 }
             } else {
                 offset = 400 // 偏移視圖
+//                rotationAngle=0
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                     currentView = "BlackHoleView"
                     offset = -400
@@ -229,6 +233,7 @@ struct FirstPage1: View {
         withAnimation {
             if direction == "left" {
                 offset = -400 // 偏移視圖
+                rotationAngle=0
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                     currentView = "FirstPage1"
                     offset = 400
@@ -238,6 +243,7 @@ struct FirstPage1: View {
                 }
             } else {
                 offset = 400 // 偏移視圖
+                rotationAngle=0
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                     currentView = "FirstPage1"
                     offset = -400
@@ -250,6 +256,7 @@ struct FirstPage1: View {
     }
     
     func startRotation() {
+
         withAnimation(
             Animation.linear(duration: 25)
                 .repeatForever(autoreverses: false)

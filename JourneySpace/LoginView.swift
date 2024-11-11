@@ -91,6 +91,7 @@ struct LoginView: View {
                 )
                 stars.append(star)
             }
+            BlackHoleView()
             startStarAnimation()
         }
     }
