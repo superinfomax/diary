@@ -27,6 +27,7 @@
 		500A1D1A2C15F801004755EB /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500A1D192C15F801004755EB /* SearchView.swift */; };
 		500A1D1E2C160F87004755EB /* ToDoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500A1D1D2C160F87004755EB /* ToDoItem.swift */; };
 		500A1D202C1615A9004755EB /* CreateToDoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500A1D1F2C1615A9004755EB /* CreateToDoView.swift */; };
+		50C6A2A22CF7038700B49F15 /* RemindersManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C6A2A12CF7038700B49F15 /* RemindersManager.swift */; };
 		50F72D4F2C033A2400F5BBBA /* JourneySpaceApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F72D4E2C033A2400F5BBBA /* JourneySpaceApp.swift */; };
 		50F72D512C033A2400F5BBBA /* DiaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F72D502C033A2400F5BBBA /* DiaryView.swift */; };
 		50F72D532C033A2500F5BBBA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50F72D522C033A2500F5BBBA /* Assets.xcassets */; };
@@ -75,6 +76,7 @@
 		500A1D1D2C160F87004755EB /* ToDoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoItem.swift; sourceTree = "<group>"; };
 		500A1D1F2C1615A9004755EB /* CreateToDoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateToDoView.swift; sourceTree = "<group>"; };
 		500A1D212C17071C004755EB /* JourneySpace.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JourneySpace.entitlements; sourceTree = "<group>"; };
+		50C6A2A12CF7038700B49F15 /* RemindersManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindersManager.swift; sourceTree = "<group>"; };
 		50F72D4B2C033A2400F5BBBA /* JourneySpace.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JourneySpace.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		50F72D4E2C033A2400F5BBBA /* JourneySpaceApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneySpaceApp.swift; sourceTree = "<group>"; };
 		50F72D502C033A2400F5BBBA /* DiaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryView.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 		405D510D2C17546C0078CC17 /* ToDo */ = {
 			isa = PBXGroup;
 			children = (
+				50C6A2A12CF7038700B49F15 /* RemindersManager.swift */,
 				500A1D1D2C160F87004755EB /* ToDoItem.swift */,
 				500A1D1F2C1615A9004755EB /* CreateToDoView.swift */,
 				405D510B2C1748F20078CC17 /* UpdateToDoView.swift */,
@@ -358,6 +361,7 @@
 				31FA66C82C1ECEFE00285505 /* BackpageView.swift in Sources */,
 				500A1D0A2C1405C2004755EB /* ToDo_list_1.swift in Sources */,
 				500A1D082C133444004755EB /* ToolBar.swift in Sources */,
+				50C6A2A22CF7038700B49F15 /* RemindersManager.swift in Sources */,
 				500A1D1A2C15F801004755EB /* SearchView.swift in Sources */,
 				3136A84F2C184F13006D40CD /* test.swift in Sources */,
 				500A1D102C1497FC004755EB /* FirstPage.swift in Sources */,
@@ -532,6 +536,7 @@
 				DEVELOPMENT_TEAM = R5VMN6QYN8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSRemindersUsageDescription = "同步您的待辦事項到提醒事項";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -542,7 +547,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.utaipei.JourneySpace;
+				PRODUCT_BUNDLE_IDENTIFIER = JourneySpace;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -562,6 +567,7 @@
 				DEVELOPMENT_TEAM = R5VMN6QYN8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSRemindersUsageDescription = "同步您的待辦事項到提醒事項";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -572,7 +578,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.utaipei.JourneySpace;
+				PRODUCT_BUNDLE_IDENTIFIER = JourneySpace;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

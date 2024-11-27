@@ -132,13 +132,15 @@ struct CreateToDoView: View {
             
             Button(action: {
                 withAnimation {
-                    item.timestamp = selectedDate // 最終確認 item 的時間
+                    item.timestamp = selectedDate
                     context.insert(item)
-                    scheduleNotification(for: item) // 排程通知
+                    scheduleNotification(for: item)
+                    Task {
+                        await item.syncToReminders() // 同步到 Reminders
+                    }
                 }
                 dismiss()
-            },
-            label: {
+            }, label: {
                 Text("Create   ToDo !")
                     .padding(EdgeInsets(top: 0, leading: 40, bottom: 0, trailing: 40))
                     .fontWeight(.bold)

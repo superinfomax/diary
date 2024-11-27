@@ -9,14 +9,15 @@ import Foundation
 import SwiftData
 
 @Model
-final class ToDoItem: ObservableObject{
-    var id = UUID() // 加入這行以確保每個 ToDoItem 都有唯一的 UUID
+final class ToDoItem: ObservableObject {
+    var id = UUID()
     var title: String
     var timestamp: Date
     var isCritical: Bool
     var isCompleted: Bool
+    private var reminderIdentifier: String?
     
-    init(title: String  = "",
+    init(title: String = "",
          timestamp: Date = .now,
          isCritical: Bool = false,
          isCompleted: Bool = false) {
@@ -24,20 +25,38 @@ final class ToDoItem: ObservableObject{
         self.timestamp = timestamp
         self.isCritical = isCritical
         self.isCompleted = isCompleted
+        self.reminderIdentifier = nil
     }
     
-//    func getCurrentTime() -> String {
-//        let formatter = DateFormatter()
-//        let dateString = formatter.string(from: Date())
-//        
-//        return dateString
-//    }
+    func setReminderID(_ identifier: String?) {
+        self.reminderIdentifier = identifier
+    }
+    
+    func getReminderID() -> String? {
+        return reminderIdentifier
+    }
+    
+    func syncToReminders() async {
+        do {
+            try await RemindersManager.shared.syncToDoItemToReminders(self)
+        } catch {
+            print("Error syncing to Reminders: \(error)")
+        }
+    }
+    
+    func updateReminder() async {
+        do {
+            try await RemindersManager.shared.updateReminder(for: self)
+        } catch {
+            print("Error updating Reminder: \(error)")
+        }
+    }
+    
+    func deleteReminder() async {
+        do {
+            try await RemindersManager.shared.deleteReminder(for: self)
+        } catch {
+            print("Error deleting Reminder: \(error)")
+        }
+    }
 }
-//import Foundation
-//
-//struct ToDoItem: Identifiable {
-//    var id = UUID()
-//    var title: String = ""
-//    var date: Date = Date()
-//    var isImportant: Bool = false
-//}

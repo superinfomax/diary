@@ -99,10 +99,12 @@ struct UpdateToDoView: View {
                 .font(.system(size: 30))
             
             Button("Update") {
-                scheduleNotification(for: item) // 更新後重新排程通知
+                scheduleNotification(for: item)
+                Task {
+                    await item.updateReminder() // 更新 Reminder
+                }
                 dismiss()
             }
-
             .fontWeight(.bold)
             .font(.title)
             .padding()

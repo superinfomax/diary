@@ -22,7 +22,6 @@ struct ToDo_history: View {
     
     @State private var currentImage: String = "eatTrashYelo"
     
-    //設定返回鍵顏色
     init() {
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
@@ -33,14 +32,10 @@ struct ToDo_history: View {
         appearance.setBackIndicatorImage(UIImage(systemName: "chevron.backward"),
                                          transitionMaskImage: UIImage(systemName: "chevron.backward"))
         UINavigationBar.appearance().tintColor = .white
-            
-        // 設置返回鍵的顏色
         appearance.backButtonAppearance.normal.titleTextAttributes = [.foregroundColor:UIColor.white]
-            
         UINavigationBar.appearance().standardAppearance = appearance
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
         UINavigationBar.appearance().compactAppearance = appearance
-        
     }
     
     var body: some View {
@@ -51,7 +46,7 @@ struct ToDo_history: View {
                 .edgesIgnoringSafeArea(.all)
             
             VStack {
-                Spacer()    //entry不會太靠近返回按鈕
+                Spacer()
                 List {
                     ForEach(sortedItems) { item in
                         HStack {
@@ -73,26 +68,13 @@ struct ToDo_history: View {
                                     .font(.title)
                                     .bold()
                                     .foregroundColor(.black)
-                                
                             }
                             Spacer()
                             Text("\(item.timestamp, format: Date.FormatStyle(time: .shortened))")
                                 .font(.title)
                                 .bold()
                                 .foregroundColor(.black)
-                            //                                    .padding(.trailing, 10)
                                 .padding()
-                            //                                Button {
-                            //                                    withAnimation {
-                            //                                        item.isCompleted.toggle()
-                            //                                    }
-                            //                                } label: {
-                            //                                    Image(systemName: "checkmark")
-                            //                                        .symbolVariant(.circle.fill)
-                            //                                        .foregroundStyle(item.isCompleted ? .green : .gray)
-                            //                                        .font(.largeTitle)
-                            //                                }
-                            //                                .buttonStyle(.plain)
                         }
                         .frame(width: 340)
                         .padding()
@@ -100,11 +82,13 @@ struct ToDo_history: View {
                         .cornerRadius(10)
                         .shadow(radius: 3)
                         
-                        
                         .swipeActions(edge: .leading) {
-                            Button (role: .destructive){
+                            Button(role: .destructive) {
                                 withAnimation {
                                     item.isCompleted.toggle()
+                                    Task {
+                                        await item.updateReminder()
+                                    }
                                 }
                             } label: {
                                 Image(uiImage: UIImage(systemName: "arrowshape.turn.up.backward.badge.clock.fill")!.withTintColor(.gray, renderingMode: .alwaysOriginal))
@@ -112,14 +96,21 @@ struct ToDo_history: View {
                             .tint(.clear)
                         }
                         
+                        .swipeActions(edge: .trailing) {
+                            Button(role: .destructive) {
+                                Task {
+                                    await item.deleteReminder()
+                                    context.delete(item)
+                                }
+                            } label: {
+                                Label("刪除", systemImage: "trash")
+                            }
+                            .tint(.red)
+                        }
                     }
-                    //            .offset(y:20)
                     .listRowSeparator(.hidden)
                     .listRowBackground(Color.clear)
-                    // padding 用來調整todo之間的間距
                     .padding(.vertical, -2)
-                    
-                    
                 }
                 .listStyle(PlainListStyle())
                 
@@ -130,11 +121,23 @@ struct ToDo_history: View {
                     .scaledToFit()
                     .frame(height: 200)
                     .padding()
-//                    .position(x: UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height - 200)
             }
             .onAppear {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
                     currentImage = "confuseYelo"
+                }
+                
+                Task {
+                    do {
+                        let granted = try await RemindersManager.shared.requestAccess()
+                        if granted {
+                            print("Reminders access granted")
+                        } else {
+                            print("Reminders access denied")
+                        }
+                    } catch {
+                        print("Error requesting Reminders access: \(error)")
+                    }
                 }
             }
         }
@@ -148,8 +151,4 @@ struct ToDo_history: View {
             return $0.timestamp < $1.timestamp
         }
     }
-}
-
-#Preview {
-    ToDo_history()
 }
