@@ -10,7 +10,7 @@ import SwiftData
 
 class RemindersManager {
     static let shared = RemindersManager()
-    private let eventStore = EKEventStore()
+    let eventStore = EKEventStore()
     
     func requestAccess() async throws -> Bool {
         if #available(iOS 17.0, *) {

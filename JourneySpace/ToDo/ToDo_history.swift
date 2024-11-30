@@ -8,6 +8,7 @@
 import SwiftUI
 import SwiftData
 import Foundation
+import EventKit
 
 struct ToDo_history: View {
     @Environment(\.modelContext) var context
@@ -30,7 +31,7 @@ struct ToDo_history: View {
         appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
         appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
         appearance.setBackIndicatorImage(UIImage(systemName: "chevron.backward"),
-                                         transitionMaskImage: UIImage(systemName: "chevron.backward"))
+                                      transitionMaskImage: UIImage(systemName: "chevron.backward"))
         UINavigationBar.appearance().tintColor = .white
         appearance.backButtonAppearance.normal.titleTextAttributes = [.foregroundColor:UIColor.white]
         UINavigationBar.appearance().standardAppearance = appearance
@@ -127,6 +128,9 @@ struct ToDo_history: View {
                     currentImage = "confuseYelo"
                 }
                 
+                // Start observing Reminders
+                RemindersObserver.shared.startObserving(with: context)
+                
                 Task {
                     do {
                         let granted = try await RemindersManager.shared.requestAccess()
@@ -141,6 +145,9 @@ struct ToDo_history: View {
                 }
             }
         }
+        .onChange(of: items) { _ in
+            // 當 items 發生變化時，自動更新 View
+        }
     }
     
     private var sortedItems: [ToDoItem] {
@@ -151,4 +158,9 @@ struct ToDo_history: View {
             return $0.timestamp < $1.timestamp
         }
     }
+}
+
+#Preview {
+    ToDo_history()
+        .modelContainer(for: ToDoItem.self)
 }
