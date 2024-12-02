@@ -18,25 +18,25 @@ struct BlackHoleView: View {
     @State private var LeftisBlinking = false
     @State private var alertMessage: String = ""
     
-    init() {
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = .clear
-        appearance.shadowColor = .clear
-        appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
-        appearance.titleTextAttributes = [.foregroundColor: UIColor.systemBlue]
-        appearance.setBackIndicatorImage(UIImage(systemName: "chevron.backward"),
-                                         transitionMaskImage: UIImage(systemName: "chevron.backward"))
-        UINavigationBar.appearance().tintColor = .white
-            
-        // 設置返回鍵的顏色
-        appearance.backButtonAppearance.normal.titleTextAttributes = [.foregroundColor:UIColor.systemBlue]
-            
-        UINavigationBar.appearance().standardAppearance = appearance
-        UINavigationBar.appearance().scrollEdgeAppearance = appearance
-        UINavigationBar.appearance().compactAppearance = appearance
-        
-    }
+//    init() {
+//        let appearance = UINavigationBarAppearance()
+//        appearance.configureWithOpaqueBackground()
+//        appearance.backgroundColor = .clear
+//        appearance.shadowColor = .clear
+//        appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.systemBlue]
+//        appearance.titleTextAttributes = [.foregroundColor: UIColor.systemBlue]
+//        appearance.setBackIndicatorImage(UIImage(systemName: "chevron.backward"),
+//                                         transitionMaskImage: UIImage(systemName: "chevron.backward"))
+//        UINavigationBar.appearance().tintColor = .white
+//            
+//        // 設置返回鍵的顏色
+//        appearance.backButtonAppearance.normal.titleTextAttributes = [.foregroundColor:UIColor.systemBlue]
+//            
+//        UINavigationBar.appearance().standardAppearance = appearance
+//        UINavigationBar.appearance().scrollEdgeAppearance = appearance
+//        UINavigationBar.appearance().compactAppearance = appearance
+//        
+//    }
     
     let floatingImages = ["Charlie_K", "Kevin_C", "triangleYelo", "2pCharlie", "2pKevin", "2pYelo"]
     let prizes = [
@@ -64,18 +64,17 @@ struct BlackHoleView: View {
                             isPressed.toggle()
                             if isPressed {
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                                    // 隨機抽獎
                                     prizeImage = prizes.randomElement()
                                     
                                     if let prizeImage = prizeImage {
                                         // 判斷是否為重複獎品
-                                        if collectedPrizes.contains(prizeImage) {
+                                        if prizeManager.collectedPrizes.contains(prizeImage) {
                                             // 重複的獎品
                                             showAlert = true
                                             alertMessage = "這個獎品你已經擁有了，換個試試吧！"
                                         } else {
                                             // 新的獎品
-                                            collectedPrizes.append(prizeImage)
+                                            prizeManager.collectedPrizes.append(prizeImage)
                                             showAlert = true
                                             alertMessage = "恭喜! 你抽到了新造型，可以在背包裡查看"
                                         }
@@ -128,14 +127,9 @@ struct BlackHoleView: View {
                                 .foregroundColor(.gray)
                         }
                     }
-//                    ToolbarItem(placement: .navigationBarTrailing) {
-//                        NavigationLink(destination: SettingsView()) {
-//                            Image(systemName: "gearshape")
-//                                .font(.system(size: 24))
-//                                .foregroundColor(.gray)
-//                        }
-//                    }
                 }
+                .toolbarBackground(Color.clear, for: .navigationBar)
+                .foregroundColor(.blue)
                 .background(
                     Image("drawSpace")
                         .resizable()

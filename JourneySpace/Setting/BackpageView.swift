@@ -1,7 +1,11 @@
 import SwiftUI
 
 struct BackpageView: View {
-    let prizes: [Prize] // 獎品和名稱的數組
+    
+
+    
+    @EnvironmentObject var prizeManager: PrizeManager
+    let prizes: [Prize]
     
     let columns = [
         GridItem(.flexible()),
@@ -12,7 +16,7 @@ struct BackpageView: View {
     var body: some View {
         ScrollView {
             LazyVGrid(columns: columns, spacing: 20) {
-                ForEach(Array(prizes.enumerated()), id: \.offset) { index, prize in
+                ForEach(Array(prizeManager.collectedPrizes.enumerated()), id: \.offset) { index, prize in
                     VStack {
                         Image(prize.imageName)
                             .resizable()
@@ -27,6 +31,7 @@ struct BackpageView: View {
             .padding()
         }
         .navigationTitle("Your Prizes")
+        .toolbarBackground(Color.blue, for: .navigationBar)
     }
 }
 

@@ -13,6 +13,10 @@
 		4036BD7F2CDCFD0900E56091 /* InfiniteTabView.swift .swift in Sources */ = {isa = PBXBuildFile; fileRef = 4036BD7E2CDCFD0900E56091 /* InfiniteTabView.swift .swift */; };
 		403CCED32CE10BCD00CDD0FB /* FloatingImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403CCED22CE10BCD00CDD0FB /* FloatingImageViewModel.swift */; };
 		405D510C2C1748F20078CC17 /* UpdateToDoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405D510B2C1748F20078CC17 /* UpdateToDoView.swift */; };
+		40F568522CFDD0E600D7A448 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 40F568512CFDD0E600D7A448 /* GoogleSignIn */; };
+		40F568542CFDD0E600D7A448 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 40F568532CFDD0E600D7A448 /* GoogleSignInSwift */; };
+		40F568572CFDD11C00D7A448 /* GoogleAPIClientForREST_Calendar in Frameworks */ = {isa = PBXBuildFile; productRef = 40F568562CFDD11C00D7A448 /* GoogleAPIClientForREST_Calendar */; };
+		40F5685B2CFDD48600D7A448 /* GoogleLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F5685A2CFDD48600D7A448 /* GoogleLoginView.swift */; };
 		500A1D002C133023004755EB /* DiaryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500A1CFF2C133023004755EB /* DiaryViewModel.swift */; };
 		500A1D022C133060004755EB /* DiaryEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500A1D012C133060004755EB /* DiaryEntry.swift */; };
 		500A1D042C13307C004755EB /* AddEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500A1D032C13307C004755EB /* AddEntryView.swift */; };
@@ -62,6 +66,8 @@
 		4036BD7E2CDCFD0900E56091 /* InfiniteTabView.swift .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InfiniteTabView.swift .swift"; sourceTree = "<group>"; };
 		403CCED22CE10BCD00CDD0FB /* FloatingImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingImageViewModel.swift; sourceTree = "<group>"; };
 		405D510B2C1748F20078CC17 /* UpdateToDoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateToDoView.swift; sourceTree = "<group>"; };
+		40F568582CFDD15300D7A448 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		40F5685A2CFDD48600D7A448 /* GoogleLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleLoginView.swift; sourceTree = "<group>"; };
 		500A1CFF2C133023004755EB /* DiaryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryViewModel.swift; sourceTree = "<group>"; };
 		500A1D012C133060004755EB /* DiaryEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEntry.swift; sourceTree = "<group>"; };
 		500A1D032C13307C004755EB /* AddEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEntryView.swift; sourceTree = "<group>"; };
@@ -96,6 +102,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				40F568522CFDD0E600D7A448 /* GoogleSignIn in Frameworks */,
+				40F568572CFDD11C00D7A448 /* GoogleAPIClientForREST_Calendar in Frameworks */,
+				40F568542CFDD0E600D7A448 /* GoogleSignInSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -151,6 +160,7 @@
 				31FA66C72C1ECEFE00285505 /* BackpageView.swift */,
 				500A1D132C15A93E004755EB /* SettingsView.swift */,
 				500A1D172C15EFB2004755EB /* TeamMemberView.swift */,
+				40F5685A2CFDD48600D7A448 /* GoogleLoginView.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -178,6 +188,7 @@
 		50F72D4D2C033A2400F5BBBA /* JourneySpace */ = {
 			isa = PBXGroup;
 			children = (
+				40F568582CFDD15300D7A448 /* Info.plist */,
 				500A1D212C17071C004755EB /* JourneySpace.entitlements */,
 				3136A84E2C184F13006D40CD /* test.swift */,
 				50F72D4E2C033A2400F5BBBA /* JourneySpaceApp.swift */,
@@ -307,6 +318,10 @@
 				Base,
 			);
 			mainGroup = 50F72D422C033A2400F5BBBA;
+			packageReferences = (
+				40F568502CFDD0E600D7A448 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+				40F568552CFDD11C00D7A448 /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest" */,
+			);
 			productRefGroup = 50F72D4C2C033A2400F5BBBA /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -350,6 +365,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				402E813D2C28BBA4003481F7 /* ToDo_history.swift in Sources */,
+				40F5685B2CFDD48600D7A448 /* GoogleLoginView.swift in Sources */,
 				500A1D162C15C899004755EB /* EntryDetailView.swift in Sources */,
 				500A1D182C15EFB2004755EB /* TeamMemberView.swift in Sources */,
 				500A1D1E2C160F87004755EB /* ToDoItem.swift in Sources */,
@@ -540,6 +556,7 @@
 				DEVELOPMENT_TEAM = R5VMN6QYN8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = JourneySpace/Info.plist;
 				INFOPLIST_KEY_NSRemindersUsageDescription = "同步您的待辦事項到提醒事項";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -571,6 +588,7 @@
 				DEVELOPMENT_TEAM = R5VMN6QYN8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = JourneySpace/Info.plist;
 				INFOPLIST_KEY_NSRemindersUsageDescription = "同步您的待辦事項到提醒事項";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -702,6 +720,43 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		40F568502CFDD0E600D7A448 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.0.0;
+			};
+		};
+		40F568552CFDD11C00D7A448 /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/google-api-objectivec-client-for-rest";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		40F568512CFDD0E600D7A448 /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 40F568502CFDD0E600D7A448 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
+		40F568532CFDD0E600D7A448 /* GoogleSignInSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 40F568502CFDD0E600D7A448 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignInSwift;
+		};
+		40F568562CFDD11C00D7A448 /* GoogleAPIClientForREST_Calendar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 40F568552CFDD11C00D7A448 /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest" */;
+			productName = GoogleAPIClientForREST_Calendar;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 50F72D432C033A2400F5BBBA /* Project object */;
 }
