@@ -11,29 +11,25 @@ import UserNotifications
 
 struct UpdateToDoView: View {
     @Environment(\.dismiss) var dismiss
-    
-    //@ObservedObject var item: ToDoItem // 使用 @ObservedObject 來追蹤變化
-    
     @Bindable var item: ToDoItem
+    @State private var showAlert = false
+    @State private var alertMessage = ""
+    @State private var isLoading = false
+    
+    private let calendarManager = GoogleCalendarManager.shared
     
     func scheduleNotification(for item: ToDoItem) {
-        // 使用 item.id 作為通知的唯一 identifier
         let notificationID = item.id.uuidString
-
-        // 先移除先前的通知請求（如果有的話）
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [notificationID])
 
-        // 設置通知內容
         let content = UNMutableNotificationContent()
         content.title = "It's time to complete your task!"
         content.body = item.title
         content.sound = .default
 
-        // 設置通知觸發條件
         let triggerDate = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: item.timestamp)
         let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: false)
 
-        // 使用 item.id 作為 identifier 排程新通知
         let request = UNNotificationRequest(identifier: notificationID, content: content, trigger: trigger)
         UNUserNotificationCenter.current().add(request) { error in
             if let error = error {
@@ -41,78 +37,126 @@ struct UpdateToDoView: View {
             }
         }
     }
+    
+    private func updateTodoWithGoogleCalendar() {
+        isLoading = true
+        
+        // 更新 Google Calendar 事件
+        calendarManager.updateEventForToDo(item) { result in
+            switch result {
+            case .success:
+                // 更新通知
+                scheduleNotification(for: item)
+                
+                // 更新 Reminder
+                Task {
+                    await item.updateReminder()
+                }
+                
+                DispatchQueue.main.async {
+                    isLoading = false
+                    dismiss()
+                }
+                
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    isLoading = false
+                    // 如果沒有對應的 Google Calendar 事件，則創建一個新的
+                    if error.localizedDescription.contains("No Google Calendar event ID found") {
+                        createNewGoogleCalendarEvent()
+                    } else {
+                        alertMessage = "更新 Google Calendar 事件失敗: \(error.localizedDescription)"
+                        showAlert = true
+                    }
+                }
+            }
+        }
+    }
+    
+    private func createNewGoogleCalendarEvent() {
+        calendarManager.createEventForToDo(item) { result in
+            switch result {
+            case .success(let eventId):
+                item.setGoogleEventId(eventId)
+                DispatchQueue.main.async {
+                    isLoading = false
+                    dismiss()
+                }
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    isLoading = false
+                    alertMessage = "創建 Google Calendar 事件失敗: \(error.localizedDescription)"
+                    showAlert = true
+                }
+            }
+        }
+    }
 
     var body: some View {
         VStack {
             TextField("What ToDo ?", text: $item.title)
-//                .padding(.top, 50)
                 .padding(EdgeInsets(top: 30, leading: 30, bottom: 5, trailing: 30))
                 .font(.system(size: 30))
             
             Divider()
                 .padding(EdgeInsets(top: 0, leading: 30, bottom: 5, trailing: 30))
             
-            
-//            HStack {
-//                Spacer()
-//                Text("TIME")
-//                    .font(.system(size: 30))
-//                    .foregroundColor(.gray)
-//                Spacer()
-//            }
-//            
             DatePicker("", selection: $item.timestamp)
-//                .datePickerStyle(.wheel)
                 .datePickerStyle(GraphicalDatePickerStyle())
                 .padding(EdgeInsets(top: 0, leading: 30, bottom: 5, trailing: 30))
                 .font(.system(size: 30))
                 .accentColor(Color(red: 112/255, green: 168/255, blue: 222/255))
-//                如果想要有比較小size的datepicker 可以把下面註解取消
-//                .frame(width: 320)
-//                .presentationCompactAdaptation(.popover)
 
             GeometryReader { geometry in
-                            HStack(spacing: 0) {
-                                ForEach([300, 600, 900, 1800, 3600, 7200], id: \.self) { interval in
-                                    Button(action: {
-                                        item.timestamp = Date().addingTimeInterval(TimeInterval(interval))
-                                    }) {
-                                        Text("\(interval / 60)")
-                                            .fontWeight(.bold)
-                                            .font(.callout)
-                                            .frame(width: geometry.size.width / 6, height: 50)
-                                    }
-//                                    .background(Color.blue)
-                                    .background(Color(red: 112/255, green: 168/255, blue: 222/255))
-                                    .foregroundColor(.white)
-                                    .cornerRadius(0) // 圓角設定為0，使其成為一個完整的區塊
-                                }
-                            }
-                            .background(Color(red: 71/255, green: 114/255, blue: 186/255))
-                            .cornerRadius(15) // 設置整個區塊的圓角
+                HStack(spacing: 0) {
+                    ForEach([300, 600, 900, 1800, 3600, 7200], id: \.self) { interval in
+                        Button(action: {
+                            item.timestamp = Date().addingTimeInterval(TimeInterval(interval))
+                        }) {
+                            Text("\(interval / 60)")
+                                .fontWeight(.bold)
+                                .font(.callout)
+                                .frame(width: geometry.size.width / 6, height: 50)
                         }
-                        .frame(height: 50)
-                        .padding(EdgeInsets(top: 10, leading: 30, bottom: 10, trailing: 30))
+                        .background(Color(red: 112/255, green: 168/255, blue: 222/255))
+                        .foregroundColor(.white)
+                        .cornerRadius(0)
+                    }
+                }
+                .background(Color(red: 71/255, green: 114/255, blue: 186/255))
+                .cornerRadius(15)
+            }
+            .frame(height: 50)
+            .padding(EdgeInsets(top: 10, leading: 30, bottom: 10, trailing: 30))
             
             Toggle("Important !!!", isOn: $item.isCritical)
                 .padding(EdgeInsets(top: 10, leading: 30, bottom: 20, trailing: 30))
                 .font(.system(size: 30))
             
-            Button("Update") {
-                scheduleNotification(for: item)
-                Task {
-                    await item.updateReminder() // 更新 Reminder
+            Button(action: {
+                updateTodoWithGoogleCalendar()
+            }) {
+                if isLoading {
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                } else {
+                    Text("Update")
+                        .fontWeight(.bold)
+                        .font(.title)
                 }
-                dismiss()
             }
-            .fontWeight(.bold)
-            .font(.title)
+            .disabled(isLoading)
             .padding()
             .background(Color(red: 112/255, green: 168/255, blue: 222/255))
             .foregroundColor(.white)
             .cornerRadius(15)
         }
         .navigationTitle("Update ToDo")
+        .alert("提示", isPresented: $showAlert) {
+            Button("確定", role: .cancel) { }
+        } message: {
+            Text(alertMessage)
+        }
     }
 }
 

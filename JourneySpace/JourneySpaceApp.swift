@@ -16,6 +16,10 @@ struct JourneySpaceApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @StateObject private var prizeManager = PrizeManager()
     
+    init() {
+        // 設置 Google Sign-In
+        GoogleAuthService.shared.setupGoogleSignIn()
+    }
     var body: some Scene {
         WindowGroup {
             LoginView()

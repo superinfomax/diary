@@ -18,11 +18,14 @@ struct Star: Identifiable {
 
 struct LoginView: View {
     @AppStorage("isScreenLockOn") private var isScreenLockOn = false
+    @AppStorage("hasCompletedSetup") private var hasCompletedSetup = false
     @State private var showMenuView = false
+    @State private var showGoogleAuthView = false
     @State private var authFailed = false
     @State private var stars: [Star] = []
     @State private var departButtonScale: CGFloat = 1.0
     @State private var departButtonOpacity: Double = 1.0
+    @ObservedObject private var authService = GoogleAuthService.shared
     private let animationDuration: TimeInterval = 1
     
 
@@ -51,26 +54,31 @@ struct LoginView: View {
                 Spacer()
                 
                 Button(action: {
-                            if isScreenLockOn {
-                                authenticate()
-                            } else {
-                                showMenuView = true
-                            }
-                        }) {
-                            Image("depart")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 150, height: 250)
-                                .scaleEffect(departButtonScale) // 添加 scaleEffect modifier
-                                .opacity(departButtonOpacity) // 添加 opacity modifier
-                        }
-                        .padding(.bottom, -150)
-                        .fullScreenCover(isPresented: $showMenuView) {
-                            ToolBar()
-                        }
-                        .onAppear {
-                            startButtonAnimation()
-                        }
+                    if isScreenLockOn {
+                        authenticate()
+                    } else if !hasCompletedSetup {
+                        showGoogleAuthView = true
+                    } else {
+                        showMenuView = true
+                    }
+                }) {
+                    Image("depart")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 150, height: 250)
+                        .scaleEffect(departButtonScale) // 添加 scaleEffect modifier
+                        .opacity(departButtonOpacity) // 添加 opacity modifier
+                }
+                .padding(.bottom, -150)
+                .fullScreenCover(isPresented: $showGoogleAuthView) {
+                    GoogleAuthView()
+                }
+                .fullScreenCover(isPresented: $showMenuView) {
+                    ToolBar()
+                }
+                .onAppear {
+                    startButtonAnimation()
+                }
                 
                 Spacer()
             }
@@ -91,7 +99,6 @@ struct LoginView: View {
                 )
                 stars.append(star)
             }
-            BlackHoleView()
             startStarAnimation()
         }
     }
@@ -128,7 +135,14 @@ struct LoginView: View {
         }
     }
 
-
+    private func checkGoogleSignIn() {
+        print("Now checking Google Sign In")
+        if authService.isSignedIn {
+            showMenuView = true
+        } else {
+            showGoogleAuthView = true
+        }
+    }
     
     func authenticate() {
         let context = LAContext()
