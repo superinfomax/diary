@@ -12,12 +12,13 @@ struct EntryDetailView: View {
     @ObservedObject var viewModel: DiaryViewModel
     @State private var showingEditSheet = false
     
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
             HStack {
                 Image(entry.emoji) // 使用 entry.emoji 來顯示自定義圖片
                     .resizable()
-                    .frame(width: 70, height: 70) // 調整圖片大小
+                    .frame(width: 70, height: 70)
                     .padding(.leading)
                     .padding(.top, 25)
                 Spacer()
@@ -26,7 +27,7 @@ struct EntryDetailView: View {
                     showingEditSheet = true
                 }) {
                     Image(systemName: "pencil.circle.fill")
-                        .font(.system(size: 24))
+                        .font(.system(size: 30))
                         .foregroundColor(Color(red: 249/255, green: 132/255, blue: 135/255))
                 }
                 .padding(.trailing)

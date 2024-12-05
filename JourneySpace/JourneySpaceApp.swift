@@ -26,7 +26,6 @@ struct JourneySpaceApp: App {
                 .modelContainer(for: ToDoItem.self)
                 .environmentObject(prizeManager)
                 .onAppear {
-                    // 请求 Reminders 权限
                     Task {
                         do {
                             let granted = try await RemindersManager.shared.requestAccess()
@@ -49,11 +48,11 @@ class PrizeManager: ObservableObject {
 }
 
 class AppDelegate: NSObject, UIApplicationDelegate {
-    let eventStore = EKEventStore()  // 添加 EKEventStore 实例
+    let eventStore = EKEventStore()
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         registerForNotification()
-        requestRemindersAccess()  // 添加提醒事项权限请求
+        requestRemindersAccess()
         return true
     }
     
