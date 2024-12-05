@@ -77,7 +77,8 @@ struct ToDo_history: View {
                                 .foregroundColor(.black)
                                 .padding()
                         }
-                        .frame(width: 340)
+//                        .frame(width: 340)
+                        .frame(maxWidth: .infinity, alignment: .center)
                         .padding()
                         .background(Color.white)
                         .cornerRadius(10)
@@ -114,8 +115,10 @@ struct ToDo_history: View {
                     .padding(.vertical, -2)
                 }
                 .listStyle(PlainListStyle())
-                
-                Spacer()
+                .safeAreaInset(edge: .top) {
+                    Spacer().frame(height: 0) // 確保頂部留白
+                }
+                .padding(.top) // 避免覆蓋 NavigationBar
                 
                 Image(currentImage)
                     .resizable()

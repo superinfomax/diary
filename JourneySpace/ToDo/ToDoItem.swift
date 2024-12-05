@@ -17,6 +17,7 @@ final class ToDoItem: ObservableObject {
     var timestamp: Date
     var isCritical: Bool
     var isCompleted: Bool
+//    var googleEventId: String?
     var completedId: String? // 用於標記完成事項的唯一標識
     static var firstGoogleLinkTime: Date? {
             get {
@@ -60,7 +61,6 @@ final class ToDoItem: ObservableObject {
         return reminderIdentifier
     }
     
-    // 新增：Google Calendar 相關方法
     func setGoogleEventId(_ eventId: String?) {
         self.googleEventId = eventId
     }

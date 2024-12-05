@@ -13,6 +13,11 @@ struct CalendarEvent: Identifiable {
     let startDate: Date
     let endDate: Date
     let colorHex: String?
+    let description: String?
+    
+    var isCompleted: Bool {
+        return description?.contains("completed") ?? false
+    }
     
     var formattedDateRange: String {
         let formatter = DateFormatter()

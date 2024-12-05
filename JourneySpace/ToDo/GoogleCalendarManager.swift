@@ -33,60 +33,53 @@ class GoogleCalendarManager {
     }
     
 
-    func fetchEvents(from startDate: Date, to endDate: Date, completion: @escaping (Result<[CalendarEvent], CalendarError>) -> Void) {
+    func fetchEvents(from startDate: Date, to endDate: Date) async throws -> [CalendarEvent] {
         guard let user = GIDSignIn.sharedInstance.currentUser else {
-            completion(.failure(.userNotSignedIn))
-            return
+            throw CalendarError.userNotSignedIn
         }
         
-        user.refreshTokensIfNeeded { [weak self] user, error in
-            guard let self = self else { return }
-            
-            if let error = error {
-                completion(.failure(.networkError))
-                return
-            }
-            
-            self.service.authorizer = user?.fetcherAuthorizer
-            
-            let query = GTLRCalendarQuery_EventsList.query(withCalendarId: "primary")
-            query.timeMin = GTLRDateTime(date: startDate)
-            query.timeMax = GTLRDateTime(date: endDate)
-            query.orderBy = "startTime"
-            query.singleEvents = true
-            
-            self.service.executeQuery(query) { (ticket, response, error) in
-                DispatchQueue.main.async {
-                    if let error = error {
-                        completion(.failure(.networkError))
-                        return
-                    }
-                    
-                    guard let eventsList = response as? GTLRCalendar_Events,
-                          let items = eventsList.items else {
-                        completion(.failure(.networkError))
-                        return
-                    }
-                    
-                    let events = items.compactMap { event -> CalendarEvent? in
-                        guard let id = event.identifier,
-                              let startDateTime = event.start?.dateTime?.date ?? event.start?.date?.date,
-                              let endDateTime = event.end?.dateTime?.date ?? event.end?.date?.date else {
-                            return nil
-                        }
-                        
-                        return CalendarEvent(
-                            id: id,
-                            title: event.summary ?? "無標題",
-                            startDate: startDateTime,
-                            endDate: endDateTime,
-                            colorHex: event.colorId
-                        )
-                    }
-                    
-                    completion(.success(events))
+        // Refresh tokens
+        try await user.refreshTokensIfNeeded()
+        service.authorizer = user.fetcherAuthorizer
+
+        let query = GTLRCalendarQuery_EventsList.query(withCalendarId: "primary")
+        query.timeMin = GTLRDateTime(date: startDate)
+        query.timeMax = GTLRDateTime(date: endDate)
+        query.orderBy = "startTime"
+        query.singleEvents = true
+
+        // Execute query
+        // Execute query
+        let ticket: Any = try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Any, Error>) in
+            service.executeQuery(query) { ticket, result, error in
+                if let error = error {
+                    continuation.resume(throwing: error)
+                    return
                 }
+                continuation.resume(returning: result ?? ticket)
             }
+        }
+
+        guard let eventsList = ticket as? GTLRCalendar_Events,
+              let items = eventsList.items else {
+            throw CalendarError.networkError
+        }
+
+        return items.compactMap { event -> CalendarEvent? in
+            guard let id = event.identifier,
+                  let startDateTime = event.start?.dateTime?.date ?? event.start?.date?.date,
+                  let endDateTime = event.end?.dateTime?.date ?? event.end?.date?.date else {
+                return nil
+            }
+            
+            return CalendarEvent(
+                id: id,
+                title: event.summary ?? "無標題",
+                startDate: startDateTime,
+                endDate: endDateTime,
+                colorHex: event.colorId,
+                description: event.descriptionProperty
+            )
         }
     }
     func createEvent(title: String, startDate: Date, endDate: Date, completion: @escaping (Result<GTLRCalendar_Event, Error>) -> Void) {
@@ -198,6 +191,48 @@ class GoogleCalendarManager {
                 }
             }
         }
+    
+    func updateEventDescription(eventId: String, description: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        guard let user = GIDSignIn.sharedInstance.currentUser else {
+            completion(.failure(CalendarError.userNotSignedIn))
+            return
+        }
+        
+        user.refreshTokensIfNeeded { [weak self] user, error in
+            guard let self = self else { return }
+            
+            // 先獲取現有事件
+            let query = GTLRCalendarQuery_EventsGet.query(withCalendarId: "primary", eventId: eventId)
+            
+            self.service.executeQuery(query) { (ticket, response, error) in
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+                
+                guard let event = response as? GTLRCalendar_Event else {
+                    completion(.failure(CalendarError.eventNotFound))
+                    return
+                }
+                
+                // 更新 description
+                event.descriptionProperty = description
+                
+                // 儲存更新
+                let updateQuery = GTLRCalendarQuery_EventsUpdate.query(withObject: event,
+                                                                     calendarId: "primary",
+                                                                     eventId: eventId)
+                
+                self.service.executeQuery(updateQuery) { (ticket, response, error) in
+                    if let error = error {
+                        completion(.failure(error))
+                    } else {
+                        completion(.success(()))
+                    }
+                }
+            }
+        }
+    }
     // 為 ToDo 創建日曆事件
     func createEventForToDo(_ todoItem: ToDoItem, completion: @escaping (Result<String, Error>) -> Void) {
         guard let user = GIDSignIn.sharedInstance.currentUser else {

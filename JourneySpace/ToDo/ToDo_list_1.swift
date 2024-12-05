@@ -98,67 +98,56 @@ struct TodoPage1: View {
         let calendar = Calendar.current
         let startOfToday = calendar.startOfDay(for: Date())
         let startTime = min(startOfToday, ToDoItem.firstGoogleLinkTime ?? startOfToday)
-        let endTime = Calendar.current.date(byAdding: .year, value: 1, to: Date())!
-        
-        await withCheckedContinuation { (continuation: CheckedContinuation<Void, Never>) in
-            calendarManager.fetchEvents(from: startTime, to: endTime) { result in
-                switch result {
-                case .success(let calendarEvents):
-                    Task { @MainActor in
-                        // 1. 獲取當前未完成的待辦事項
-                        let descriptor = FetchDescriptor<ToDoItem>(
-                            predicate: #Predicate<ToDoItem> { !$0.isCompleted }
-                        )
-                        guard let existingItems = try? context.fetch(descriptor) else { return }
-                        
-                        // 2. 建立現有事項的映射，方便查找
-                        var itemsMap = [String: ToDoItem]()
-                        for item in existingItems {
-                            if let eventId = item.getGoogleEventId() {
-                                itemsMap[eventId] = item
-                            }
-                        }
-                        
-                        // 3. 更新或新增來自 Google Calendar 的事項
-                        for event in calendarEvents {
-                            if let existingItem = itemsMap[event.id] {
-                                // 更新現有事項
-                                if existingItem.title != event.title {
-                                    existingItem.title = event.title
-                                }
-                                if abs(existingItem.timestamp.timeIntervalSince(event.startDate)) > 1 {
-                                    existingItem.timestamp = event.startDate
-                                }
-                                // 從映射中移除已處理的事項
-                                itemsMap.removeValue(forKey: event.id)
-                            } else {
-                                // 新增不存在的事項
-                                let newItem = ToDoItem(
-                                    title: event.title,
-                                    timestamp: event.startDate,
-                                    isCritical: false,
-                                    isCompleted: false
-                                )
-                                newItem.setGoogleEventId(event.id)
-                                context.insert(newItem)
-                            }
-                        }
-                        
-                        // 4. 刪除在 Google Calendar 中已不存在的事項
-                        for (_, itemToDelete) in itemsMap {
-                            context.delete(itemToDelete)
-                        }
-                        
-                        // 5. 保存所有更改
-                        try? context.save()
+        let endTime = calendar.date(byAdding: .year, value: 1, to: Date()) ?? Date()
+
+        do {
+            let events = try await calendarManager.fetchEvents(from: startTime, to: endTime)
+            
+            await MainActor.run {
+                let descriptor = FetchDescriptor<ToDoItem>(
+                    predicate: #Predicate<ToDoItem> { !$0.isCompleted }
+                )
+                guard let existingItems = try? context.fetch(descriptor) else { return }
+                
+                var itemsMap: [String: ToDoItem] = [:]
+                for item in existingItems {
+                    if let eventId = item.getGoogleEventId() {
+                        itemsMap[eventId] = item
                     }
-                case .failure(let error):
-                    print("Failed to fetch events: \(error)")
                 }
-                continuation.resume()
+                
+                for event in events where !event.isCompleted {
+                    if let existingItem = itemsMap[event.id] {
+                        existingItem.title = event.title
+                        existingItem.timestamp = event.startDate
+                    } else {
+                        let newItem = ToDoItem(
+                            title: event.title,
+                            timestamp: event.startDate,
+                            isCritical: false,
+                            isCompleted: false
+                        )
+                        newItem.setGoogleEventId(event.id)
+                        context.insert(newItem)
+                    }
+                }
+                
+                let validEventIds = Set(events.map { $0.id })
+                for item in existingItems {
+                    if let eventId = item.getGoogleEventId(),
+                       !validEventIds.contains(eventId) {
+                        context.delete(item)
+                    }
+                }
+                
+                try? context.save()
             }
+        } catch {
+            print("Failed to sync with Google Calendar: \(error)")
         }
     }
+    
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -172,7 +161,7 @@ struct TodoPage1: View {
                     Image("Image 4")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(height: 200)
+                        .frame(height: 180)
                     
                     List {
                         ForEach(sortedItems) { item in
@@ -189,6 +178,7 @@ struct TodoPage1: View {
                     .listStyle(PlainListStyle())
                     .background(Color.clear)
                 }
+                .padding(.bottom, 35)
             }
             .toolbar {
                 ToolbarItem(placement: .principal) {
@@ -299,21 +289,26 @@ struct TodoItemRow: View {
     
     private func toggleCompletion() async {
         await MainActor.run {
-            item.isCompleted.toggle()
-            try? modelContext.save()  // 立即保存變更
+            item.isCompleted = true
+            try? modelContext.save()
         }
         
-        // 更新 Reminder
-        await item.updateReminder()
-        
-        // 更新 Google Calendar 事件
-        if let _ = item.getGoogleEventId() {
+        // 更新 Google Calendar 事件的 description
+        if let eventId = item.getGoogleEventId() {
             await withCheckedContinuation { continuation in
-                item.updateGoogleCalendarEvent(calendarManager: calendarManager) { _ in
+                calendarManager.updateEventDescription(eventId: eventId, description: "completed") { result in
+                    switch result {
+                    case .success:
+                        print("Successfully marked event as completed")
+                    case .failure(let error):
+                        print("Failed to mark event as completed: \(error)")
+                    }
                     continuation.resume()
                 }
             }
         }
+        
+        await item.updateReminder()
     }
     
     var body: some View {
@@ -346,7 +341,7 @@ struct TodoItemRow: View {
                 .foregroundColor(.black)
                 .padding()
         }
-        .frame(width: 340)
+        .frame(maxWidth: .infinity, alignment: .center)
         .padding()
         .background(Color.white)
         .cornerRadius(10)
