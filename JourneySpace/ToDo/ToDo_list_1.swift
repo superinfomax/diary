@@ -178,7 +178,7 @@ struct TodoPage1: View {
                     .listStyle(PlainListStyle())
                     .background(Color.clear)
                 }
-                .padding(.bottom, 35)
+                .padding(.bottom, 40)
             }
             .toolbar {
                 ToolbarItem(placement: .principal) {
@@ -290,6 +290,8 @@ struct TodoItemRow: View {
     private func toggleCompletion() async {
         await MainActor.run {
             item.isCompleted = true
+            // 確保取消通知
+            item.cancelScheduledNotification()
             try? modelContext.save()
         }
         

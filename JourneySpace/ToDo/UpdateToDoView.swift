@@ -46,7 +46,10 @@ struct UpdateToDoView: View {
             switch result {
             case .success:
                 // 更新通知
-                scheduleNotification(for: item)
+//                scheduleNotification(for: item)
+                item.scheduleNotification()
+
+
                 
                 // 更新 Reminder
                 Task {

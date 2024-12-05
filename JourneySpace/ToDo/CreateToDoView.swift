@@ -54,8 +54,8 @@ struct CreateToDoView: View {
                 item.setGoogleEventId(eventId)
                 
                 // 設置提醒
-                scheduleNotification(for: item)
-                
+//                scheduleNotification(for: item)
+                item.scheduleNotification()
                 // 同步到 Reminders
                 Task {
                     await item.syncToReminders()
