@@ -30,99 +30,121 @@ struct DiaryView: View {
     
     var body: some View {
         NavigationView {
-            ZStack {
-//                Color(red: 237/255, green: 156/255, blue: 149/255)
-//                    .edgesIgnoringSafeArea(.all)
-                Image("birdplanet")
-                        .resizable()
-                        .scaledToFill()
-                        .edgesIgnoringSafeArea(.all)
-                VStack(spacing: 0) {
-                    HStack {
-                        VStack(alignment: .leading) {
-                            Text(currentDateComponents.0)
-                                .font(.custom("KOHO", size: 42))
-                                .foregroundColor(.white)
-                            HStack(alignment: .bottom) {
-                                Text(currentDateComponents.1)
-                                    .font(.custom("KOHO", size: 42))
-                                    .foregroundColor(.white)
-                                    .alignmentGuide(.bottom) { d in d[.lastTextBaseline] }
-                                Text(currentDateComponents.2)
-                                    .font(.custom("KOHO", size: 17))
-                                    .foregroundColor(.white)
-                                    .alignmentGuide(.bottom) { d in d[.lastTextBaseline] }
-                            }
-                        }
-                        Spacer()
-                        Button(action: {
-                            showingAddEntryView.toggle()
-                        }) {
-                            Image("Image 6")
-                                .resizable()
-                                .scaledToFit()
-                                .font(.system(size: 60))
-                                .foregroundColor(.white)
-                        }
-                        .alignmentGuide(.bottom) { d in d[.lastTextBaseline] }
-                    }
-                    .padding(.horizontal, 30)
-                    //.padding(.top, 40)
-                    List {
-                        ForEach(viewModel.entries) { entry in
-                            NavigationLink(destination: EntryDetailView(entry: entry)) {
-                                VStack(alignment: .leading, spacing: 8) {
-                                    Text(entry.title)
-                                        .font(.headline)
-                                    Text(entry.content)
-                                        .font(.subheadline)
-                                        .lineLimit(2)
-                                    Text(entry.date, style: .date)
-                                        .font(.footnote)
-                                        .foregroundColor(.gray)
-                                }
-                            }
-                        }
-                        .onDelete(perform: viewModel.deleteEntry)
-                    }
-                    .listStyle(PlainListStyle())
-                    .background(Color.clear)
-                    .cornerRadius(20)
-                    .padding(.horizontal)
-                    Spacer()
-                    HStack {
-                        Spacer()
-                    }
-                    .padding(.bottom, 20)
-                }
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        Button(action: {
-                            showingSearchView.toggle()
-                            }) {
-                                Image(systemName: "magnifyingglass")
-                                    .font(.system(size: 24))
-                                        .foregroundColor(.white)
-                                }
-                    }
-//                    ToolbarItem(placement: .principal) {
-//                        Image("Image 6")
-//                            .resizable()
-//                            .scaledToFit()
-//                            .frame(width: 100, height: 100)
-//                    }
-                }
-            }
-            .sheet(isPresented: $showingAddEntryView) {
-                AddEntryView(viewModel: viewModel)
-            }
-            .fullScreenCover(isPresented: $showingSearchView) {
-                SearchView(entries: viewModel.entries)
-            }
-            .onAppear {
-                viewModel.loadEntries()
+            mainContent
+        }
+    }
+
+    private var mainContent: some View {
+        ZStack {
+            backgroundImage
+            contentLayout
+        }
+        .sheet(isPresented: $showingAddEntryView) {
+            AddEntryView(viewModel: viewModel)
+        }
+        .fullScreenCover(isPresented: $showingSearchView) {
+            SearchView(entries: viewModel.entries, viewModel: viewModel)
+        }
+        .onAppear {
+            viewModel.loadEntries()
+        }
+    }
+
+    private var backgroundImage: some View {
+        Image("birdplanet")
+            .resizable()
+            .scaledToFill()
+            .edgesIgnoringSafeArea(.all)
+    }
+
+    private var contentLayout: some View {
+        VStack(spacing: 0) {
+            dateHeader
+            entriesList
+            bottomSpacer
+        }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                searchButton
             }
         }
+    }
+
+    private var dateHeader: some View {
+        HStack {
+            VStack(alignment: .leading) {
+                Text(currentDateComponents.0)
+                    .font(.custom("KOHO", size: 42))
+                    .foregroundColor(.white)
+                HStack(alignment: .bottom) {
+                    Text(currentDateComponents.1)
+                        .font(.custom("KOHO", size: 42))
+                        .foregroundColor(.white)
+                        .alignmentGuide(.bottom) { d in d[.lastTextBaseline] }
+                    Text(currentDateComponents.2)
+                        .font(.custom("KOHO", size: 17))
+                        .foregroundColor(.white)
+                        .alignmentGuide(.bottom) { d in d[.lastTextBaseline] }
+                }
+            }
+            Spacer()
+            addButton
+        }
+        .padding(.horizontal, 30)
+    }
+
+    private var addButton: some View {
+        Button(action: {
+            showingAddEntryView.toggle()
+        }) {
+            Image("Image 6")
+                .resizable()
+                .scaledToFit()
+                .font(.system(size: 60))
+                .foregroundColor(.white)
+        }
+        .alignmentGuide(.bottom) { d in d[.lastTextBaseline] }
+    }
+
+    private var searchButton: some View {
+        Button {
+            showingSearchView.toggle()
+        } label: {
+            Image(systemName: "magnifyingglass")
+                .font(.system(size: 24))
+                .foregroundColor(.white)
+        }
+    }
+
+    private var entriesList: some View {
+        List {
+            ForEach(viewModel.entries) { entry in
+                NavigationLink(destination: EntryDetailView(entry: entry, viewModel: viewModel)) {
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text(entry.title)
+                            .font(.headline)
+                        Text(entry.content)
+                            .font(.subheadline)
+                            .lineLimit(2)
+                        Text(entry.date, style: .date)
+                            .font(.footnote)
+                            .foregroundColor(.gray)
+                    }
+                }
+            }
+            .onDelete(perform: viewModel.deleteEntry)
+        }
+        .listStyle(PlainListStyle())
+        .background(Color.clear)
+        .cornerRadius(20)
+        .padding(.horizontal)
+    }
+
+    private var bottomSpacer: some View {
+        HStack {
+            Spacer()
+        }
+        .padding(.bottom, 20)
     }
 }
 

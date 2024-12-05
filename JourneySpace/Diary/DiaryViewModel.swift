@@ -22,6 +22,15 @@ class DiaryViewModel: ObservableObject {
         saveEntries()
     }
     
+    func editEntry(entry: DiaryEntry, newTitle: String, newContent: String, newEmoji: String) {
+        if let index = entries.firstIndex(where: { $0.id == entry.id }) {
+            entries[index].title = newTitle
+            entries[index].content = newContent
+            entries[index].emoji = newEmoji
+            saveEntries()
+        }
+    }
+    
     func loadEntries() {
         if let data = UserDefaults.standard.data(forKey: "DiaryEntries") {
             if let decoded = try? JSONDecoder().decode([DiaryEntry].self, from: data) {

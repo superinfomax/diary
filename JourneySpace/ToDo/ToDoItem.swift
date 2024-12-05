@@ -16,9 +16,18 @@ final class ToDoItem: ObservableObject {
     var title: String
     var timestamp: Date
     var isCritical: Bool
-    var isCompleted: Bool
-//    var googleEventId: String?
-    var completedId: String? // 用於標記完成事項的唯一標識
+//    var isCompleted: Bool
+    var googleEventId: String?
+    var completedId: String?
+
+    var isCompleted: Bool {
+        didSet {
+            if oldValue != isCompleted {
+                handleCompletionStatusChange()
+            }
+        }
+    }
+    
     static var firstGoogleLinkTime: Date? {
             get {
                 if let date = UserDefaults.standard.object(forKey: "firstGoogleLinkTime") as? Date {
@@ -31,7 +40,6 @@ final class ToDoItem: ObservableObject {
             }
         }
     private var reminderIdentifier: String?
-    private var googleEventId: String? // 新增：存儲 Google Calendar 事件 ID
     
     var formattedDateRange: String {
         let formatter = DateFormatter()
@@ -95,9 +103,6 @@ final class ToDoItem: ObservableObject {
             syncToGoogleCalendar(calendarManager: calendarManager, completion: completion)
             return
         }
-        
-        // TODO: 實現更新 Google Calendar 事件的邏輯
-        // 這部分需要在 GoogleCalendarManager 中添加更新事件的方法
     }
     
     // 刪除 Google Calendar 事件
@@ -144,10 +149,13 @@ final class ToDoItem: ObservableObject {
         }
     }
     
+    
     func markAsCompleted() {
         isCompleted = true
         if completedId == nil {
             completedId = UUID().uuidString
         }
     }
+    
+    
 }
