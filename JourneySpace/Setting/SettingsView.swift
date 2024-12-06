@@ -51,16 +51,27 @@ struct SettingsView: View {
                             .foregroundColor(.white)
                             .onChange(of: isNotificationOn) { newValue in
                                 if newValue {
-                                    requestNotificationPermission()
+                                    requestNotificationPermission() // 開啟通知權限
+                                } else {
+                                    disableNotifications() // 關閉通知功能
                                 }
                             }
+//                            HStack {
+//                                Text("通知")
+//                                    .foregroundColor(.white)
+//                                Spacer()
+//                                Text(isNotificationOn ? "ON" : "OFF")
+//                                    .foregroundColor(isNotificationOn ? .green : .white)
+//                            }
+
+
                             
                             NavigationLink(destination: Text("語言設定")) {
                                 SettingRow1(title: "語言設定", imageName: "translate")
                             }
                             .foregroundColor(.white)
                             
-                            NavigationLink(destination: DiaryNotificationSettingsView()) {
+                            NavigationLink(destination: DiaryNotificationListView()) {
                                 SettingRow1(title: "通知設定", imageName: "bell")
                             }
                             .foregroundColor(.white)
@@ -190,6 +201,17 @@ struct SettingsView: View {
             }
         }
     }
+    
+    // 關閉通知功能
+    private func disableNotifications() {
+        UNUserNotificationCenter.current().removeAllPendingNotificationRequests() // 移除所有排程通知
+        UNUserNotificationCenter.current().removeAllDeliveredNotifications() // 移除所有已送達通知
+        if let settingsUrl = URL(string: UIApplication.openSettingsURLString) {
+            UIApplication.shared.open(settingsUrl)
+        }
+        print("通知功能已關閉")
+    }
+
     
     // 打開系統設置
     private func openSystemSettings() {
