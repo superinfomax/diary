@@ -25,7 +25,7 @@ struct CreateToDoView: View {
     
     func scheduleNotification(for item: ToDoItem) {
         let content = UNMutableNotificationContent()
-        content.title = "It's time to complete your task!"
+        content.title = "是時候完成你的ToDo了！"
         content.body = item.title
         content.sound = .default
 
@@ -40,38 +40,47 @@ struct CreateToDoView: View {
         }
     }
     
-    private func createTodoWithGoogleCalendar() {
+    private func createTodo() {
         isLoading = true
         item.timestamp = selectedDate
         
         // 先保存到本地
         context.insert(item)
         
-        // 同步到 Google Calendar
-        calendarManager.createEventForToDo(item) { result in
-            switch result {
-            case .success(let eventId):
-                item.setGoogleEventId(eventId)
-                
-                // 設置提醒
-//                scheduleNotification(for: item)
-                item.scheduleNotification()
-                // 同步到 Reminders
-                Task {
-                    await item.syncToReminders()
+        // 設置提醒
+        item.scheduleNotification()
+        
+        // 如果有登入 Google，則同步到 Google Calendar
+        if GoogleAuthService.shared.isSignedIn {
+            calendarManager.createEventForToDo(item) { result in
+                switch result {
+                case .success(let eventId):
+                    item.setGoogleEventId(eventId)
+                    
+                    // 同步到 Reminders
+                    Task {
+                        await item.syncToReminders()
+                    }
+                    
+                    DispatchQueue.main.async {
+                        isLoading = false
+                        dismiss()
+                    }
+                    
+                case .failure(let error):
+                    print("Failed to sync with Google Calendar: \(error)")
+                    // 即使同步失敗也繼續執行，因為已經保存在本地
+                    DispatchQueue.main.async {
+                        isLoading = false
+                        dismiss()
+                    }
                 }
-                
-                DispatchQueue.main.async {
-                    isLoading = false
-                    dismiss()
-                }
-                
-            case .failure(let error):
-                DispatchQueue.main.async {
-                    isLoading = false
-                    alertMessage = "無法同步到 Google Calendar: \(error.localizedDescription)"
-                    showAlert = true
-                }
+            }
+        } else {
+            // 如果沒有登入 Google，直接完成並關閉視窗
+            DispatchQueue.main.async {
+                isLoading = false
+                dismiss()
             }
         }
     }
@@ -126,7 +135,7 @@ struct CreateToDoView: View {
                     .font(.system(size: 30))
                 
                 Button(action: {
-                    createTodoWithGoogleCalendar()
+                    createTodo()
                 }) {
                     if isLoading {
                         ProgressView()

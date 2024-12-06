@@ -22,6 +22,7 @@
 		40F5685F2CFE0DB500D7A448 /* GoogleAuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F5685E2CFE0DB500D7A448 /* GoogleAuthenticationService.swift */; };
 		40F568612CFE15B800D7A448 /* GoogleCalendarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F568602CFE15B800D7A448 /* GoogleCalendarManager.swift */; };
 		40F568632CFE1D4A00D7A448 /* CalendarEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F568622CFE1D4A00D7A448 /* CalendarEvent.swift */; };
+		40FE0B162D025F76001EC08B /* DiaryNotificationSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40FE0B152D025F76001EC08B /* DiaryNotificationSettingsView.swift */; };
 		500A1D002C133023004755EB /* DiaryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500A1CFF2C133023004755EB /* DiaryViewModel.swift */; };
 		500A1D022C133060004755EB /* DiaryEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500A1D012C133060004755EB /* DiaryEntry.swift */; };
 		500A1D042C13307C004755EB /* AddEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500A1D032C13307C004755EB /* AddEntryView.swift */; };
@@ -78,6 +79,7 @@
 		40F5685E2CFE0DB500D7A448 /* GoogleAuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAuthenticationService.swift; sourceTree = "<group>"; };
 		40F568602CFE15B800D7A448 /* GoogleCalendarManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleCalendarManager.swift; sourceTree = "<group>"; };
 		40F568622CFE1D4A00D7A448 /* CalendarEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEvent.swift; sourceTree = "<group>"; };
+		40FE0B152D025F76001EC08B /* DiaryNotificationSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryNotificationSettingsView.swift; sourceTree = "<group>"; };
 		500A1CFF2C133023004755EB /* DiaryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryViewModel.swift; sourceTree = "<group>"; };
 		500A1D012C133060004755EB /* DiaryEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEntry.swift; sourceTree = "<group>"; };
 		500A1D032C13307C004755EB /* AddEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEntryView.swift; sourceTree = "<group>"; };
@@ -162,6 +164,7 @@
 				500A1D012C133060004755EB /* DiaryEntry.swift */,
 				500A1D032C13307C004755EB /* AddEntryView.swift */,
 				40F1B4152D00E52300CB3002 /* EditEntryView.swift */,
+				40FE0B152D025F76001EC08B /* DiaryNotificationSettingsView.swift */,
 			);
 			path = Diary;
 			sourceTree = "<group>";
@@ -390,6 +393,7 @@
 				40F568632CFE1D4A00D7A448 /* CalendarEvent.swift in Sources */,
 				500A1D002C133023004755EB /* DiaryViewModel.swift in Sources */,
 				500A1D202C1615A9004755EB /* CreateToDoView.swift in Sources */,
+				40FE0B162D025F76001EC08B /* DiaryNotificationSettingsView.swift in Sources */,
 				4036BD7F2CDCFD0900E56091 /* InfiniteTabView.swift .swift in Sources */,
 				500A1D0E2C1496F7004755EB /* BlackHoleView.swift in Sources */,
 				500A1D042C13307C004755EB /* AddEntryView.swift in Sources */,

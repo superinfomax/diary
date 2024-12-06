@@ -56,9 +56,11 @@ struct LoginView: View {
                 Button(action: {
                     if isScreenLockOn {
                         authenticate()
-                    } else if !hasCompletedSetup {
+                    } else if !hasCompletedSetup && !authService.isSignedIn {
+                        // 只有在未完成設置且未登入時才顯示 GoogleAuthView
                         showGoogleAuthView = true
                     } else {
+                        // 已完成設置或已登入，直接進入主畫面
                         showMenuView = true
                     }
                 }) {

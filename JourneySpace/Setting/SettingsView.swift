@@ -22,15 +22,16 @@ func daysSinceDevelop() -> Int {
 struct SettingsView: View {
     @AppStorage("isScreenLockOn") private var isScreenLockOn = false
     @AppStorage("isNotificationOn") private var isNotificationOn = false
-    @State private var isMaxRewardOn = false
     @State private var isVibrationOn = true
     @State private var showingAuth = false
     @State private var showingNotificationError = false
+    @State private var showGoogleAuthSheet = false
+    @StateObject private var googleAuthService = GoogleAuthService.shared
     
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
-        NavigationView { // Added NavigationView
+        NavigationView {
             ZStack {
                 VStack(alignment: .leading, spacing: 1) {
                     Form {
@@ -44,13 +45,12 @@ struct SettingsView: View {
                                     authenticate()
                                 }
                             }
-                            
                             Toggle(isOn: $isNotificationOn) {
                                 Text("通知")
                             }
                             .foregroundColor(.white)
-                            .onChange(of: isNotificationOn) { value in
-                                if value {
+                            .onChange(of: isNotificationOn) { newValue in
+                                if newValue {
                                     requestNotificationPermission()
                                 }
                             }
@@ -60,7 +60,7 @@ struct SettingsView: View {
                             }
                             .foregroundColor(.white)
                             
-                            NavigationLink(destination: Text("可以設定幾點要通知使用者寫日記")) {
+                            NavigationLink(destination: DiaryNotificationSettingsView()) {
                                 SettingRow1(title: "通知設定", imageName: "bell")
                             }
                             .foregroundColor(.white)
@@ -101,19 +101,18 @@ struct SettingsView: View {
                         .foregroundColor(.gray)
                         .listRowBackground(Color(red: 144/255, green: 132/255, blue: 204/255))
                         
-                        Section {
-                            NavigationLink(destination: Text("個人APP連結")) {
+                        Section(header: Text("其他")) {
+                            Button(action: {
+                                showGoogleAuthSheet = true
+                            }) {
                                 SettingRow1(title: "個人", imageName: "person.crop.circle")
                             }
-                            
-                            NavigationLink(destination: Text("登出")) {
-                                SettingRow1(title: "登出", imageName: "arrowshape.turn.up.left")
-                            }
                         }
-                        .foregroundColor(.white)
+                        .foregroundColor(.gray)
                         .listRowBackground(Color(red: 144/255, green: 132/255, blue: 204/255))
                     }
                     .onAppear {
+                        checkNotificationStatus()
                         if isScreenLockOn {
                             authenticate()
                         }
@@ -122,7 +121,18 @@ struct SettingsView: View {
                         Alert(title: Text("認證失敗"), message: Text("無法進行身份驗證，請重試。"), dismissButton: .default(Text("確定")))
                     }
                     .alert(isPresented: $showingNotificationError) {
-                        Alert(title: Text("通知失敗"), message: Text("無法開啟通知，請檢查您的設定。"), dismissButton: .default(Text("確定")))
+                        Alert(
+                            title: Text("通知權限"),
+                            message: Text("需要開啟通知權限才能接收提醒"),
+                            primaryButton: .default(Text("開啟設定")) {
+                                if let settingsUrl = URL(string: UIApplication.openSettingsURLString) {
+                                    UIApplication.shared.open(settingsUrl)
+                                }
+                            },
+                            secondaryButton: .cancel(Text("稍後再說")) {
+                                isNotificationOn = false
+                            }
+                        )
                     }
                     .tint(Color(red: 34/255, green: 40/255, blue: 64/255))
                     .background(Color(red: 34/255, green: 40/255, blue: 64/255))
@@ -130,6 +140,10 @@ struct SettingsView: View {
                 }
             }
             .background(Color(red: 34/255, green: 40/255, blue: 64/255))
+            .fullScreenCover(isPresented: $showGoogleAuthSheet) {
+                GoogleAuthView()
+                    .modelContainer(for: ToDoItem.self)
+            }
         }
     }
     
@@ -156,16 +170,31 @@ struct SettingsView: View {
         }
     }
     
-    func requestNotificationPermission() {
+    
+    private func checkNotificationStatus() {
+        UNUserNotificationCenter.current().getNotificationSettings { settings in
+            DispatchQueue.main.async {
+                isNotificationOn = settings.authorizationStatus == .authorized
+            }
+        }
+    }
+    
+    // 請求通知權限
+    private func requestNotificationPermission() {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
             DispatchQueue.main.async {
-                if granted {
-                    isNotificationOn = true
-                } else {
-                    isNotificationOn = false
+                isNotificationOn = granted
+                if !granted {
                     showingNotificationError = true
                 }
             }
+        }
+    }
+    
+    // 打開系統設置
+    private func openSystemSettings() {
+        if let settingsUrl = URL(string: UIApplication.openSettingsURLString) {
+            UIApplication.shared.open(settingsUrl)
         }
     }
     
