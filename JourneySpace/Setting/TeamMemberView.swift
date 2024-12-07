@@ -33,9 +33,10 @@ struct TeamMemberView: View {
                     }
             }
         }
-        .background(Color(UIColor.systemGray6).edgesIgnoringSafeArea(.all))
+        .background(Color(red: 34/255, green: 40/255, blue: 64/255).edgesIgnoringSafeArea(.all))
         .sheet(item: $selectedMember) { member in
             VStack {
+                Spacer()
                 Image(member.image)
                     .resizable()
                     .scaledToFit()
@@ -130,4 +131,7 @@ struct FloatingMemberView: View {
                 }
             }
     }
+}
+#Preview {
+    TeamMemberView()
 }

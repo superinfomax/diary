@@ -82,7 +82,9 @@ struct DiaryNotificationListView: View {
                             .onDelete(perform: deleteReminder)
                         }
                         .padding(.bottom, 30)
-                        .listStyle(PlainListStyle())
+                        .scrollContentBackground(.hidden)
+                        .listRowBackground(Color(red: 144/255, green: 132/255, blue: 204/255))
+//                        .listStyle(PlainListStyle())
                     }
                 }
             }

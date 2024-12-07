@@ -9,6 +9,17 @@ import SwiftUI
 import LocalAuthentication
 import UserNotifications
 
+enum AppLanguage: String, CaseIterable {
+    case traditionalChinese = "繁體中文"
+    // 未來可以加入其他語言
+    // case english = "English"
+    // case japanese = "日本語"
+    
+    var displayName: String {
+        return self.rawValue
+    }
+}
+
 func daysSinceDevelop() -> Int {
     let calendar = Calendar.current
     let dateFormatter = DateFormatter()
@@ -19,6 +30,160 @@ func daysSinceDevelop() -> Int {
     return components.day ?? 0
 }
 
+struct LanguageSettingsView: View {
+    @AppStorage("appLanguage") private var currentLanguage = AppLanguage.traditionalChinese
+    private let backgroundColor = Color(red: 34/255, green: 40/255, blue: 64/255)
+    
+    var body: some View {
+        ZStack {
+            backgroundColor.ignoresSafeArea()
+            
+            VStack(alignment: .leading, spacing: 20) {
+                List {
+                    ForEach(AppLanguage.allCases, id: \.self) { language in
+                        Button(action: {
+                            currentLanguage = language
+                        }) {
+                            HStack {
+                                Text(language.displayName)
+                                    .foregroundColor(.white)
+                                Spacer()
+                                if language == currentLanguage {
+                                    Image(systemName: "checkmark")
+                                        .foregroundColor(.blue)
+                                }
+                            }
+                        }
+                        .listRowBackground(Color(red: 144/255, green: 132/255, blue: 204/255))
+                    }
+                }
+                .scrollContentBackground(.hidden)
+                .frame(width: 350)
+                .cornerRadius(10)
+                
+                Text("更多語言將在未來的更新中提供")
+                    .foregroundColor(.gray)
+                    .font(.footnote)
+                    .padding(.horizontal)
+                
+                Spacer()
+            }
+            .padding(.top, 20)
+        }
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationTitle("目前使用語言")
+    }
+}
+
+struct SenbeiGalleryView: View {
+    private let backgroundColor = Color(red: 34/255, green: 40/255, blue: 64/255)
+    private let placeholderColors: [Color] = [
+        .blue.opacity(0.3),
+        .purple.opacity(0.3),
+        .green.opacity(0.3),
+        .orange.opacity(0.3),
+        .pink.opacity(0.3)
+    ]
+    
+    var body: some View {
+        ZStack {
+            backgroundColor.ignoresSafeArea()
+            
+            VStack {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    LazyHStack(spacing: 20) {
+                        // 實際的煎餅照片
+                        Image("senbei1")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(height: 300)
+                            .cornerRadius(15)
+                        
+                        Image("senbei2")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(height: 300)
+                            .cornerRadius(15)
+                        
+                        Image("senbei3")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(height: 300)
+                            .cornerRadius(15)
+
+
+                    }
+                    .padding()
+                }
+                
+                Spacer()
+                
+                Link(destination: URL(string: "https://www.google.com")!) {
+                    HStack {
+                        Image(systemName: "link")
+                            .foregroundColor(.white)
+                            .padding()
+                        Text("拜訪煎餅的 Instagram\n（但還沒建好）")
+                            .foregroundColor(.white)
+                    }
+                    .padding()
+                    .background(Color(red: 144/255, green: 132/255, blue: 204/255))
+                    .cornerRadius(10)
+                }
+                .padding(.bottom, 60)
+            }
+        }
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationTitle("煎餅的相簿")
+    }
+}
+
+struct MailLinkView: View {
+    private let backgroundColor = Color(red: 34/255, green: 40/255, blue: 64/255)
+    private let emailAddress = "u11016014@go.utaipei.edu.tw"
+    private let emailSubject = "[錯誤報告] 聯絡 Journal Space 團隊 "
+    private let emailBody = """
+    問題發生時間：
+    
+    詳細內容：
+    
+    問題情況的圖片或視頻：
+    
+    *如果沒有寫出詳細的描述，可能會難以解決問題和回答，請注意。
+    *如果您附加了與您的查詢相關的截圖或錄影，可以快速確認和解決問題。
+    """
+    
+    var body: some View {
+        ZStack {
+            backgroundColor.ignoresSafeArea()
+            
+            VStack {
+                Button(action: {
+                    openMail()
+                }) {
+                    VStack(spacing: 12) {
+                        Image(systemName: "envelope.fill")
+                            .font(.system(size: 50))
+                        Text("點擊寄信給我們")
+                            .font(.title3)
+                    }
+                    .foregroundColor(.white)
+                }
+            }
+        }
+    }
+    
+    private func openMail() {
+        let subject = emailSubject.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+        let body = emailBody.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+        let mailtoString = "mailto:\(emailAddress)?subject=\(subject)"
+        
+        if let mailtoUrl = URL(string: mailtoString) {
+            UIApplication.shared.open(mailtoUrl)
+        }
+    }
+}
+
 struct SettingsView: View {
     @AppStorage("isScreenLockOn") private var isScreenLockOn = false
     @AppStorage("isNotificationOn") private var isNotificationOn = false
@@ -26,7 +191,9 @@ struct SettingsView: View {
     @State private var showingAuth = false
     @State private var showingNotificationError = false
     @State private var showGoogleAuthSheet = false
+    @State private var alertMessage = "" // 新增這行
     @StateObject private var googleAuthService = GoogleAuthService.shared
+    @State private var isWaitingForSettings = false
     
     @Environment(\.presentationMode) var presentationMode
     
@@ -45,28 +212,20 @@ struct SettingsView: View {
                                     authenticate()
                                 }
                             }
+                            
                             Toggle(isOn: $isNotificationOn) {
                                 Text("通知")
                             }
                             .foregroundColor(.white)
                             .onChange(of: isNotificationOn) { newValue in
                                 if newValue {
-                                    requestNotificationPermission() // 開啟通知權限
+                                    requestNotificationPermission()
                                 } else {
-                                    disableNotifications() // 關閉通知功能
+                                    disableNotifications()
                                 }
                             }
-//                            HStack {
-//                                Text("通知")
-//                                    .foregroundColor(.white)
-//                                Spacer()
-//                                Text(isNotificationOn ? "ON" : "OFF")
-//                                    .foregroundColor(isNotificationOn ? .green : .white)
-//                            }
-
-
                             
-                            NavigationLink(destination: Text("語言設定")) {
+                            NavigationLink(destination: LanguageSettingsView()) {
                                 SettingRow1(title: "語言設定", imageName: "translate")
                             }
                             .foregroundColor(.white)
@@ -86,28 +245,69 @@ struct SettingsView: View {
                             .foregroundColor(.white)
                             
                             NavigationLink(destination:
-                                            Text("開發的 第 \(daysSinceDevelop()) 天")
-                                .font(.system(size: 18))
-                                .multilineTextAlignment(.center)
-                                .padding()) {
-                                    SettingRow1(title: "開發狀況", imageName: "wrench.and.screwdriver")
+                                ZStack {
+                                    Color(red: 34/255, green: 40/255, blue: 64/255)
+                                        .ignoresSafeArea()
+                                    Text("開發的 第 \(daysSinceDevelop()) 天")
+                                        .font(.system(size: 18))
+                                        .multilineTextAlignment(.center)
+                                        .foregroundColor(.white)
+                                        .padding()
                                 }
-                                .foregroundColor(.white)
-                            
-                            NavigationLink(destination: Text("我愛東華")) {
-                                SettingRow1(title: "想問的資訊", imageName: "questionmark.circle")
+                            ) {
+                                SettingRow1(title: "開發狀況", imageName: "wrench.and.screwdriver")
                             }
+                            .buttonStyle(PlainButtonStyle())
                             .foregroundColor(.white)
                             
-                            NavigationLink(destination: Image("senbei1").scaledToFit()) {
+//                            NavigationLink(destination: Text("我愛東華")) {
+//                                SettingRow1(title: "想問的資訊", imageName: "questionmark.circle")
+//                            }
+//                            .foregroundColor(.white)
+                            NavigationLink(destination: SenbeiGalleryView()) {
                                 SettingRow1(title: "拜訪煎餅的IG", imageName: "camera")
                             }
                             .foregroundColor(.white)
                             
-                            NavigationLink(destination: Text("垃圾郵箱")) {
+//                            NavigationLink(destination:
+//                                ZStack {
+//                                    Color(red: 34/255, green: 40/255, blue: 64/255)
+//                                        .ignoresSafeArea()
+//                                    Text("我愛東華")
+//                                        .font(.system(size: 18))
+//                                        .multilineTextAlignment(.center)
+//                                        .foregroundColor(.white)
+//                                        .padding()
+//                                }
+//                            ) {
+//                                SettingRow1(title: "想問的資訊", imageName: "questionmark.circle")
+//                            }
+//                            .buttonStyle(PlainButtonStyle())
+//                            .foregroundColor(.white)
+                            
+                            NavigationLink(destination: MailLinkView()) {
                                 SettingRow1(title: "問題郵箱", imageName: "trash")
                             }
                             .foregroundColor(.white)
+                            
+
+                            
+//                            NavigationLink(destination:
+//                                ZStack {
+//                                    Color(red: 34/255, green: 40/255, blue: 64/255)
+//                                        .ignoresSafeArea()
+//                                    
+//                                    Text("垃圾郵箱")
+//                                        .font(.system(size: 18))
+//                                        .multilineTextAlignment(.center)
+//                                        .foregroundColor(.white)
+//                                        .padding()
+//                                }
+//                            ) {
+//                                SettingRow1(title: "問題郵箱", imageName: "trash")
+//                            }
+//                            .buttonStyle(PlainButtonStyle())
+//                            .foregroundColor(.white)
                         }
                         .foregroundColor(.gray)
                         .listRowBackground(Color(red: 144/255, green: 132/255, blue: 204/255))
@@ -134,14 +334,16 @@ struct SettingsView: View {
                     .alert(isPresented: $showingNotificationError) {
                         Alert(
                             title: Text("通知權限"),
-                            message: Text("需要開啟通知權限才能接收提醒"),
+                            message: Text(alertMessage),
                             primaryButton: .default(Text("開啟設定")) {
+                                isWaitingForSettings = true
                                 if let settingsUrl = URL(string: UIApplication.openSettingsURLString) {
                                     UIApplication.shared.open(settingsUrl)
                                 }
                             },
                             secondaryButton: .cancel(Text("稍後再說")) {
-                                isNotificationOn = false
+                                // 如果用戶取消，將開關狀態回復到實際的系統設定狀態
+                                checkNotificationStatus()
                             }
                         )
                     }
@@ -154,6 +356,12 @@ struct SettingsView: View {
             .fullScreenCover(isPresented: $showGoogleAuthSheet) {
                 GoogleAuthView()
                     .modelContainer(for: ToDoItem.self)
+            }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
+            if isWaitingForSettings {
+                checkNotificationStatus()
+                isWaitingForSettings = false
             }
         }
     }
@@ -181,7 +389,6 @@ struct SettingsView: View {
         }
     }
     
-    
     private func checkNotificationStatus() {
         UNUserNotificationCenter.current().getNotificationSettings { settings in
             DispatchQueue.main.async {
@@ -189,36 +396,31 @@ struct SettingsView: View {
             }
         }
     }
-    
-    // 請求通知權限
+
     private func requestNotificationPermission() {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
             DispatchQueue.main.async {
-                isNotificationOn = granted
-                if !granted {
+                if granted {
+                    isNotificationOn = true
+                } else {
+                    isNotificationOn = false
                     showingNotificationError = true
+                    // 設置跳轉信息
+                    alertMessage = "需要開啟通知權限才能接收提醒"
                 }
             }
         }
     }
-    
-    // 關閉通知功能
+
     private func disableNotifications() {
-        UNUserNotificationCenter.current().removeAllPendingNotificationRequests() // 移除所有排程通知
-        UNUserNotificationCenter.current().removeAllDeliveredNotifications() // 移除所有已送達通知
-        if let settingsUrl = URL(string: UIApplication.openSettingsURLString) {
-            UIApplication.shared.open(settingsUrl)
-        }
-        print("通知功能已關閉")
+        // 不直接關閉通知，而是引導用戶到系統設定
+        isWaitingForSettings = true
+        showingNotificationError = true
+        // 設置跳轉信息
+        alertMessage = "請在設定中關閉通知權限"
     }
 
-    
-    // 打開系統設置
-    private func openSystemSettings() {
-        if let settingsUrl = URL(string: UIApplication.openSettingsURLString) {
-            UIApplication.shared.open(settingsUrl)
-        }
-    }
+
     
     struct SettingRow1: View {
         let title: String
@@ -240,8 +442,6 @@ struct SettingsView: View {
     }
 }
 
-struct SettingsView_Previews: PreviewProvider {
-    static var previews: some View {
-        SettingsView()
-    }
+#Preview {
+    SettingsView()
 }

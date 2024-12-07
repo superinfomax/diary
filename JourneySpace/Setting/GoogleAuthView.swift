@@ -98,11 +98,11 @@ struct GoogleAuthView: View {
                                 .cornerRadius(10)
                         }
                     } else {
-                        Text("Connect with Google")
+                        Text("連接 Google 帳戶")
                             .font(.title2)
                             .foregroundColor(.white)
                         
-                        Text("Sync your journey across devices")
+                        Text("跨裝置同步你的旅程")
                             .font(.subheadline)
                             .foregroundColor(.gray)
                         

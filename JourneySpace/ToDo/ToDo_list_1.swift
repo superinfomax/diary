@@ -176,9 +176,9 @@ struct TodoPage1: View {
                     }
                     .offset(y: -20)
                     .listStyle(PlainListStyle())
-                    .background(Color.clear)
+//                    .cornerRadius(20)
                 }
-                .padding(.bottom, 40)
+                .padding(.bottom, 60)
             }
             .toolbar {
                 ToolbarItem(placement: .principal) {
